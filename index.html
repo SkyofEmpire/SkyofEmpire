@@ -1,30 +1,96 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Sky of Empire</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sky of Empire</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #0a0f1c, #111827);
+    color: white;
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 50px 20px;
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #9ca3af;
+    margin-bottom: 40px;
+}
+
+.section {
+    margin-top: 50px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.button {
+    background: #1f2937;
+    padding: 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.button:hover {
+    background: #374151;
+}
+
+.footer {
+    margin-top: 60px;
+    color: #6b7280;
+    font-size: 14px;
+}
+</style>
 </head>
-<body style="font-family: Arial; padding: 40px;">
 
-<h1>Sky of Empire</h1>
+<body>
 
-<p>Willkommen bei Sky of Empire</p>
+<div class="container">
 
-<h2>Rechtliches</h2>
+    <h1>Sky of Empire</h1>
+    <p class="subtitle">Willkommen bei deinem Spiel</p>
 
-<ul>
-<li><a href="privacy.html">Datenschutzrichtlinie</a></li>
-<li><a href="terms.html">Nutzungsbedingungen</a></li>
-<li><a href="cookies.html">Cookie Richtlinie</a></li>
-</ul>
+    <div class="section">
+        <h2>Rechtliches</h2>
 
-<h2>Kontakt</h2>
+        <div class="buttons">
+            <a class="button" href="datenschutz.html">Datenschutzrichtlinie</a>
+            <a class="button" href="terms.html">Nutzungsbedingungen</a>
+            <a class="button" href="cookies.html">Cookie Richtlinie</a>
+        </div>
+    </div>
 
-<p>
-Betreiber: Sky of Empire<br>
-E-Mail: support@skyofempire.com<br>
-Sitz: Schweiz
-</p>
+    <div class="section">
+        <h2>Kontakt</h2>
+        <p>Sky of Empire</p>
+        <p>support@skyofempire.com</p>
+        <p>Schweiz</p>
+    </div>
+
+    <div class="footer">
+        © 2026 Sky of Empire
+    </div>
+
+</div>
 
 </body>
 </html>
