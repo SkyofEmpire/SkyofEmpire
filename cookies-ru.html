@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Политика cookie - Sky of Empire</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #f4ead7;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background:
+                radial-gradient(circle at 50% 18%, rgba(176, 132, 57, 0.08) 0%, rgba(176, 132, 57, 0.00) 18%),
+                linear-gradient(to bottom, #000000 0%, #040404 52%, #0a0a0a 100%);
+            padding: 0 20px 60px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: flex-start;
+            padding-top: 14px;
+            padding-left: 4px;
+            position: sticky;
+            top: 0;
+            z-index: 3;
+        }
+
+        .language-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: rgba(5, 5, 5, 0.90);
+            color: #f2e2bf;
+            border: 1px solid rgba(189, 148, 80, 0.30);
+            border-radius: 14px;
+            padding: 12px 46px 12px 16px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 22px rgba(0,0,0,0.20);
+            background-image:
+                linear-gradient(45deg, transparent 50%, #d8b66c 50%),
+                linear-gradient(135deg, #d8b66c 50%, transparent 50%);
+            background-position:
+                calc(100% - 20px) calc(50% - 3px),
+                calc(100% - 14px) calc(50% - 3px);
+            background-size: 6px 6px, 6px 6px;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 24px auto 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 18px;
+            color: #f0d89e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover { text-decoration: underline; }
+
+        .card {
+            background: rgba(3, 3, 3, 0.82);
+            border: 1px solid rgba(189, 148, 80, 0.18);
+            border-radius: 22px;
+            padding: 28px 24px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+        }
+
+        h1 {
+            font-size: 34px;
+            margin: 0 0 18px;
+            color: #f2e2bf;
+        }
+
+        h2 {
+            margin-top: 28px;
+            margin-bottom: 12px;
+            font-size: 24px;
+            color: #f2e2bf;
+        }
+
+        h3 {
+            margin-top: 22px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #f2e2bf;
+        }
+
+        p, li {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #f4ead7;
+        }
+
+        ul { padding-left: 22px; }
+
+        .meta {
+            margin-bottom: 18px;
+            color: #d8c6a1;
+        }
+
+        a.inline-link {
+            color: #f0d89e;
+            text-decoration: none;
+        }
+
+        a.inline-link:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .language-select {
+                font-size: 14px;
+                padding: 10px 40px 10px 14px;
+            }
+
+            .card { padding: 22px 16px; }
+            h1 { font-size: 28px; }
+            h2 { font-size: 22px; }
+            h3 { font-size: 18px; }
+            p, li { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <select class="language-select" id="languageSelect">
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="it">🇮🇹 Italiano</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="pt">🇵🇹 Português</option>
+        <option value="tr">🇹🇷 Türkçe</option>
+        <option value="ru" selected>🇷🇺 Русский</option>
+        <option value="ja">🇯🇵 日本語</option>
+    </select>
+</div>
+
+<div class="container">
+    <a class="back-link" href="index-ru.html">← Вернуться на главную</a>
+
+    <div class="card">
+        <h1>ПОЛИТИКА COOKIE</h1>
+
+        <div class="meta">
+            <p><strong>Последнее обновление:</strong> 1 апреля 2026 г.</p>
+            <p><strong>Оператор:</strong> Sky of Empire<br>
+            <strong>Email:</strong> support@skyofempire.com<br>
+            <strong>Местонахождение:</strong> Швейцария</p>
+        </div>
+
+        <h2>1. ВВЕДЕНИЕ</h2>
+        <p>Настоящая Политика cookie объясняет, как Sky of Empire («мы», «наш») использует cookie-файлы и аналогичные технологии, когда вы пользуетесь нашим веб-сайтом или цифровыми сервисами. В ней описывается, какую информацию мы собираем, как мы её используем и какими правами вы обладаете.</p>
+
+        <h2>2. ЧТО ТАКОЕ COOKIE?</h2>
+        <p>Cookie — это небольшие текстовые файлы, которые сохраняются на вашем компьютере или мобильном устройстве при посещении веб-сайта. Они используются для более эффективной работы веб-сайтов и для предоставления информации о поведении пользователей.</p>
+        <p>Cookie позволяют нам распознавать ваше устройство и запоминать ваши предпочтения.</p>
+
+        <h2>3. КАКИЕ ТИПЫ COOKIE МЫ ИСПОЛЬЗУЕМ?</h2>
+
+        <h3>3.1 Необходимые cookie</h3>
+        <p>Эти cookie необходимы для работы веб-сайта и не могут быть отключены.</p>
+        <p><strong>Примеры:</strong></p>
+        <ul>
+            <li>Управление сессией</li>
+            <li>Безопасность и аутентификация</li>
+            <li>Сохранение настроек конфиденциальности</li>
+        </ul>
+
+        <h3>3.2 Аналитические и статистические cookie</h3>
+        <p>Эти cookie помогают нам понимать, как посетители используют наш веб-сайт, чтобы мы могли улучшать наши услуги.</p>
+        <p><strong>Примеры:</strong></p>
+        <ul>
+            <li>Google Analytics</li>
+            <li>Firebase Analytics</li>
+        </ul>
+
+        <h3>3.3 Функциональные cookie</h3>
+        <p>Эти cookie обеспечивают расширенные функции и персонализацию.</p>
+        <p><strong>Примеры:</strong></p>
+        <ul>
+            <li>Сохранение языковых настроек</li>
+            <li>Пользовательские предпочтения</li>
+        </ul>
+
+        <h3>3.4 Маркетинговые и рекламные cookie</h3>
+        <p>Эти cookie используются для показа релевантной рекламы и измерения эффективности кампаний.</p>
+        <p><strong>Примеры:</strong></p>
+        <ul>
+            <li>Google Ads</li>
+            <li>Meta (Facebook) Pixel</li>
+            <li>Unity Ads</li>
+            <li>AdMob</li>
+        </ul>
+
+        <h2>4. COOKIE ТРЕТЬИХ ЛИЦ</h2>
+        <p>Мы можем использовать сторонних поставщиков, которые применяют cookie от нашего имени, включая:</p>
+        <ul>
+            <li>Google</li>
+            <li>Apple</li>
+            <li>Unity Technologies</li>
+            <li>Meta Platforms</li>
+            <li>Firebase</li>
+            <li>Рекламных и аналитических партнеров</li>
+        </ul>
+        <p>Эти третьи лица обрабатывают данные в соответствии со своими собственными политиками конфиденциальности.</p>
+
+        <h2>5. ПРАВОВОЕ ОСНОВАНИЕ</h2>
+        <p>Использование cookie основано на:</p>
+        <ul>
+            <li>Вашем согласии в соответствии со ст. 6(1)(a) GDPR</li>
+            <li>Нашем законном интересе в соответствии со ст. 6(1)(f) GDPR</li>
+            <li>Юридических обязательствах</li>
+        </ul>
+        <p>Для необходимых cookie согласие не требуется.</p>
+
+        <h2>6. КАК ВЫ МОЖЕТЕ УПРАВЛЯТЬ COOKIE?</h2>
+        <p>Вы можете управлять cookie или отключать их через настройки своего браузера.</p>
+
+        <p><strong>Настройки браузера:</strong></p>
+        <ul>
+            <li>Chrome: <a class="inline-link" href="https://support.google.com/chrome" target="_blank">https://support.google.com/chrome</a></li>
+            <li>Safari: <a class="inline-link" href="https://support.apple.com" target="_blank">https://support.apple.com</a></li>
+            <li>Firefox: <a class="inline-link" href="https://support.mozilla.org" target="_blank">https://support.mozilla.org</a></li>
+            <li>Edge: <a class="inline-link" href="https://support.microsoft.com" target="_blank">https://support.microsoft.com</a></li>
+        </ul>
+
+        <p><strong>Мобильные устройства:</strong></p>
+        <ul>
+            <li>iOS: Настройки → Конфиденциальность → Отслеживание</li>
+            <li>Android: Настройки → Google → Реклама</li>
+        </ul>
+
+        <p>Обратите внимание, что отключение cookie может ограничить функциональность наших сервисов.</p>
+
+        <h2>7. СРОК ХРАНЕНИЯ</h2>
+        <p>Cookie могут быть:</p>
+        <ul>
+            <li><strong>Сессионные cookie:</strong> удаляются при закрытии браузера.</li>
+            <li><strong>Постоянные cookie:</strong> остаются на вашем устройстве до удаления или истечения срока действия.</li>
+        </ul>
+
+        <h2>8. ВАШИ ПРАВА</h2>
+        <p>Вы имеете право на:</p>
+        <ul>
+            <li>доступ к своим данным,</li>
+            <li>исправление или удаление данных,</li>
+            <li>ограничение обработки,</li>
+            <li>возражение против обработки,</li>
+            <li>отзыв согласия.</li>
+        </ul>
+        <p>Запросы можно направлять по адресу:<br>
+        support@skyofempire.com</p>
+
+        <h2>9. ИЗМЕНЕНИЯ НАСТОЯЩЕЙ ПОЛИТИКИ</h2>
+        <p>Мы оставляем за собой право обновлять настоящую Политику cookie в любое время. Изменения будут опубликованы на нашем веб-сайте.</p>
+
+        <h2>10. КОНТАКТЫ</h2>
+        <p><strong>Sky of Empire</strong><br>
+        Email: support@skyofempire.com<br>
+        Местонахождение: Швейцария</p>
+    </div>
+</div>
+
+<script>
+    const languageSelect = document.getElementById("languageSelect");
+    languageSelect.addEventListener("change", function () {
+        const lang = this.value;
+        const pageMap = {
+            de: "cookies.html",
+            en: "cookies-en.html",
+            fr: "cookies-fr.html",
+            it: "cookies-it.html",
+            es: "cookies-es.html",
+            pt: "cookies-pt.html",
+            tr: "cookies-tr.html",
+            ru: "cookies-ru.html",
+            ja: "cookies-ja.html"
+        };
+        window.location.href = pageMap[lang];
+    });
+</script>
+
+</body>
+</html>
