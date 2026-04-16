@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sky of Empire</title>
+
+<style>
+body {
+    margin:0;
+    font-family:Arial;
+    color:#f4ead7;
+    background:#000;
+}
+
+.topbar {
+    position:fixed;
+    top:15px;
+    left:15px;
+}
+
+select {
+    background:#000;
+    color:#f0d89e;
+    border-radius:10px;
+    padding:10px;
+}
+
+.logo {
+    display:block;
+    margin:40px auto -120px;
+    max-width:800px;
+}
+
+.main {
+    text-align:center;
+    margin-top:-250px;
+}
+
+h1 { font-size:40px; }
+
+.button {
+    display:block;
+    margin:15px auto;
+    width:400px;
+    padding:15px;
+    border-radius:10px;
+    text-decoration:none;
+    color:#000;
+    font-weight:bold;
+    background:linear-gradient(#f0d89e,#caa85a);
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+<select onchange="changeLang(this.value)">
+<option value="de">🇩🇪 Deutsch</option>
+<option value="en">🇬🇧 English</option>
+<option value="fr" selected>🇫🇷 Français</option>
+</select>
+</div>
+
+<img src="logo.png" class="logo">
+
+<div class="main">
+<h1>Sky of Empire</h1>
+<p>Page officielle avec documents juridiques et informations de contact.</p>
+
+<a class="button" href="privacy-fr.html">Politique de confidentialité</a>
+<a class="button" href="terms-fr.html">Conditions d'utilisation</a>
+<a class="button" href="cookies-fr.html">Politique de cookies</a>
+</div>
+
+<script>
+function changeLang(lang){
+if(lang==="de") window.location="index.html";
+if(lang==="en") window.location="index-en.html";
+if(lang==="fr") window.location="index-fr.html";
+}
+</script>
+
+</body>
+</html>
