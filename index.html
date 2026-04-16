@@ -1,96 +1,323 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sky of Empire</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky of Empire</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #0a0f1c, #111827);
-    color: white;
-    text-align: center;
-}
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.00) 18%),
+                radial-gradient(circle at 80% 25%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.00) 16%),
+                radial-gradient(circle at 30% 70%, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.00) 20%),
+                radial-gradient(circle at 70% 75%, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.00) 18%),
+                linear-gradient(to bottom, #09111f 0%, #0d1b33 45%, #13284b 100%);
+            overflow-x: hidden;
+        }
 
-.container {
-    max-width: 800px;
-    margin: auto;
-    padding: 50px 20px;
-}
+        .clouds {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
 
-h1 {
-    font-size: 48px;
-    margin-bottom: 10px;
-}
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            filter: blur(10px);
+        }
 
-.subtitle {
-    color: #9ca3af;
-    margin-bottom: 40px;
-}
+        .cloud::before,
+        .cloud::after {
+            content: "";
+            position: absolute;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+        }
 
-.section {
-    margin-top: 50px;
-}
+        .cloud1 {
+            width: 260px;
+            height: 80px;
+            top: 90px;
+            left: 8%;
+        }
 
-.buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
+        .cloud1::before {
+            width: 110px;
+            height: 110px;
+            left: 35px;
+            top: -35px;
+        }
 
-.button {
-    background: #1f2937;
-    padding: 15px;
-    border-radius: 10px;
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    transition: 0.2s;
-}
+        .cloud1::after {
+            width: 130px;
+            height: 100px;
+            right: 35px;
+            top: -25px;
+        }
 
-.button:hover {
-    background: #374151;
-}
+        .cloud2 {
+            width: 320px;
+            height: 90px;
+            top: 180px;
+            right: 10%;
+        }
 
-.footer {
-    margin-top: 60px;
-    color: #6b7280;
-    font-size: 14px;
-}
-</style>
+        .cloud2::before {
+            width: 130px;
+            height: 120px;
+            left: 40px;
+            top: -45px;
+        }
+
+        .cloud2::after {
+            width: 150px;
+            height: 110px;
+            right: 40px;
+            top: -30px;
+        }
+
+        .cloud3 {
+            width: 240px;
+            height: 70px;
+            bottom: 130px;
+            left: 18%;
+        }
+
+        .cloud3::before {
+            width: 100px;
+            height: 90px;
+            left: 25px;
+            top: -28px;
+        }
+
+        .cloud3::after {
+            width: 120px;
+            height: 90px;
+            right: 25px;
+            top: -22px;
+        }
+
+        .cloud4 {
+            width: 300px;
+            height: 85px;
+            bottom: 80px;
+            right: 12%;
+        }
+
+        .cloud4::before {
+            width: 120px;
+            height: 105px;
+            left: 35px;
+            top: -35px;
+        }
+
+        .cloud4::after {
+            width: 145px;
+            height: 100px;
+            right: 35px;
+            top: -28px;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 40px 20px 60px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero {
+            padding: 40px 20px 20px;
+        }
+
+        .logo {
+            max-width: 220px;
+            width: 100%;
+            height: auto;
+            margin: 0 auto 20px;
+            display: block;
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.35));
+        }
+
+        h1 {
+            font-size: 52px;
+            margin: 0 0 12px;
+            line-height: 1.1;
+            text-shadow: 0 4px 18px rgba(0,0,0,0.35);
+        }
+
+        .subtitle {
+            margin: 0 auto;
+            max-width: 700px;
+            font-size: 18px;
+            color: #c8d4f0;
+        }
+
+        .card {
+            margin-top: 40px;
+            background: rgba(11, 18, 32, 0.72);
+            border: 1px solid rgba(138, 180, 255, 0.16);
+            border-radius: 18px;
+            padding: 32px 24px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .button {
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 17px;
+            padding: 16px 18px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, #1b335c 0%, #13294a 100%);
+            border: 1px solid rgba(138, 180, 255, 0.20);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.20);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(180deg, #24457d 0%, #193560 100%);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.28);
+        }
+
+        .contact-box {
+            max-width: 520px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 18px;
+            color: #e8efff;
+        }
+
+        .contact-box a {
+            color: #9cc0ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-box a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 34px;
+            font-size: 14px;
+            color: #aebad6;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding-top: 20px;
+            }
+
+            .logo {
+                max-width: 170px;
+            }
+
+            h1 {
+                font-size: 38px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .card {
+                padding: 24px 16px;
+            }
+
+            h2 {
+                font-size: 25px;
+            }
+
+            .button {
+                font-size: 16px;
+                padding: 14px 14px;
+            }
+
+            .contact-box {
+                font-size: 16px;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="container">
+    <div class="clouds">
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+        <div class="cloud cloud4"></div>
+    </div>
 
-    <h1>Sky of Empire</h1>
-    <p class="subtitle">Willkommen bei deinem Spiel</p>
+    <div class="page">
+        <div class="container">
 
-    <div class="section">
-        <h2>Rechtliches</h2>
+            <div class="hero">
+                <img src="logo.png" alt="Sky of Empire Logo" class="logo">
+                <h1>Sky of Empire</h1>
+                <p class="subtitle">Offizielle Informationsseite mit allen rechtlichen Dokumenten und Kontaktangaben für Sky of Empire.</p>
+            </div>
 
-        <div class="buttons">
-            <a class="button" href="datenschutz.html">Datenschutzrichtlinie</a>
-            <a class="button" href="terms.html">Nutzungsbedingungen</a>
-            <a class="button" href="cookies.html">Cookie Richtlinie</a>
+            <div class="card">
+                <h2>Rechtliches</h2>
+                <div class="buttons">
+                    <a class="button" href="privacy.html">Datenschutzrichtlinie</a>
+                    <a class="button" href="terms.html">Nutzungsbedingungen</a>
+                    <a class="button" href="cookies.html">Cookie-Richtlinie</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Kontakt</h2>
+                <div class="contact-box">
+                    <div><strong>Betreiber:</strong> Sky of Empire</div>
+                    <div><strong>E-Mail:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a></div>
+                    <div><strong>Sitz:</strong> Schweiz</div>
+                </div>
+            </div>
+
+            <div class="footer">
+                © 2026 Sky of Empire. Alle Rechte vorbehalten.
+            </div>
+
         </div>
     </div>
-
-    <div class="section">
-        <h2>Kontakt</h2>
-        <p>Sky of Empire</p>
-        <p>support@skyofempire.com</p>
-        <p>Schweiz</p>
-    </div>
-
-    <div class="footer">
-        © 2026 Sky of Empire
-    </div>
-
-</div>
 
 </body>
 </html>
