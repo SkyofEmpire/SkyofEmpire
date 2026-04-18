@@ -5,18 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>利用規約 - Sky of Empire</title>
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
-        body {
+        html, body {
             margin: 0;
             font-family: Arial, sans-serif;
             color: #f4ead7;
-            min-height: 100vh;
+            min-height: 100%;
             overflow-x: hidden;
             background:
                 radial-gradient(circle at 50% 18%, rgba(176, 132, 57, 0.08) 0%, rgba(176, 132, 57, 0.00) 18%),
                 linear-gradient(to bottom, #000000 0%, #040404 52%, #0a0a0a 100%);
-            padding: 0 20px 60px;
+        }
+
+        body {
+            position: relative;
+        }
+
+        .clouds-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .cloud-img {
+            position: absolute;
+            background: url("clouds.png") no-repeat center center / contain;
+            pointer-events: none;
+            opacity: 0.25;
+            filter: brightness(0.56) contrast(1.05) saturate(0.75);
+            mix-blend-mode: screen;
+        }
+
+        .cloud-img::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.22);
+            border-radius: 40px;
+            mix-blend-mode: multiply;
+        }
+
+        .cloud1 { width: 470px; height: 290px; top: -35px; left: -40px; }
+        .cloud2 { width: 340px; height: 215px; top: 35px; left: 280px; }
+        .cloud3 { width: 460px; height: 285px; top: -20px; right: -30px; }
+        .cloud4 { width: 255px; height: 165px; top: 155px; left: 130px; }
+        .cloud5 { width: 315px; height: 195px; top: 110px; left: 520px; }
+        .cloud6 { width: 280px; height: 175px; top: 220px; right: 160px; }
+        .cloud7 { width: 430px; height: 265px; top: 305px; left: -20px; }
+        .cloud8 { width: 235px; height: 150px; top: 430px; left: 430px; }
+        .cloud9 { width: 410px; height: 255px; top: 325px; right: -20px; }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 0 20px 40px;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 980px;
+            margin: 0 auto;
         }
 
         .topbar {
@@ -24,280 +79,495 @@
             justify-content: flex-start;
             padding-top: 14px;
             padding-left: 4px;
-            position: sticky;
-            top: 0;
-            z-index: 3;
+            position: relative;
+            z-index: 1000;
         }
 
-        .language-select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background: rgba(5, 5, 5, 0.90);
+        .lang-dropdown {
+            position: relative;
+            z-index: 1001;
+        }
+
+        .lang-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 170px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 2px solid #0d63ff;
+            background: rgba(5, 5, 5, 0.92);
             color: #f2e2bf;
-            border: 1px solid rgba(189, 148, 80, 0.30);
-            border-radius: 14px;
-            padding: 12px 46px 12px 16px;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 10px 22px rgba(0,0,0,0.20);
-            background-image:
-                linear-gradient(45deg, transparent 50%, #d8b66c 50%),
-                linear-gradient(135deg, #d8b66c 50%, transparent 50%);
-            background-position:
-                calc(100% - 20px) calc(50% - 3px),
-                calc(100% - 14px) calc(50% - 3px);
-            background-size: 6px 6px, 6px 6px;
-            background-repeat: no-repeat;
+            box-shadow:
+                0 0 0 2px rgba(216, 182, 108, 0.14) inset,
+                0 10px 22px rgba(0,0,0,0.24);
+            user-select: none;
         }
 
-        .container {
+        .lang-button:hover {
+            filter: brightness(1.03);
+        }
+
+        .lang-flag {
+            font-size: 22px;
+            line-height: 1;
+            flex: 0 0 auto;
+        }
+
+        .lang-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .lang-arrow {
+            font-size: 14px;
+            color: #e2c780;
+            flex: 0 0 auto;
+        }
+
+        .lang-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            width: 330px;
+            background: rgba(10, 10, 10, 0.96);
+            border: 1px solid rgba(255,255,255,0.20);
+            border-radius: 24px;
+            padding: 12px;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+            backdrop-filter: blur(10px);
+            display: none;
+            z-index: 1002;
+            overflow: hidden;
+        }
+
+        .lang-menu.open {
+            display: block;
+        }
+
+        .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .lang-item:hover {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .lang-item.active {
+            color: #ffffff;
+        }
+
+        .lang-check {
+            width: 22px;
+            flex: 0 0 22px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .lang-item-flag {
+            width: 28px;
+            flex: 0 0 28px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        .lang-item-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .policy-wrap {
+            position: relative;
+            z-index: 5;
             max-width: 980px;
-            margin: 24px auto 0;
+            margin: 20px auto 0;
+            background: rgba(3, 3, 3, 0.82);
+            border: 1px solid rgba(189, 148, 80, 0.18);
+            border-radius: 22px;
+            padding: 28px 26px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+            color: #f5ebd8;
+            line-height: 1.8;
         }
 
-        .back-link {
-            display: inline-block;
+        .policy-wrap h1,
+        .policy-wrap h2,
+        .policy-wrap h3 {
+            color: #f2e2bf;
+        }
+
+        .policy-wrap h1 {
+            font-size: 30px;
+            margin-top: 0;
             margin-bottom: 18px;
+        }
+
+        .policy-wrap h2 {
+            font-size: 22px;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+
+        .policy-wrap h3 {
+            font-size: 18px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+        }
+
+        .policy-wrap p,
+        .policy-wrap li {
+            font-size: 16px;
+        }
+
+        .policy-wrap ul {
+            margin: 8px 0 16px 0;
+            padding-left: 22px;
+        }
+
+        .policy-wrap a {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .back-link:hover { text-decoration: underline; }
-
-        .card {
-            background: rgba(3, 3, 3, 0.82);
-            border: 1px solid rgba(189, 148, 80, 0.18);
-            border-radius: 22px;
-            padding: 28px 24px;
-            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+        .policy-wrap a:hover {
+            text-decoration: underline;
         }
 
-        h1 {
-            font-size: 34px;
-            margin: 0 0 18px;
-            color: #f2e2bf;
-        }
-
-        h2 {
-            margin-top: 28px;
-            margin-bottom: 12px;
-            font-size: 24px;
-            color: #f2e2bf;
-        }
-
-        p, li {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #f4ead7;
-        }
-
-        ul, ol { padding-left: 22px; }
-
-        .meta {
-            margin-bottom: 18px;
-            color: #d8c6a1;
+        .footer-space {
+            height: 10px;
         }
 
         @media (max-width: 768px) {
-            .language-select {
-                font-size: 14px;
-                padding: 10px 40px 10px 14px;
+            .topbar {
+                padding-top: 12px;
+                padding-left: 2px;
             }
 
-            .card { padding: 22px 16px; }
-            h1 { font-size: 28px; }
-            h2 { font-size: 22px; }
-            p, li { font-size: 15px; }
+            .lang-button {
+                min-width: 170px;
+                padding: 10px 14px;
+                font-size: 15px;
+            }
+
+            .lang-menu {
+                width: 320px;
+                padding: 10px;
+            }
+
+            .lang-item {
+                padding: 7px 8px;
+                font-size: 17px;
+            }
+
+            .policy-wrap {
+                padding: 20px 16px;
+                margin-top: 16px;
+            }
+
+            .policy-wrap h1 {
+                font-size: 24px;
+            }
+
+            .policy-wrap h2 {
+                font-size: 20px;
+            }
+
+            .policy-wrap p,
+            .policy-wrap li {
+                font-size: 15px;
+            }
+
+            .cloud1 { width: 250px; height: 160px; top: -10px; left: -20px; }
+            .cloud2 { width: 190px; height: 125px; top: 30px; left: 140px; }
+            .cloud3 { width: 240px; height: 155px; top: 0; right: -10px; }
+            .cloud4 { width: 150px; height: 100px; top: 120px; left: 50px; }
+            .cloud5 { width: 180px; height: 118px; top: 120px; left: 220px; }
+            .cloud6 { width: 165px; height: 108px; top: 190px; right: 70px; }
+            .cloud7 { width: 230px; height: 150px; top: 280px; left: -10px; }
+            .cloud8 { width: 140px; height: 92px; top: 380px; left: 210px; }
+            .cloud9 { width: 220px; height: 145px; top: 310px; right: -10px; }
         }
     </style>
 </head>
 <body>
 
-<div class="topbar">
-    <select class="language-select" id="languageSelect">
-        <option value="de">🇩🇪 Deutsch</option>
-        <option value="en">🇬🇧 English</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="it">🇮🇹 Italiano</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="pt">🇵🇹 Português</option>
-        <option value="tr">🇹🇷 Türkçe</option>
-        <option value="ru">🇷🇺 Русский</option>
-        <option value="ja" selected>🇯🇵 日本語</option>
-    </select>
-</div>
+    <div class="clouds-layer">
+        <div class="cloud-img cloud1"></div>
+        <div class="cloud-img cloud2"></div>
+        <div class="cloud-img cloud3"></div>
+        <div class="cloud-img cloud4"></div>
+        <div class="cloud-img cloud5"></div>
+        <div class="cloud-img cloud6"></div>
+        <div class="cloud-img cloud7"></div>
+        <div class="cloud-img cloud8"></div>
+        <div class="cloud-img cloud9"></div>
+    </div>
 
-<div class="container">
-    <a class="back-link" href="index-ja.html">← ホームに戻る</a>
+    <div class="page">
+        <div class="container">
+            <div class="topbar">
+                <div class="lang-dropdown" id="langDropdown">
+                    <button class="lang-button" id="langButton" type="button" aria-expanded="false">
+                        <span class="lang-flag">🇯🇵</span>
+                        <span class="lang-label">日本語</span>
+                        <span class="lang-arrow">▼</span>
+                    </button>
 
-    <div class="card">
-        <h1>利用規約</h1>
-
-        <div class="meta">
-            <p><strong>最終更新日:</strong> 2026年4月1日</p>
-            <p><strong>運営者:</strong> Sky of Empire<br>
-            <strong>メール:</strong> support@skyofempire.com<br>
-            <strong>所在地:</strong> スイス</p>
+                    <div class="lang-menu" id="langMenu">
+                        <a class="lang-item" href="terms.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇩🇪</span>
+                            <span class="lang-item-label">Deutsch</span>
+                        </a>
+                        <a class="lang-item" href="terms-en.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇬🇧</span>
+                            <span class="lang-item-label">English</span>
+                        </a>
+                        <a class="lang-item" href="terms-fr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇫🇷</span>
+                            <span class="lang-item-label">Français</span>
+                        </a>
+                        <a class="lang-item" href="terms-it.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇮🇹</span>
+                            <span class="lang-item-label">Italiano</span>
+                        </a>
+                        <a class="lang-item" href="terms-es.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇪🇸</span>
+                            <span class="lang-item-label">Español</span>
+                        </a>
+                        <a class="lang-item" href="terms-pt.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇵🇹</span>
+                            <span class="lang-item-label">Português</span>
+                        </a>
+                        <a class="lang-item" href="terms-tr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇹🇷</span>
+                            <span class="lang-item-label">Türkçe</span>
+                        </a>
+                        <a class="lang-item" href="terms-ru.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇷🇺</span>
+                            <span class="lang-item-label">Русский</span>
+                        </a>
+                        <a class="lang-item active" href="terms-ja.html">
+                            <span class="lang-check">✔</span>
+                            <span class="lang-item-flag">🇯🇵</span>
+                            <span class="lang-item-label">日本語</span>
+                        </a>
+                        <a class="lang-item" href="terms-ko.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇰🇷</span>
+                            <span class="lang-item-label">한국어</span>
+                        </a>
+                        <a class="lang-item" href="terms-zh.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇨🇳</span>
+                            <span class="lang-item-label">简体中文</span>
+                        </a>
+                        <a class="lang-item" href="terms-th.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇹🇭</span>
+                            <span class="lang-item-label">ไทย</span>
+                        </a>
+                        <a class="lang-item" href="terms-ar.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇸🇦</span>
+                            <span class="lang-item-label">العربية</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <h2>1. 適用範囲</h2>
-        <p>本利用規約（以下「本規約」）は、Sky of Empire ゲームならびにそれに関連するすべてのデジタルコンテンツ、サービス、ウェブサイトおよび機能（総称して「デジタル商品およびサービス」）へのアクセスおよび利用を規定するものです。</p>
-        <p>Sky of Empire をダウンロード、インストール、または利用することにより、あなたは本規約および当社のプライバシーポリシーに同意したものとみなされます。本規約に同意しない場合、ゲームを利用することはできません。</p>
+        <div class="policy-wrap">
+            <h1>利用規約</h1>
 
-        <h2>2. 定義</h2>
-        <p>本規約において、以下の用語は次の意味を有します。</p>
-        <ul>
-            <li>「ゲーム」とは、Sky of Empire ゲームを意味します。</li>
-            <li>「運営者」とは、Sky of Empire を意味します。</li>
-            <li>「アカウント」とは、ゲームへのアクセスに必要なユーザーアカウントを意味します。</li>
-            <li>「デジタル商品」とは、仮想アイテム、仮想通貨および追加コンテンツを含みます。</li>
-            <li>「仮想通貨」とは、ゲーム内のデジタル通貨を意味します。</li>
-            <li>「仮想アイテム」とは、ゲーム内のデジタルコンテンツを意味します。</li>
-            <li>「UGC」（ユーザー生成コンテンツ）とは、ユーザーが作成したコンテンツを意味します。</li>
-            <li>「ユーザー」とは、ゲームを利用するすべての者を意味します。</li>
-        </ul>
+            <p><strong>最終更新日:</strong> 2026年4月1日</p>
+            <p><strong>運営者:</strong> Sky of Empire<br>
+            <strong>メールアドレス:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
+            <strong>所在地:</strong> スイス</p>
 
-        <h2>3. 契約当事者</h2>
-        <p>契約は以下の当事者との間で成立します。</p>
-        <p><strong>運営者:</strong> Sky of Empire<br>
-        <strong>メール:</strong> support@skyofempire.com<br>
-        <strong>所在地:</strong> スイス</p>
+            <h2>1. 承諾、適用範囲および適用</h2>
+            <p>
+                本利用規約は、Sky of Empire へのアクセスおよび利用、ならびに関連するウェブサイト、コンテンツ、機能およびサービスに適用されます。ゲームまたは当社のサービスを利用することにより、利用者は本規約に拘束されることに同意したものとみなされます。
+            </p>
+            <p>
+                本規約に同意しない場合、当社のサービスを利用することはできません。
+            </p>
 
-        <h2>4. 利用条件</h2>
-        <ol>
-            <li>利用は、18歳以上の者、または親権者もしくは法定代理人の同意を得た者に限られます。</li>
-            <li>未成年者は、親権者または法定代理人の監督の下でのみゲームを利用できます。</li>
-            <li>ゲームを利用することにより、あなたは提供したすべての情報が正確であることを確認します。</li>
-        </ol>
+            <h2>2. 利用資格</h2>
+            <p>
+                利用者は、適用される法律の下で拘束力のある契約を締結する法的能力を有する場合にのみ、当社サービスを利用できます。未成年者の場合は、親権者または法定代理人の許可を得た上で利用しなければなりません。
+            </p>
 
-        <h2>5. アカウント</h2>
-        <ol>
-            <li>一部の機能を利用するためにアカウント作成が必要となる場合があります。</li>
-            <li>あなたはログイン情報を秘密に保持する義務を負います。</li>
-            <li>あなたのアカウントを通じて行われるすべての活動について、あなたが責任を負います。</li>
-            <li>アカウントの販売または譲渡は禁止されています。</li>
-            <li>本規約に違反した場合、運営者はアカウントを停止または削除することができます。</li>
-        </ol>
+            <h2>3. アカウント</h2>
+            <p>
+                ゲームの一部機能を利用するために、アカウント作成が必要となる場合があります。利用者は、自身のログイン情報の機密保持およびアカウントを通じて行われるすべての行為について責任を負います。
+            </p>
+            <p>
+                利用者は、正確、最新かつ完全な情報を提供し、必要に応じてこれを更新することに同意するものとします。
+            </p>
 
-        <h2>6. ライセンス</h2>
-        <ol>
-            <li>運営者は、あなたに対し、個人的かつ非商業的目的でゲームを利用するための限定的、譲渡不能、取消可能なライセンスを付与します。</li>
-            <li>ゲームは販売されるのではなく、ライセンス供与されます。</li>
-            <li>ゲームに関するすべての権利は運営者に留保されます。</li>
-            <li>書面による許可なく商業利用することは禁止されています。</li>
-        </ol>
+            <h2>4. ライセンス</h2>
+            <p>
+                当社は、利用者に対し、本規約に従うことを条件として、ゲームおよび関連サービスを個人的かつ非商業的な目的で利用するための、限定的、非独占的、譲渡不可かつ撤回可能なライセンスを付与します。
+            </p>
+            <p>
+                このライセンスは、利用者に対して所有権または知的財産権を移転するものではありません。
+            </p>
 
-        <h2>7. 行動規則</h2>
-        <p>以下の行為は禁止されています。</p>
-        <ul>
-            <li>適用法令に違反すること</li>
-            <li>チート、ボットまたはエクスプロイトを使用すること</li>
-            <li>ゲームを改ざんまたはハッキングすること</li>
-            <li>侮辱的または違法なコンテンツを拡散すること</li>
-            <li>他人になりすますこと</li>
-            <li>スパムまたは広告を拡散すること</li>
-            <li>ウイルスまたは悪意のあるソフトウェアをアップロードすること</li>
-            <li>アカウントを取引または販売すること</li>
-        </ul>
-        <p>違反があった場合、アカウントの停止または終了につながることがあります。</p>
+            <h2>5. 禁止行為</h2>
+            <p>利用者は、以下の行為を行わないことに同意します。</p>
+            <ul>
+                <li>チート、ボット、自動化ツール、または未承認の第三者ソフトウェアの使用</li>
+                <li>ゲーム内のバグ、不具合、脆弱性の悪用</li>
+                <li>アカウント、システム、サーバーへの不正アクセスの試み</li>
+                <li>当社の許可なくアカウントを販売、交換または譲渡すること</li>
+                <li>適用される法令または規制に違反すること</li>
+                <li>他の利用者に対する嫌がらせ、虐待、脅迫、なりすまし、損害を与える行為</li>
+                <li>ゲームの完全性、安全性、または正常な運営を妨げる方法で当社サービスを利用すること</li>
+            </ul>
 
-        <h2>8. ユーザー生成コンテンツ（UGC）</h2>
-        <ol>
-            <li>ユーザーはコンテンツを作成し、共有することができます。</li>
-            <li>コンテンツをアップロードすることにより、あなたは運営者に対し、そのコンテンツを使用するための世界的かつ無償のライセンスを付与します。</li>
-            <li>運営者は、本規約に違反するコンテンツを削除する権利を留保します。</li>
-        </ol>
+            <h2>6. 仮想アイテムおよび仮想通貨</h2>
+            <p>
+                ゲームには、仮想通貨、仮想アイテム、またはデジタル機能が含まれる場合があります。これらは販売されるものではなく、利用者にライセンスされるものです。適用法で別段の定めがある場合を除き、利用者は仮想アイテムに対する現実世界での所有権または金銭的価値を取得しません。
+            </p>
+            <p>
+                当社は、仮想アイテム、通貨、報酬システムをいつでも変更、削除、リセット、または終了する権利を留保します。
+            </p>
 
-        <h2>9. 仮想アイテムおよび仮想通貨</h2>
-        <ol>
-            <li>仮想アイテムには現実の金銭的価値はありません。</li>
-            <li>仮想アイテムは譲渡、販売、または金銭との交換はできません。</li>
-            <li>返金は、法律により義務付けられている場合にのみ行われます。</li>
-            <li>運営者は、仮想コンテンツをいつでも変更または削除することができます。</li>
-        </ol>
+            <h2>7. 購入および支払い</h2>
+            <p>
+                ゲーム内購入を行う場合、利用者は適用される料金および税金を支払うことに同意するものとします。支払いは第三者の決済事業者によって処理される場合があり、その場合、それらの利用規約やポリシーにも従う必要があります。
+            </p>
+            <p>
+                適用法に別段の定めがない限り、すべての購入は最終的なものであり、返金不可とします。
+            </p>
 
-        <h2>10. 支払い</h2>
-        <ol>
-            <li>購入は Apple や Google などの認可されたプラットフォームを通じて行われます。</li>
-            <li>価格はいつでも変更される場合があります。</li>
-            <li>税金は適用される法令に従って計算されます。</li>
-        </ol>
+            <h2>8. 更新および変更</h2>
+            <p>
+                当社は、ゲームまたは当社サービスの全部または一部を、事前通知なくいつでも更新、変更、一時停止、または終了することができます。これには、ゲームメカニクス、機能、コンテンツ、仮想アイテム、および提供状況の変更が含まれます。
+            </p>
 
-        <h2>11. プライバシー</h2>
-        <p>個人データの取扱いは、当社のプライバシーポリシーに従います。プライバシーポリシーは本利用規約の不可分の一部です。</p>
+            <h2>9. 停止および終了</h2>
+            <p>
+                当社は、利用者が本規約に違反したと判断した場合、または当社サービス、他の利用者、もしくは法的義務を保護するために必要と判断した場合、事前通知の有無にかかわらず、利用者のゲームまたはアカウントへのアクセスを停止、制限、または終了する権利を有します。
+            </p>
 
-        <h2>12. 可用性および更新</h2>
-        <ol>
-            <li>運営者は、ゲームの継続的な可用性を確保するよう努めます。</li>
-            <li>保守作業、更新または技術的問題により中断が発生する場合があります。</li>
-            <li>ゲームはいつでも更新または終了される場合があります。</li>
-        </ol>
+            <h2>10. 知的財産権</h2>
+            <p>
+                ゲームおよび当社サービスに関するすべての権利、権原および利益（ソフトウェア、デザイン、テキスト、グラフィック、ロゴ、ゲーム名および機能を含みますがこれらに限られません）は、Sky of Empire またはそのライセンサーに帰属します。
+            </p>
+            <p>
+                利用者は、適用法により明示的に認められる場合を除き、当社サービスのいかなる部分についても、複製、改変、配布、リバースエンジニアリング、または利用を行ってはなりません。
+            </p>
 
-        <h2>13. 免責事項</h2>
-        <ol>
-            <li>ゲームは「現状有姿」かつ「提供可能な範囲」で提供されます。</li>
-            <li>運営者は、中断のない利用またはエラーのない利用を保証しません。</li>
-            <li>法令で許容される範囲において、運営者は間接損害またはデータ損失について責任を負いません。</li>
-            <li>故意、重過失または人身損害に関する責任は影響を受けません。</li>
-        </ol>
+            <h2>11. プライバシー</h2>
+            <p>
+                当社サービスの利用には、利用者データの収集、利用および保護方法を定める当社のプライバシーポリシーも適用されます。
+            </p>
 
-        <h2>14. 終了</h2>
-        <ol>
-            <li>運営者は、本規約違反があった場合、アクセスを停止または終了することができます。</li>
-            <li>ユーザーはいつでもアカウント削除を依頼することができます。</li>
-            <li>終了後は、付与されたすべてのライセンスが失効します。</li>
-        </ol>
+            <h2>12. 保証の否認</h2>
+            <p>
+                ゲームおよびサービスは、法律で認められる最大限の範囲で、「現状有姿」かつ「提供可能な状態」で提供され、明示または黙示を問わず、いかなる保証も付されません。
+            </p>
+            <p>
+                当社は、サービスにエラーがないこと、中断されないこと、完全に安全であること、または常時利用可能であることを保証しません。
+            </p>
 
-        <h2>15. 第三者コンテンツ</h2>
-        <p>ゲームには第三者のリンクまたはサービスが含まれる場合があります。運営者はそれらの内容について責任を負いません。</p>
+            <h2>13. 責任の制限</h2>
+            <p>
+                適用法で認められる最大限の範囲において、Sky of Empire は、当社サービスの利用または利用不能に起因または関連して発生する間接的、付随的、特別、結果的、懲罰的損害、または利益、データ、信用、営業上の中断の損失について責任を負いません。
+            </p>
 
-        <h2>16. 紛争解決および準拠法</h2>
-        <ol>
-            <li>本規約はスイス法に準拠します。</li>
-            <li>法令で許容される範囲において、管轄裁判所はスイスとします。</li>
-            <li>当事者は、法的手続を開始する前に、友好的な解決を試みるものとします。</li>
-        </ol>
+            <h2>14. 補償</h2>
+            <p>
+                利用者は、法律で認められる範囲で、本規約違反またはサービスの不正利用に起因する請求、責任、損害、損失、費用および経費から、Sky of Empire を補償し、防御し、免責することに同意するものとします。
+            </p>
 
-        <h2>17. 規約の変更</h2>
-        <p>運営者は、本利用規約をいつでも変更する権利を留保します。変更はゲーム内または公式ウェブサイトで告知されます。</p>
+            <h2>15. 準拠法</h2>
+            <p>
+                本規約は、利用者の居住地における強行法規に別段の定めがある場合を除き、スイス法に準拠し、これに従って解釈されます。
+            </p>
 
-        <h2>18. 分離可能性</h2>
-        <p>本規約のいずれかの条項が無効であっても、その他の条項の有効性には影響しません。</p>
+            <h2>16. 可分性</h2>
+            <p>
+                本規約のいずれかの条項が無効または執行不能と判断された場合でも、残りの条項は引き続き完全に有効に存続するものとします。
+            </p>
 
-        <h2>19. 不可抗力</h2>
-        <p>運営者は、自然災害、パンデミックまたは技術的障害を含む、自己の支配を超える事由に起因する遅延または不履行について責任を負いません。</p>
+            <h2>17. 本規約の変更</h2>
+            <p>
+                当社は、いつでも本利用規約を変更することができます。更新版はこのページまたは当社サービス内に掲載されます。変更の発効日以降も引き続きサービスを利用した場合、利用者は改訂後の規約に同意したものとみなされます。
+            </p>
 
-        <h2>20. 国際的適用</h2>
-        <p>本利用規約は、Sky of Empire ゲームのすべてのユーザーに対して世界的に適用されます。当社は、当社サービスが提供される国において適用される法的規定を遵守することを約束します。現地法が追加要件を定める場合、それらは補足規定または地域別通知によって定められます。本規約のいずれかの条項がある国の強行法規により無効となる場合でも、他の条項の有効性には影響しません。</p>
+            <h2>18. お問い合わせ</h2>
+            <p>
+                本利用規約に関するご質問がある場合は、以下までご連絡ください。
+            </p>
+            <p>
+                Sky of Empire<br>
+                メールアドレス: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
+                所在地: スイス
+            </p>
+        </div>
 
-        <h2>21. お問い合わせ</h2>
-        <p><strong>Sky of Empire</strong><br>
-        メール: support@skyofempire.com<br>
-        所在地: スイス</p>
+        <div class="footer-space"></div>
     </div>
-</div>
 
-<script>
-    const languageSelect = document.getElementById("languageSelect");
-    languageSelect.addEventListener("change", function () {
-        const lang = this.value;
-        const pageMap = {
-            de: "terms.html",
-            en: "terms-en.html",
-            fr: "terms-fr.html",
-            it: "terms-it.html",
-            es: "terms-es.html",
-            pt: "terms-pt.html",
-            tr: "terms-tr.html",
-            ru: "terms-ru.html",
-            ja: "terms-ja.html"
-        };
-        window.location.href = pageMap[lang];
-    });
-</script>
+    <script>
+        const langDropdown = document.getElementById("langDropdown");
+        const langButton = document.getElementById("langButton");
+        const langMenu = document.getElementById("langMenu");
+
+        langButton.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const isOpen = langMenu.classList.contains("open");
+
+            if (isOpen) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            } else {
+                langMenu.classList.add("open");
+                langButton.setAttribute("aria-expanded", "true");
+            }
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!langDropdown.contains(e.target)) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+    </script>
 
 </body>
 </html>
