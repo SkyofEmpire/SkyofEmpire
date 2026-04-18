@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>นโยบายคุกกี้ - Sky of Empire</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #f4ead7;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background:
+                radial-gradient(circle at 50% 18%, rgba(176, 132, 57, 0.08) 0%, rgba(176, 132, 57, 0.00) 18%),
+                linear-gradient(to bottom, #000000 0%, #040404 52%, #0a0a0a 100%);
+            padding: 0 20px 60px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: flex-start;
+            padding-top: 14px;
+            padding-left: 4px;
+            position: sticky;
+            top: 0;
+            z-index: 3;
+        }
+
+        .language-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: rgba(5, 5, 5, 0.90);
+            color: #f2e2bf;
+            border: 1px solid rgba(189, 148, 80, 0.30);
+            border-radius: 14px;
+            padding: 12px 46px 12px 16px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 22px rgba(0,0,0,0.20);
+            background-image:
+                linear-gradient(45deg, transparent 50%, #d8b66c 50%),
+                linear-gradient(135deg, #d8b66c 50%, transparent 50%);
+            background-position:
+                calc(100% - 20px) calc(50% - 3px),
+                calc(100% - 14px) calc(50% - 3px);
+            background-size: 6px 6px, 6px 6px;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 24px auto 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 18px;
+            color: #f0d89e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover { text-decoration: underline; }
+
+        .card {
+            background: rgba(3, 3, 3, 0.82);
+            border: 1px solid rgba(189, 148, 80, 0.18);
+            border-radius: 22px;
+            padding: 28px 24px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+        }
+
+        h1 {
+            font-size: 34px;
+            margin: 0 0 18px;
+            color: #f2e2bf;
+        }
+
+        h2 {
+            margin-top: 28px;
+            margin-bottom: 12px;
+            font-size: 24px;
+            color: #f2e2bf;
+        }
+
+        p, li {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #f4ead7;
+        }
+
+        ul { padding-left: 22px; }
+
+        .meta {
+            margin-bottom: 18px;
+            color: #d8c6a1;
+        }
+
+        a {
+            color: #f0d89e;
+        }
+
+        @media (max-width: 768px) {
+            .language-select {
+                font-size: 14px;
+                padding: 10px 40px 10px 14px;
+            }
+
+            .card { padding: 22px 16px; }
+            h1 { font-size: 28px; }
+            h2 { font-size: 22px; }
+            p, li { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+<div class="topbar">
+    <select class="language-select" id="languageSelect">
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="it">🇮🇹 Italiano</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="pt">🇵🇹 Português</option>
+        <option value="tr">🇹🇷 Türkçe</option>
+        <option value="ru">🇷🇺 Русский</option>
+        <option value="ja">🇯🇵 日本語</option>
+        <option value="ko">🇰🇷 한국어</option>
+        <option value="zh">🇨🇳 简体中文</option>
+        <option value="th" selected>🇹🇭 ไทย</option>
+        <option value="ar">🇸🇦 العربية</option>
+    </select>
+</div>
+
+<div class="container">
+    <a class="back-link" href="index-th.html">← กลับสู่หน้าหลัก</a>
+
+    <div class="card">
+        <h1>นโยบายคุกกี้</h1>
+
+        <div class="meta">
+            <p><strong>อัปเดตล่าสุด:</strong> 1 เมษายน 2026</p>
+            <p><strong>ผู้ให้บริการ:</strong> Sky of Empire<br>
+            <strong>อีเมล:</strong> support@skyofempire.com<br>
+            <strong>ที่ตั้ง:</strong> สวิตเซอร์แลนด์</p>
+        </div>
+
+        <h2>1. บทนำ</h2>
+        <p>นโยบายคุกกี้ฉบับนี้อธิบายว่า Sky of Empire (“เรา”) ใช้คุกกี้และเทคโนโลยีที่คล้ายกันอย่างไร เมื่อคุณใช้งานเว็บไซต์หรือบริการดิจิทัลของเรา รวมถึงข้อมูลที่เรารวบรวม วิธีที่เราใช้ข้อมูลดังกล่าว และสิทธิที่คุณมี</p>
+
+        <h2>2. คุกกี้คืออะไร?</h2>
+        <p>คุกกี้คือไฟล์ข้อความขนาดเล็กที่ถูกจัดเก็บไว้ในคอมพิวเตอร์หรืออุปกรณ์มือถือของคุณเมื่อคุณเข้าชมเว็บไซต์ คุกกี้ช่วยให้เว็บไซต์ทำงานได้อย่างมีประสิทธิภาพมากขึ้น และให้ข้อมูลเกี่ยวกับพฤติกรรมของผู้ใช้</p>
+        <p>คุกกี้ช่วยให้เราสามารถจดจำอุปกรณ์ของคุณและบันทึกค่ากำหนดต่าง ๆ ของคุณได้</p>
+
+        <h2>3. เราใช้คุกกี้ประเภทใดบ้าง?</h2>
+
+        <h2>3.1 คุกกี้ที่จำเป็น</h2>
+        <p>คุกกี้เหล่านี้จำเป็นต่อการทำงานของเว็บไซต์ และไม่สามารถปิดใช้งานได้</p>
+        <p>ตัวอย่าง:</p>
+        <ul>
+            <li>การจัดการเซสชัน</li>
+            <li>ความปลอดภัยและการยืนยันตัวตน</li>
+            <li>การบันทึกการตั้งค่าความเป็นส่วนตัว</li>
+        </ul>
+
+        <h2>3.2 คุกกี้เพื่อการวิเคราะห์และสถิติ</h2>
+        <p>คุกกี้เหล่านี้ช่วยให้เราเข้าใจว่าผู้เยี่ยมชมใช้งานเว็บไซต์อย่างไร เพื่อที่เราจะสามารถปรับปรุงบริการของเราได้</p>
+        <p>ตัวอย่าง:</p>
+        <ul>
+            <li>Google Analytics</li>
+            <li>Firebase Analytics</li>
+        </ul>
+
+        <h2>3.3 คุกกี้เพื่อการทำงาน</h2>
+        <p>คุกกี้เหล่านี้ช่วยให้สามารถใช้งานฟังก์ชันเพิ่มเติมและการปรับแต่งเฉพาะบุคคลได้</p>
+        <p>ตัวอย่าง:</p>
+        <ul>
+            <li>การบันทึกการตั้งค่าภาษา</li>
+            <li>การบันทึกค่ากำหนดของผู้ใช้</li>
+        </ul>
+
+        <h2>3.4 คุกกี้เพื่อการตลาดและโฆษณา</h2>
+        <p>คุกกี้เหล่านี้ใช้เพื่อแสดงโฆษณาที่เกี่ยวข้องและวัดผลประสิทธิภาพของแคมเปญต่าง ๆ</p>
+        <p>ตัวอย่าง:</p>
+        <ul>
+            <li>Google Ads</li>
+            <li>Meta (Facebook) Pixel</li>
+            <li>Unity Ads</li>
+            <li>AdMob</li>
+        </ul>
+
+        <h2>4. คุกกี้ของบุคคลที่สาม</h2>
+        <p>เราอาจใช้ผู้ให้บริการภายนอกดังต่อไปนี้ ซึ่งอาจใช้คุกกี้ในนามของเรา:</p>
+        <ul>
+            <li>Google</li>
+            <li>Apple</li>
+            <li>Unity Technologies</li>
+            <li>Meta Platforms</li>
+            <li>Firebase</li>
+            <li>พาร์ทเนอร์ด้านโฆษณาและการวิเคราะห์</li>
+        </ul>
+        <p>บุคคลที่สามเหล่านี้จะประมวลผลข้อมูลตามนโยบายความเป็นส่วนตัวของตนเอง</p>
+
+        <h2>5. ฐานทางกฎหมาย</h2>
+        <p>ฐานทางกฎหมายสำหรับการใช้คุกกี้ ได้แก่:</p>
+        <ul>
+            <li>ความยินยอมของคุณตาม GDPR มาตรา 6(1)(a)</li>
+            <li>ผลประโยชน์อันชอบด้วยกฎหมายของเราตาม GDPR มาตรา 6(1)(f)</li>
+            <li>ภาระผูกพันตามกฎหมาย</li>
+        </ul>
+        <p>คุกกี้ที่จำเป็นไม่ต้องอาศัยความยินยอมจากคุณ</p>
+
+        <h2>6. คุณจะจัดการคุกกี้ได้อย่างไร?</h2>
+        <p>คุณสามารถจัดการหรือปิดใช้งานคุกกี้ผ่านการตั้งค่าเบราว์เซอร์ของคุณ</p>
+        <p>การตั้งค่าเบราว์เซอร์:</p>
+        <ul>
+            <li>Chrome: <a href="https://support.google.com/chrome">https://support.google.com/chrome</a></li>
+            <li>Safari: <a href="https://support.apple.com">https://support.apple.com</a></li>
+            <li>Firefox: <a href="https://support.mozilla.org">https://support.mozilla.org</a></li>
+            <li>Edge: <a href="https://support.microsoft.com">https://support.microsoft.com</a></li>
+        </ul>
+
+        <p>อุปกรณ์มือถือ:</p>
+        <ul>
+            <li>iOS: การตั้งค่า → ความเป็นส่วนตัว → การติดตาม</li>
+            <li>Android: การตั้งค่า → Google → โฆษณา</li>
+        </ul>
+
+        <p>โปรดทราบว่าการปิดใช้งานคุกกี้อาจทำให้ฟังก์ชันบางอย่างของบริการของเราถูกจำกัด</p>
+
+        <h2>7. ระยะเวลาการจัดเก็บ</h2>
+        <p>คุกกี้สามารถแบ่งออกเป็น:</p>
+        <ul>
+            <li>คุกกี้แบบเซสชัน: จะถูกลบเมื่อคุณปิดเบราว์เซอร์</li>
+            <li>คุกกี้ถาวร: จะยังคงอยู่ในอุปกรณ์ของคุณจนกว่าจะถูกลบหรือหมดอายุ</li>
+        </ul>
+
+        <h2>8. สิทธิของคุณ</h2>
+        <p>คุณมีสิทธิดังต่อไปนี้:</p>
+        <ul>
+            <li>เข้าถึงข้อมูลของคุณ</li>
+            <li>แก้ไขหรือลบข้อมูล</li>
+            <li>จำกัดการประมวลผล</li>
+            <li>คัดค้านการประมวลผล</li>
+            <li>ถอนความยินยอมของคุณ</li>
+        </ul>
+        <p>หากมีคำขอใด ๆ กรุณาติดต่อ:<br>
+        <strong>support@skyofempire.com</strong></p>
+
+        <h2>9. การเปลี่ยนแปลงนโยบายนี้</h2>
+        <p>เราขอสงวนสิทธิ์ในการอัปเดตนโยบายคุกกี้นี้ได้ทุกเมื่อ การเปลี่ยนแปลงจะเผยแพร่บนเว็บไซต์ของเรา</p>
+
+        <h2>10. การติดต่อ</h2>
+        <p><strong>Sky of Empire</strong><br>
+        อีเมล: support@skyofempire.com<br>
+        ที่ตั้ง: สวิตเซอร์แลนด์</p>
+    </div>
+</div>
+
+<script>
+    const languageSelect = document.getElementById("languageSelect");
+    languageSelect.addEventListener("change", function () {
+        const lang = this.value;
+        const pageMap = {
+            de: "cookies.html",
+            en: "cookies-en.html",
+            fr: "cookies-fr.html",
+            it: "cookies-it.html",
+            es: "cookies-es.html",
+            pt: "cookies-pt.html",
+            tr: "cookies-tr.html",
+            ru: "cookies-ru.html",
+            ja: "cookies-ja.html",
+            ko: "cookies-ko.html",
+            zh: "cookies-zh.html",
+            th: "cookies-th.html",
+            ar: "cookies-ar.html"
+        };
+        window.location.href = pageMap[lang];
+    });
+</script>
+</body>
+</html>
