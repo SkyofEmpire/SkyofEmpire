@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Sky of Empire</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #f4ead7;
+            min-height: 100%;
+            overflow-x: hidden;
+            background:
+                radial-gradient(circle at 50% 18%, rgba(176, 132, 57, 0.08) 0%, rgba(176, 132, 57, 0.00) 18%),
+                linear-gradient(to bottom, #000000 0%, #040404 52%, #0a0a0a 100%);
+        }
+
+        body {
+            position: relative;
+        }
+
+        .clouds-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .cloud-img {
+            position: absolute;
+            background: url("clouds.png") no-repeat center center / contain;
+            pointer-events: none;
+            opacity: 0.25;
+            filter: brightness(0.56) contrast(1.05) saturate(0.75);
+            mix-blend-mode: screen;
+        }
+
+        .cloud-img::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.22);
+            border-radius: 40px;
+            mix-blend-mode: multiply;
+        }
+
+        .cloud1 { width: 470px; height: 290px; top: -35px; left: -40px; }
+        .cloud2 { width: 340px; height: 215px; top: 35px; left: 280px; }
+        .cloud3 { width: 460px; height: 285px; top: -20px; right: -30px; }
+        .cloud4 { width: 255px; height: 165px; top: 155px; left: 130px; }
+        .cloud5 { width: 315px; height: 195px; top: 110px; left: 520px; }
+        .cloud6 { width: 280px; height: 175px; top: 220px; right: 160px; }
+        .cloud7 { width: 430px; height: 265px; top: 305px; left: -20px; }
+        .cloud8 { width: 235px; height: 150px; top: 430px; left: 430px; }
+        .cloud9 { width: 410px; height: 255px; top: 325px; right: -20px; }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 0 20px 40px;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 980px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: flex-start;
+            padding-top: 14px;
+            padding-left: 4px;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .lang-dropdown {
+            position: relative;
+            z-index: 1001;
+        }
+
+        .lang-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 170px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 2px solid #0d63ff;
+            background: rgba(5, 5, 5, 0.92);
+            color: #f2e2bf;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow:
+                0 0 0 2px rgba(216, 182, 108, 0.14) inset,
+                0 10px 22px rgba(0,0,0,0.24);
+            user-select: none;
+        }
+
+        .lang-button:hover {
+            filter: brightness(1.03);
+        }
+
+        .lang-flag {
+            font-size: 22px;
+            line-height: 1;
+            flex: 0 0 auto;
+        }
+
+        .lang-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .lang-arrow {
+            font-size: 14px;
+            color: #e2c780;
+            flex: 0 0 auto;
+        }
+
+        .lang-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            width: 330px;
+            background: rgba(10, 10, 10, 0.96);
+            border: 1px solid rgba(255,255,255,0.20);
+            border-radius: 24px;
+            padding: 12px;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+            backdrop-filter: blur(10px);
+            display: none;
+            z-index: 1002;
+            overflow: hidden;
+        }
+
+        .lang-menu.open {
+            display: block;
+        }
+
+        .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .lang-item:hover {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .lang-item.active {
+            color: #ffffff;
+        }
+
+        .lang-check {
+            width: 22px;
+            flex: 0 0 22px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .lang-item-flag {
+            width: 28px;
+            flex: 0 0 28px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        .lang-item-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 5;
+            margin-top: 24px;
+        }
+
+        .subtitle {
+            margin: 0 auto 18px;
+            max-width: 760px;
+            font-size: 16px;
+            color: #d8c6a1;
+            line-height: 1.5;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.55);
+        }
+
+        .card {
+            position: relative;
+            z-index: 6;
+            margin: 0 auto;
+            max-width: 760px;
+            background: rgba(3, 3, 3, 0.82);
+            border: 1px solid rgba(189, 148, 80, 0.18);
+            border-radius: 22px;
+            padding: 24px 24px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+            text-align: left;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 30px;
+            color: #f2e2bf;
+            text-align: center;
+        }
+
+        .intro {
+            margin: 0 0 22px;
+            font-size: 16px;
+            color: #f5ebd8;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .field label {
+            font-size: 15px;
+            font-weight: bold;
+            color: #f2e2bf;
+        }
+
+        .input,
+        .textarea,
+        .select {
+            width: 100%;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.16);
+            background: rgba(15, 15, 15, 0.92);
+            color: #f5ebd8;
+            padding: 14px 16px;
+            font-size: 15px;
+            outline: none;
+            box-shadow: inset 0 0 0 1px rgba(216, 182, 108, 0.08);
+        }
+
+        .input::placeholder,
+        .textarea::placeholder {
+            color: #a89674;
+        }
+
+        .input:focus,
+        .textarea:focus,
+        .select:focus {
+            border-color: rgba(216, 182, 108, 0.45);
+        }
+
+        .textarea {
+            min-height: 180px;
+            resize: vertical;
+            font-family: Arial, sans-serif;
+        }
+
+        .submit-button {
+            display: inline-block;
+            text-decoration: none;
+            color: #1b1306;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 15px 20px;
+            border-radius: 14px;
+            background: linear-gradient(180deg, #f0d89e 0%, #d8b66c 48%, #be9552 100%);
+            border: 1px solid rgba(255, 232, 176, 0.30);
+            box-shadow: 0 10px 22px rgba(0,0,0,0.28);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.03);
+            box-shadow: 0 14px 26px rgba(0,0,0,0.36);
+        }
+
+        .hint {
+            margin-top: 14px;
+            font-size: 13px;
+            color: #c7b18a;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .footer {
+            margin-top: 18px;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .topbar {
+                padding-top: 12px;
+                padding-left: 2px;
+            }
+
+            .lang-button {
+                min-width: 170px;
+                padding: 10px 14px;
+                font-size: 15px;
+            }
+
+            .lang-menu {
+                width: 320px;
+                padding: 10px;
+            }
+
+            .lang-item {
+                padding: 7px 8px;
+                font-size: 17px;
+            }
+
+            .main-content {
+                margin-top: 18px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+                margin-bottom: 14px;
+            }
+
+            .card {
+                padding: 20px 16px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            .intro,
+            .field label,
+            .input,
+            .textarea,
+            .select {
+                font-size: 15px;
+            }
+
+            .submit-button {
+                font-size: 16px;
+                padding: 13px 14px;
+            }
+
+            .cloud1 { width: 250px; height: 160px; top: -10px; left: -20px; }
+            .cloud2 { width: 190px; height: 125px; top: 30px; left: 140px; }
+            .cloud3 { width: 240px; height: 155px; top: 0; right: -10px; }
+            .cloud4 { width: 150px; height: 100px; top: 120px; left: 50px; }
+            .cloud5 { width: 180px; height: 118px; top: 120px; left: 220px; }
+            .cloud6 { width: 165px; height: 108px; top: 190px; right: 70px; }
+            .cloud7 { width: 230px; height: 150px; top: 280px; left: -10px; }
+            .cloud8 { width: 140px; height: 92px; top: 380px; left: 210px; }
+            .cloud9 { width: 220px; height: 145px; top: 310px; right: -10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="clouds-layer">
+        <div class="cloud-img cloud1"></div>
+        <div class="cloud-img cloud2"></div>
+        <div class="cloud-img cloud3"></div>
+        <div class="cloud-img cloud4"></div>
+        <div class="cloud-img cloud5"></div>
+        <div class="cloud-img cloud6"></div>
+        <div class="cloud-img cloud7"></div>
+        <div class="cloud-img cloud8"></div>
+        <div class="cloud-img cloud9"></div>
+    </div>
+
+    <div class="page">
+        <div class="container">
+            <div class="topbar">
+                <div class="lang-dropdown" id="langDropdown">
+                    <button class="lang-button" id="langButton" type="button" aria-expanded="false">
+                        <span class="lang-flag">🇵🇹</span>
+                        <span class="lang-label">Português</span>
+                        <span class="lang-arrow">▼</span>
+                    </button>
+
+                    <div class="lang-menu" id="langMenu">
+                        <a class="lang-item" href="feedback.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇩🇪</span>
+                            <span class="lang-item-label">Deutsch</span>
+                        </a>
+                        <a class="lang-item" href="feedback-en.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇬🇧</span>
+                            <span class="lang-item-label">English</span>
+                        </a>
+                        <a class="lang-item" href="feedback-fr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇫🇷</span>
+                            <span class="lang-item-label">Français</span>
+                        </a>
+                        <a class="lang-item" href="feedback-it.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇮🇹</span>
+                            <span class="lang-item-label">Italiano</span>
+                        </a>
+                        <a class="lang-item" href="feedback-es.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇪🇸</span>
+                            <span class="lang-item-label">Español</span>
+                        </a>
+                        <a class="lang-item active" href="feedback-pt.html">
+                            <span class="lang-check">✔</span>
+                            <span class="lang-item-flag">🇵🇹</span>
+                            <span class="lang-item-label">Português</span>
+                        </a>
+                        <a class="lang-item" href="feedback-tr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇹🇷</span>
+                            <span class="lang-item-label">Türkçe</span>
+                        </a>
+                        <a class="lang-item" href="feedback-ru.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇷🇺</span>
+                            <span class="lang-item-label">Русский</span>
+                        </a>
+                        <a class="lang-item" href="feedback-ja.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇯🇵</span>
+                            <span class="lang-item-label">日本語</span>
+                        </a>
+                        <a class="lang-item" href="feedback-ko.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇰🇷</span>
+                            <span class="lang-item-label">한국어</span>
+                        </a>
+                        <a class="lang-item" href="feedback-zh.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇨🇳</span>
+                            <span class="lang-item-label">简体中文</span>
+                        </a>
+                        <a class="lang-item" href="feedback-th.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇹🇭</span>
+                            <span class="lang-item-label">ไทย</span>
+                        </a>
+                        <a class="lang-item" href="feedback-ar.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇸🇦</span>
+                            <span class="lang-item-label">العربية</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <p class="subtitle">
+                    Partilha connosco as tuas ideias, problemas ou sugestões sobre Sky of Empire.
+                </p>
+
+                <div class="card">
+                    <h1>Feedback</h1>
+                    <p class="intro">
+                        Agradecemos o teu feedback. Utiliza o formulário abaixo para nos enviares diretamente a tua mensagem.
+                    </p>
+
+                    <form class="feedback-form" action="mailto:support@skyofempire.com" method="post" enctype="text/plain">
+                        <div class="field">
+                            <label for="name">Nome</label>
+                            <input class="input" type="text" id="name" name="name" placeholder="O teu nome">
+                        </div>
+
+                        <div class="field">
+                            <label for="email">E-mail</label>
+                            <input class="input" type="email" id="email" name="email" placeholder="teu@email.com">
+                        </div>
+
+                        <div class="field">
+                            <label for="category">Categoria</label>
+                            <select class="select" id="category" name="category">
+                                <option value="Feedback geral">Feedback geral</option>
+                                <option value="Reportar um bug">Reportar um bug</option>
+                                <option value="Sugestão">Sugestão</option>
+                                <option value="Problema técnico">Problema técnico</option>
+                                <option value="Pedido de suporte">Pedido de suporte</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="message">Mensagem</label>
+                            <textarea class="textarea" id="message" name="message" placeholder="Escreve aqui o teu feedback..."></textarea>
+                        </div>
+
+                        <button class="submit-button" type="submit">Enviar feedback</button>
+                    </form>
+
+                    <div class="hint">
+                        Ao enviar, o teu programa de e-mail pode abrir-se, dependendo do teu dispositivo, para que a mensagem possa ser enviada.
+                    </div>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const langDropdown = document.getElementById("langDropdown");
+        const langButton = document.getElementById("langButton");
+        const langMenu = document.getElementById("langMenu");
+
+        langButton.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const isOpen = langMenu.classList.contains("open");
+
+            if (isOpen) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            } else {
+                langMenu.classList.add("open");
+                langButton.setAttribute("aria-expanded", "true");
+            }
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!langDropdown.contains(e.target)) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+    </script>
+
+</body>
+</html>
