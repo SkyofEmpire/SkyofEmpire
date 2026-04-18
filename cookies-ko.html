@@ -5,18 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>쿠키 정책 - Sky of Empire</title>
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
-        body {
+        html, body {
             margin: 0;
             font-family: Arial, sans-serif;
             color: #f4ead7;
-            min-height: 100vh;
+            min-height: 100%;
             overflow-x: hidden;
             background:
                 radial-gradient(circle at 50% 18%, rgba(176, 132, 57, 0.08) 0%, rgba(176, 132, 57, 0.00) 18%),
                 linear-gradient(to bottom, #000000 0%, #040404 52%, #0a0a0a 100%);
-            padding: 0 20px 60px;
+        }
+
+        body {
+            position: relative;
+        }
+
+        .clouds-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .cloud-img {
+            position: absolute;
+            background: url("clouds.png") no-repeat center center / contain;
+            pointer-events: none;
+            opacity: 0.25;
+            filter: brightness(0.56) contrast(1.05) saturate(0.75);
+            mix-blend-mode: screen;
+        }
+
+        .cloud-img::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.22);
+            border-radius: 40px;
+            mix-blend-mode: multiply;
+        }
+
+        .cloud1 { width: 470px; height: 290px; top: -35px; left: -40px; }
+        .cloud2 { width: 340px; height: 215px; top: 35px; left: 280px; }
+        .cloud3 { width: 460px; height: 285px; top: -20px; right: -30px; }
+        .cloud4 { width: 255px; height: 165px; top: 155px; left: 130px; }
+        .cloud5 { width: 315px; height: 195px; top: 110px; left: 520px; }
+        .cloud6 { width: 280px; height: 175px; top: 220px; right: 160px; }
+        .cloud7 { width: 430px; height: 265px; top: 305px; left: -20px; }
+        .cloud8 { width: 235px; height: 150px; top: 430px; left: 430px; }
+        .cloud9 { width: 410px; height: 255px; top: 325px; right: -20px; }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 0 20px 40px;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 980px;
+            margin: 0 auto;
         }
 
         .topbar {
@@ -24,265 +79,520 @@
             justify-content: flex-start;
             padding-top: 14px;
             padding-left: 4px;
-            position: sticky;
-            top: 0;
-            z-index: 3;
+            position: relative;
+            z-index: 1000;
         }
 
-        .language-select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background: rgba(5, 5, 5, 0.90);
+        .lang-dropdown {
+            position: relative;
+            z-index: 1001;
+        }
+
+        .lang-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 170px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 2px solid #0d63ff;
+            background: rgba(5, 5, 5, 0.92);
             color: #f2e2bf;
-            border: 1px solid rgba(189, 148, 80, 0.30);
-            border-radius: 14px;
-            padding: 12px 46px 12px 16px;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 10px 22px rgba(0,0,0,0.20);
-            background-image:
-                linear-gradient(45deg, transparent 50%, #d8b66c 50%),
-                linear-gradient(135deg, #d8b66c 50%, transparent 50%);
-            background-position:
-                calc(100% - 20px) calc(50% - 3px),
-                calc(100% - 14px) calc(50% - 3px);
-            background-size: 6px 6px, 6px 6px;
-            background-repeat: no-repeat;
+            box-shadow:
+                0 0 0 2px rgba(216, 182, 108, 0.14) inset,
+                0 10px 22px rgba(0,0,0,0.24);
+            user-select: none;
         }
 
-        .container {
+        .lang-button:hover {
+            filter: brightness(1.03);
+        }
+
+        .lang-flag {
+            font-size: 22px;
+            line-height: 1;
+            flex: 0 0 auto;
+        }
+
+        .lang-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .lang-arrow {
+            font-size: 14px;
+            color: #e2c780;
+            flex: 0 0 auto;
+        }
+
+        .lang-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            width: 330px;
+            background: rgba(10, 10, 10, 0.96);
+            border: 1px solid rgba(255,255,255,0.20);
+            border-radius: 24px;
+            padding: 12px;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+            backdrop-filter: blur(10px);
+            display: none;
+            z-index: 1002;
+            overflow: hidden;
+        }
+
+        .lang-menu.open {
+            display: block;
+        }
+
+        .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .lang-item:hover {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .lang-item.active {
+            color: #ffffff;
+        }
+
+        .lang-check {
+            width: 22px;
+            flex: 0 0 22px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .lang-item-flag {
+            width: 28px;
+            flex: 0 0 28px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        .lang-item-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .policy-wrap {
+            position: relative;
+            z-index: 5;
             max-width: 980px;
-            margin: 24px auto 0;
+            margin: 20px auto 0;
+            background: rgba(3, 3, 3, 0.82);
+            border: 1px solid rgba(189, 148, 80, 0.18);
+            border-radius: 22px;
+            padding: 28px 26px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+            color: #f5ebd8;
+            line-height: 1.8;
         }
 
-        .back-link {
-            display: inline-block;
+        .policy-wrap h1,
+        .policy-wrap h2,
+        .policy-wrap h3 {
+            color: #f2e2bf;
+        }
+
+        .policy-wrap h1 {
+            font-size: 30px;
+            margin-top: 0;
             margin-bottom: 18px;
+        }
+
+        .policy-wrap h2 {
+            font-size: 22px;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+
+        .policy-wrap h3 {
+            font-size: 18px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+        }
+
+        .policy-wrap p,
+        .policy-wrap li {
+            font-size: 16px;
+        }
+
+        .policy-wrap ul {
+            margin: 8px 0 16px 0;
+            padding-left: 22px;
+        }
+
+        .policy-wrap a {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .back-link:hover { text-decoration: underline; }
-
-        .card {
-            background: rgba(3, 3, 3, 0.82);
-            border: 1px solid rgba(189, 148, 80, 0.18);
-            border-radius: 22px;
-            padding: 28px 24px;
-            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+        .policy-wrap a:hover {
+            text-decoration: underline;
         }
 
-        h1 {
-            font-size: 34px;
-            margin: 0 0 18px;
-            color: #f2e2bf;
-        }
-
-        h2 {
-            margin-top: 28px;
-            margin-bottom: 12px;
-            font-size: 24px;
-            color: #f2e2bf;
-        }
-
-        p, li {
-            font-size: 16px;
-            line-height: 1.7;
-            color: #f4ead7;
-        }
-
-        ul { padding-left: 22px; }
-
-        .meta {
-            margin-bottom: 18px;
-            color: #d8c6a1;
-        }
-
-        a {
-            color: #f0d89e;
+        .footer-space {
+            height: 10px;
         }
 
         @media (max-width: 768px) {
-            .language-select {
-                font-size: 14px;
-                padding: 10px 40px 10px 14px;
+            .topbar {
+                padding-top: 12px;
+                padding-left: 2px;
             }
 
-            .card { padding: 22px 16px; }
-            h1 { font-size: 28px; }
-            h2 { font-size: 22px; }
-            p, li { font-size: 15px; }
+            .lang-button {
+                min-width: 170px;
+                padding: 10px 14px;
+                font-size: 15px;
+            }
+
+            .lang-menu {
+                width: 320px;
+                padding: 10px;
+            }
+
+            .lang-item {
+                padding: 7px 8px;
+                font-size: 17px;
+            }
+
+            .policy-wrap {
+                padding: 20px 16px;
+                margin-top: 16px;
+            }
+
+            .policy-wrap h1 {
+                font-size: 24px;
+            }
+
+            .policy-wrap h2 {
+                font-size: 20px;
+            }
+
+            .policy-wrap p,
+            .policy-wrap li {
+                font-size: 15px;
+            }
+
+            .cloud1 { width: 250px; height: 160px; top: -10px; left: -20px; }
+            .cloud2 { width: 190px; height: 125px; top: 30px; left: 140px; }
+            .cloud3 { width: 240px; height: 155px; top: 0; right: -10px; }
+            .cloud4 { width: 150px; height: 100px; top: 120px; left: 50px; }
+            .cloud5 { width: 180px; height: 118px; top: 120px; left: 220px; }
+            .cloud6 { width: 165px; height: 108px; top: 190px; right: 70px; }
+            .cloud7 { width: 230px; height: 150px; top: 280px; left: -10px; }
+            .cloud8 { width: 140px; height: 92px; top: 380px; left: 210px; }
+            .cloud9 { width: 220px; height: 145px; top: 310px; right: -10px; }
         }
     </style>
 </head>
 <body>
-<div class="topbar">
-    <select class="language-select" id="languageSelect">
-        <option value="de">🇩🇪 Deutsch</option>
-        <option value="en">🇬🇧 English</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="it">🇮🇹 Italiano</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="pt">🇵🇹 Português</option>
-        <option value="tr">🇹🇷 Türkçe</option>
-        <option value="ru">🇷🇺 Русский</option>
-        <option value="ja">🇯🇵 日本語</option>
-        <option value="ko" selected>🇰🇷 한국어</option>
-        <option value="zh">🇨🇳 简体中文</option>
-        <option value="th">🇹🇭 ไทย</option>
-        <option value="ar">🇸🇦 العربية</option>
-    </select>
-</div>
 
-<div class="container">
-    <a class="back-link" href="index-ko.html">← 홈으로 돌아가기</a>
+    <div class="clouds-layer">
+        <div class="cloud-img cloud1"></div>
+        <div class="cloud-img cloud2"></div>
+        <div class="cloud-img cloud3"></div>
+        <div class="cloud-img cloud4"></div>
+        <div class="cloud-img cloud5"></div>
+        <div class="cloud-img cloud6"></div>
+        <div class="cloud-img cloud7"></div>
+        <div class="cloud-img cloud8"></div>
+        <div class="cloud-img cloud9"></div>
+    </div>
 
-    <div class="card">
-        <h1>쿠키 정책</h1>
+    <div class="page">
+        <div class="container">
+            <div class="topbar">
+                <div class="lang-dropdown" id="langDropdown">
+                    <button class="lang-button" id="langButton" type="button" aria-expanded="false">
+                        <span class="lang-flag">🇰🇷</span>
+                        <span class="lang-label">한국어</span>
+                        <span class="lang-arrow">▼</span>
+                    </button>
 
-        <div class="meta">
-            <p><strong>최종 업데이트:</strong> 2026년 4월 1일</p>
-            <p><strong>운영자:</strong> Sky of Empire<br>
-            <strong>이메일:</strong> support@skyofempire.com<br>
-            <strong>소재지:</strong> 스위스</p>
+                    <div class="lang-menu" id="langMenu">
+                        <a class="lang-item" href="cookies.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇩🇪</span>
+                            <span class="lang-item-label">Deutsch</span>
+                        </a>
+                        <a class="lang-item" href="cookies-en.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇬🇧</span>
+                            <span class="lang-item-label">English</span>
+                        </a>
+                        <a class="lang-item" href="cookies-fr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇫🇷</span>
+                            <span class="lang-item-label">Français</span>
+                        </a>
+                        <a class="lang-item" href="cookies-it.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇮🇹</span>
+                            <span class="lang-item-label">Italiano</span>
+                        </a>
+                        <a class="lang-item" href="cookies-es.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇪🇸</span>
+                            <span class="lang-item-label">Español</span>
+                        </a>
+                        <a class="lang-item" href="cookies-pt.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇵🇹</span>
+                            <span class="lang-item-label">Português</span>
+                        </a>
+                        <a class="lang-item" href="cookies-tr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇹🇷</span>
+                            <span class="lang-item-label">Türkçe</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ru.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇷🇺</span>
+                            <span class="lang-item-label">Русский</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ja.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇯🇵</span>
+                            <span class="lang-item-label">日本語</span>
+                        </a>
+                        <a class="lang-item active" href="cookies-ko.html">
+                            <span class="lang-check">✔</span>
+                            <span class="lang-item-flag">🇰🇷</span>
+                            <span class="lang-item-label">한국어</span>
+                        </a>
+                        <a class="lang-item" href="cookies-zh.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇨🇳</span>
+                            <span class="lang-item-label">简体中文</span>
+                        </a>
+                        <a class="lang-item" href="cookies-th.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇹🇭</span>
+                            <span class="lang-item-label">ไทย</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ar.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇸🇦</span>
+                            <span class="lang-item-label">العربية</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <h2>1. 소개</h2>
-        <p>본 쿠키 정책은 Sky of Empire(“당사”, “우리”)가 귀하가 당사의 웹사이트 또는 디지털 서비스를 이용할 때 쿠키 및 유사 기술을 어떻게 사용하는지 설명합니다. 또한 어떤 정보를 수집하는지, 이를 어떻게 사용하는지, 그리고 귀하가 어떤 권리를 가지는지 설명합니다.</p>
+        <div class="policy-wrap">
+            <h1>쿠키 정책</h1>
 
-        <h2>2. 쿠키란 무엇인가요?</h2>
-        <p>쿠키는 사용자가 웹사이트를 방문할 때 컴퓨터 또는 모바일 기기에 저장되는 작은 텍스트 파일입니다. 쿠키는 웹사이트가 더 효율적으로 작동하도록 돕고, 사용자 행동에 대한 정보를 제공합니다.</p>
-        <p>쿠키를 통해 당사는 귀하의 기기를 인식하고, 설정이나 선호 사항을 저장할 수 있습니다.</p>
+            <p><strong>최종 업데이트:</strong> 2026년 4월 1일</p>
+            <p><strong>운영자:</strong> Sky of Empire<br>
+            <strong>이메일:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
+            <strong>소재지:</strong> 스위스</p>
 
-        <h2>3. 어떤 종류의 쿠키를 사용하나요?</h2>
+            <h2>1. 소개</h2>
+            <p>
+                본 쿠키 정책은 Sky of Empire(이하 “당사”)가 귀하가 당사의 웹사이트 또는 디지털 서비스를 이용할 때 쿠키 및 유사 기술을 어떻게 사용하는지 설명합니다. 또한 어떤 정보를 수집하는지, 이를 어떻게 사용하는지, 그리고 귀하에게 어떤 권리가 있는지를 설명합니다.
+            </p>
 
-        <h2>3.1 필수 쿠키</h2>
-        <p>이 쿠키는 웹사이트 운영에 필수적이며 비활성화할 수 없습니다.</p>
-        <p>예시:</p>
-        <ul>
-            <li>세션 관리</li>
-            <li>보안 및 인증</li>
-            <li>개인정보 설정 저장</li>
-        </ul>
+            <h2>2. 쿠키란 무엇인가요?</h2>
+            <p>
+                쿠키는 웹사이트를 방문할 때 귀하의 컴퓨터 또는 모바일 기기에 저장되는 작은 텍스트 파일입니다. 쿠키는 웹사이트가 보다 효율적으로 작동하도록 돕고, 사용자 행동에 대한 정보를 제공합니다.
+            </p>
+            <p>
+                쿠키를 통해 당사는 귀하의 기기를 인식하고 귀하의 설정을 저장할 수 있습니다.
+            </p>
 
-        <h2>3.2 분석 및 통계 쿠키</h2>
-        <p>이 쿠키는 방문자가 웹사이트를 어떻게 이용하는지 이해하는 데 도움을 주며, 이를 통해 서비스를 개선할 수 있습니다.</p>
-        <p>예시:</p>
-        <ul>
-            <li>Google Analytics</li>
-            <li>Firebase Analytics</li>
-        </ul>
+            <h2>3. 당사가 사용하는 쿠키의 유형</h2>
 
-        <h2>3.3 기능성 쿠키</h2>
-        <p>이 쿠키는 향상된 기능과 개인화를 가능하게 합니다.</p>
-        <p>예시:</p>
-        <ul>
-            <li>언어 설정 저장</li>
-            <li>사용자 선호 설정</li>
-        </ul>
+            <h3>3.1 필수 쿠키</h3>
+            <p>
+                이 쿠키는 웹사이트 운영에 필수적이며 비활성화할 수 없습니다.
+            </p>
+            <p><strong>예시:</strong></p>
+            <ul>
+                <li>세션 관리</li>
+                <li>보안 및 인증</li>
+                <li>개인정보 설정 저장</li>
+            </ul>
 
-        <h2>3.4 마케팅 및 광고 쿠키</h2>
-        <p>이 쿠키는 관련성 높은 광고를 표시하고 캠페인의 효과를 측정하는 데 사용됩니다.</p>
-        <p>예시:</p>
-        <ul>
-            <li>Google Ads</li>
-            <li>Meta (Facebook) Pixel</li>
-            <li>Unity Ads</li>
-            <li>AdMob</li>
-        </ul>
+            <h3>3.2 분석 및 통계 쿠키</h3>
+            <p>
+                이 쿠키는 방문자가 당사 웹사이트를 어떻게 이용하는지 이해하는 데 도움을 주며, 이를 통해 서비스를 개선할 수 있습니다.
+            </p>
+            <p><strong>예시:</strong></p>
+            <ul>
+                <li>Google Analytics</li>
+                <li>Firebase Analytics</li>
+            </ul>
 
-        <h2>4. 제3자 쿠키</h2>
-        <p>당사는 다음과 같은 제3자 서비스 제공업체를 이용할 수 있으며, 이들은 당사를 대신하여 쿠키를 사용할 수 있습니다.</p>
-        <ul>
-            <li>Google</li>
-            <li>Apple</li>
-            <li>Unity Technologies</li>
-            <li>Meta Platforms</li>
-            <li>Firebase</li>
-            <li>광고 및 분석 파트너</li>
-        </ul>
-        <p>이러한 제3자는 자체 개인정보 처리방침에 따라 데이터를 처리합니다.</p>
+            <h3>3.3 기능 쿠키</h3>
+            <p>
+                이 쿠키는 향상된 기능과 개인화 기능을 제공합니다.
+            </p>
+            <p><strong>예시:</strong></p>
+            <ul>
+                <li>언어 설정 저장</li>
+                <li>사용자 환경설정</li>
+            </ul>
 
-        <h2>5. 법적 근거</h2>
-        <p>쿠키 사용의 법적 근거는 다음과 같습니다.</p>
-        <ul>
-            <li>GDPR 제6조 제1항 a호에 따른 귀하의 동의</li>
-            <li>GDPR 제6조 제1항 f호에 따른 당사의 정당한 이익</li>
-            <li>법적 의무</li>
-        </ul>
-        <p>필수 쿠키는 별도의 동의가 필요하지 않습니다.</p>
+            <h3>3.4 마케팅 및 광고 쿠키</h3>
+            <p>
+                이 쿠키는 관련성 있는 광고를 표시하고 캠페인 효과를 측정하는 데 사용됩니다.
+            </p>
+            <p><strong>예시:</strong></p>
+            <ul>
+                <li>Google Ads</li>
+                <li>Meta (Facebook) Pixel</li>
+                <li>Unity Ads</li>
+                <li>AdMob</li>
+            </ul>
 
-        <h2>6. 쿠키는 어떻게 관리할 수 있나요?</h2>
-        <p>귀하는 브라우저 설정을 통해 쿠키를 관리하거나 비활성화할 수 있습니다.</p>
-        <p>브라우저 설정:</p>
-        <ul>
-            <li>Chrome: <a href="https://support.google.com/chrome">https://support.google.com/chrome</a></li>
-            <li>Safari: <a href="https://support.apple.com">https://support.apple.com</a></li>
-            <li>Firefox: <a href="https://support.mozilla.org">https://support.mozilla.org</a></li>
-            <li>Edge: <a href="https://support.microsoft.com">https://support.microsoft.com</a></li>
-        </ul>
+            <h2>4. 제3자 쿠키</h2>
+            <p>
+                당사는 다음을 포함한 제3자 제공업체가 당사를 대신해 쿠키를 설정하도록 할 수 있습니다.
+            </p>
+            <ul>
+                <li>Google</li>
+                <li>Apple</li>
+                <li>Unity Technologies</li>
+                <li>Meta Platforms</li>
+                <li>Firebase</li>
+                <li>광고 및 분석 파트너</li>
+            </ul>
+            <p>
+                이러한 제3자는 각자의 개인정보 보호정책에 따라 데이터를 처리합니다.
+            </p>
 
-        <p>모바일 기기:</p>
-        <ul>
-            <li>iOS: 설정 → 개인정보 보호 → 추적</li>
-            <li>Android: 설정 → Google → 광고</li>
-        </ul>
+            <h2>5. 법적 근거</h2>
+            <p>
+                쿠키 사용은 다음을 근거로 합니다.
+            </p>
+            <ul>
+                <li>GDPR 제6조 제1항 (a)에 따른 귀하의 동의</li>
+                <li>GDPR 제6조 제1항 (f)에 따른 당사의 정당한 이익</li>
+                <li>법적 의무</li>
+            </ul>
+            <p>
+                필수 쿠키는 별도의 동의를 필요로 하지 않습니다.
+            </p>
 
-        <p>쿠키를 비활성화하면 일부 서비스 기능이 제한될 수 있습니다.</p>
+            <h2>6. 쿠키는 어떻게 관리할 수 있나요?</h2>
+            <p>
+                귀하는 브라우저 설정을 통해 쿠키를 관리하거나 비활성화할 수 있습니다.
+            </p>
 
-        <h2>7. 보관 기간</h2>
-        <p>쿠키는 다음과 같이 구분됩니다.</p>
-        <ul>
-            <li>세션 쿠키: 브라우저를 닫으면 삭제됩니다.</li>
-            <li>영구 쿠키: 삭제되거나 만료될 때까지 기기에 저장됩니다.</li>
-        </ul>
+            <p><strong>브라우저 설정:</strong></p>
+            <ul>
+                <li>Chrome: <a href="https://support.google.com/chrome">support.google.com/chrome</a></li>
+                <li>Safari: <a href="https://support.apple.com">support.apple.com</a></li>
+                <li>Firefox: <a href="https://support.mozilla.org">support.mozilla.org</a></li>
+                <li>Edge: <a href="https://support.microsoft.com">support.microsoft.com</a></li>
+            </ul>
 
-        <h2>8. 귀하의 권리</h2>
-        <p>귀하는 다음과 같은 권리를 가집니다.</p>
-        <ul>
-            <li>귀하의 데이터에 대한 접근권</li>
-            <li>정정 또는 삭제권</li>
-            <li>처리 제한권</li>
-            <li>처리에 대한 이의제기권</li>
-            <li>동의 철회권</li>
-        </ul>
-        <p>문의는 다음으로 보내주시기 바랍니다:<br>
-        <strong>support@skyofempire.com</strong></p>
+            <p><strong>모바일 기기:</strong></p>
+            <ul>
+                <li>iOS: 설정 → 개인정보 보호 → 추적</li>
+                <li>Android: 설정 → Google → 광고</li>
+            </ul>
 
-        <h2>9. 본 정책의 변경</h2>
-        <p>당사는 언제든지 본 쿠키 정책을 업데이트할 권리를 보유합니다. 변경 사항은 당사 웹사이트에 게시됩니다.</p>
+            <p>
+                쿠키를 비활성화하면 당사 서비스의 일부 기능이 제한될 수 있습니다.
+            </p>
 
-        <h2>10. 연락처</h2>
-        <p><strong>Sky of Empire</strong><br>
-        이메일: support@skyofempire.com<br>
-        소재지: 스위스</p>
+            <h2>7. 보관 기간</h2>
+            <p>
+                쿠키는 다음과 같을 수 있습니다.
+            </p>
+            <ul>
+                <li><strong>세션 쿠키:</strong> 브라우저를 닫으면 삭제됩니다</li>
+                <li><strong>영구 쿠키:</strong> 삭제되거나 만료될 때까지 기기에 저장됩니다</li>
+            </ul>
+
+            <h2>8. 귀하의 권리</h2>
+            <p>
+                귀하는 다음과 같은 권리를 가집니다.
+            </p>
+            <ul>
+                <li>본인 데이터에 대한 접근</li>
+                <li>데이터의 정정 또는 삭제</li>
+                <li>처리 제한</li>
+                <li>처리에 대한 반대</li>
+                <li>동의 철회</li>
+            </ul>
+
+            <p>
+                요청은 다음으로 보내실 수 있습니다:
+                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+            </p>
+
+            <h2>9. 본 정책의 변경</h2>
+            <p>
+                당사는 언제든지 본 쿠키 정책을 업데이트할 권리를 보유합니다. 변경 사항은 당사 웹사이트에 게시됩니다.
+            </p>
+
+            <h2>10. 문의처</h2>
+            <p>
+                Sky of Empire<br>
+                이메일: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
+                소재지: 스위스
+            </p>
+        </div>
+
+        <div class="footer-space"></div>
     </div>
-</div>
 
-<script>
-    const languageSelect = document.getElementById("languageSelect");
-    languageSelect.addEventListener("change", function () {
-        const lang = this.value;
-        const pageMap = {
-            de: "cookies.html",
-            en: "cookies-en.html",
-            fr: "cookies-fr.html",
-            it: "cookies-it.html",
-            es: "cookies-es.html",
-            pt: "cookies-pt.html",
-            tr: "cookies-tr.html",
-            ru: "cookies-ru.html",
-            ja: "cookies-ja.html",
-            ko: "cookies-ko.html",
-            zh: "cookies-zh.html",
-            th: "cookies-th.html",
-            ar: "cookies-ar.html"
-        };
-        window.location.href = pageMap[lang];
-    });
-</script>
+    <script>
+        const langDropdown = document.getElementById("langDropdown");
+        const langButton = document.getElementById("langButton");
+        const langMenu = document.getElementById("langMenu");
+
+        langButton.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const isOpen = langMenu.classList.contains("open");
+
+            if (isOpen) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            } else {
+                langMenu.classList.add("open");
+                langButton.setAttribute("aria-expanded", "true");
+            }
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!langDropdown.contains(e.target)) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+    </script>
+
 </body>
 </html>
