@@ -5,18 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gizlilik Politikası - Sky of Empire</title>
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
-        body {
+        html, body {
             margin: 0;
             font-family: Arial, sans-serif;
             color: #f4ead7;
-            min-height: 100vh;
+            min-height: 100%;
             overflow-x: hidden;
             background:
                 radial-gradient(circle at 50% 18%, rgba(176, 132, 57, 0.08) 0%, rgba(176, 132, 57, 0.00) 18%),
                 linear-gradient(to bottom, #000000 0%, #040404 52%, #0a0a0a 100%);
-            padding: 0 20px 60px;
+        }
+
+        body {
+            position: relative;
+        }
+
+        .clouds-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .cloud-img {
+            position: absolute;
+            background: url("clouds.png") no-repeat center center / contain;
+            pointer-events: none;
+            opacity: 0.25;
+            filter: brightness(0.56) contrast(1.05) saturate(0.75);
+            mix-blend-mode: screen;
+        }
+
+        .cloud-img::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.22);
+            border-radius: 40px;
+            mix-blend-mode: multiply;
+        }
+
+        .cloud1 { width: 470px; height: 290px; top: -35px; left: -40px; }
+        .cloud2 { width: 340px; height: 215px; top: 35px; left: 280px; }
+        .cloud3 { width: 460px; height: 285px; top: -20px; right: -30px; }
+        .cloud4 { width: 255px; height: 165px; top: 155px; left: 130px; }
+        .cloud5 { width: 315px; height: 195px; top: 110px; left: 520px; }
+        .cloud6 { width: 280px; height: 175px; top: 220px; right: 160px; }
+        .cloud7 { width: 430px; height: 265px; top: 305px; left: -20px; }
+        .cloud8 { width: 235px; height: 150px; top: 430px; left: 430px; }
+        .cloud9 { width: 410px; height: 255px; top: 325px; right: -20px; }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 0 20px 40px;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 980px;
+            margin: 0 auto;
         }
 
         .topbar {
@@ -24,335 +79,485 @@
             justify-content: flex-start;
             padding-top: 14px;
             padding-left: 4px;
-            position: sticky;
-            top: 0;
-            z-index: 3;
+            position: relative;
+            z-index: 1000;
         }
 
-        .language-select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background: rgba(5, 5, 5, 0.90);
+        .lang-dropdown {
+            position: relative;
+            z-index: 1001;
+        }
+
+        .lang-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 170px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 2px solid #0d63ff;
+            background: rgba(5, 5, 5, 0.92);
             color: #f2e2bf;
-            border: 1px solid rgba(189, 148, 80, 0.30);
-            border-radius: 14px;
-            padding: 12px 46px 12px 16px;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 10px 22px rgba(0,0,0,0.20);
-            background-image:
-                linear-gradient(45deg, transparent 50%, #d8b66c 50%),
-                linear-gradient(135deg, #d8b66c 50%, transparent 50%);
-            background-position:
-                calc(100% - 20px) calc(50% - 3px),
-                calc(100% - 14px) calc(50% - 3px);
-            background-size: 6px 6px, 6px 6px;
-            background-repeat: no-repeat;
+            box-shadow:
+                0 0 0 2px rgba(216, 182, 108, 0.14) inset,
+                0 10px 22px rgba(0,0,0,0.24);
+            user-select: none;
         }
 
-        .container {
+        .lang-button:hover {
+            filter: brightness(1.03);
+        }
+
+        .lang-flag {
+            font-size: 22px;
+            line-height: 1;
+            flex: 0 0 auto;
+        }
+
+        .lang-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .lang-arrow {
+            font-size: 14px;
+            color: #e2c780;
+            flex: 0 0 auto;
+        }
+
+        .lang-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            width: 330px;
+            background: rgba(10, 10, 10, 0.96);
+            border: 1px solid rgba(255,255,255,0.20);
+            border-radius: 24px;
+            padding: 12px;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+            backdrop-filter: blur(10px);
+            display: none;
+            z-index: 1002;
+            overflow: hidden;
+        }
+
+        .lang-menu.open {
+            display: block;
+        }
+
+        .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .lang-item:hover {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .lang-item.active {
+            color: #ffffff;
+        }
+
+        .lang-check {
+            width: 22px;
+            flex: 0 0 22px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .lang-item-flag {
+            width: 28px;
+            flex: 0 0 28px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        .lang-item-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .policy-wrap {
+            position: relative;
+            z-index: 5;
             max-width: 980px;
-            margin: 24px auto 0;
+            margin: 20px auto 0;
+            background: rgba(3, 3, 3, 0.82);
+            border: 1px solid rgba(189, 148, 80, 0.18);
+            border-radius: 22px;
+            padding: 28px 26px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+            color: #f5ebd8;
+            line-height: 1.7;
         }
 
-        .back-link {
-            display: inline-block;
+        .policy-wrap h1,
+        .policy-wrap h2,
+        .policy-wrap h3 {
+            color: #f2e2bf;
+        }
+
+        .policy-wrap h1 {
+            font-size: 30px;
+            margin-top: 0;
             margin-bottom: 18px;
+        }
+
+        .policy-wrap h2 {
+            font-size: 22px;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+
+        .policy-wrap h3 {
+            font-size: 18px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+        }
+
+        .policy-wrap p,
+        .policy-wrap li {
+            font-size: 16px;
+        }
+
+        .policy-wrap ul {
+            margin: 8px 0 16px 0;
+            padding-left: 22px;
+        }
+
+        .policy-wrap a {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .back-link:hover { text-decoration: underline; }
-
-        .card {
-            background: rgba(3, 3, 3, 0.82);
-            border: 1px solid rgba(189, 148, 80, 0.18);
-            border-radius: 22px;
-            padding: 28px 24px;
-            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+        .policy-wrap a:hover {
+            text-decoration: underline;
         }
 
-        h1 {
-            font-size: 34px;
-            margin: 0 0 18px;
-            color: #f2e2bf;
-        }
-
-        h2 {
-            margin-top: 28px;
-            margin-bottom: 12px;
-            font-size: 24px;
-            color: #f2e2bf;
-        }
-
-        p, li {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #f4ead7;
-        }
-
-        ul { padding-left: 22px; }
-
-        .meta {
-            margin-bottom: 18px;
-            color: #d8c6a1;
+        .footer-space {
+            height: 10px;
         }
 
         @media (max-width: 768px) {
-            .language-select {
-                font-size: 14px;
-                padding: 10px 40px 10px 14px;
+            .topbar {
+                padding-top: 12px;
+                padding-left: 2px;
             }
 
-            .card { padding: 22px 16px; }
+            .lang-button {
+                min-width: 170px;
+                padding: 10px 14px;
+                font-size: 15px;
+            }
 
-            h1 { font-size: 28px; }
-            h2 { font-size: 22px; }
+            .lang-menu {
+                width: 320px;
+                padding: 10px;
+            }
 
-            p, li { font-size: 15px; }
+            .lang-item {
+                padding: 7px 8px;
+                font-size: 17px;
+            }
+
+            .policy-wrap {
+                padding: 20px 16px;
+                margin-top: 16px;
+            }
+
+            .policy-wrap h1 {
+                font-size: 24px;
+            }
+
+            .policy-wrap h2 {
+                font-size: 20px;
+            }
+
+            .policy-wrap p,
+            .policy-wrap li {
+                font-size: 15px;
+            }
+
+            .cloud1 { width: 250px; height: 160px; top: -10px; left: -20px; }
+            .cloud2 { width: 190px; height: 125px; top: 30px; left: 140px; }
+            .cloud3 { width: 240px; height: 155px; top: 0; right: -10px; }
+            .cloud4 { width: 150px; height: 100px; top: 120px; left: 50px; }
+            .cloud5 { width: 180px; height: 118px; top: 120px; left: 220px; }
+            .cloud6 { width: 165px; height: 108px; top: 190px; right: 70px; }
+            .cloud7 { width: 230px; height: 150px; top: 280px; left: -10px; }
+            .cloud8 { width: 140px; height: 92px; top: 380px; left: 210px; }
+            .cloud9 { width: 220px; height: 145px; top: 310px; right: -10px; }
         }
     </style>
 </head>
 <body>
 
-<div class="topbar">
-    <select class="language-select" id="languageSelect">
-        <option value="de">🇩🇪 Deutsch</option>
-        <option value="en">🇬🇧 English</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="it">🇮🇹 Italiano</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="pt">🇵🇹 Português</option>
-        <option value="tr" selected>🇹🇷 Türkçe</option>
-        <option value="ru">🇷🇺 Русский</option>
-        <option value="ja">🇯🇵 日本語</option>
-    </select>
-</div>
+    <div class="clouds-layer">
+        <div class="cloud-img cloud1"></div>
+        <div class="cloud-img cloud2"></div>
+        <div class="cloud-img cloud3"></div>
+        <div class="cloud-img cloud4"></div>
+        <div class="cloud-img cloud5"></div>
+        <div class="cloud-img cloud6"></div>
+        <div class="cloud-img cloud7"></div>
+        <div class="cloud-img cloud8"></div>
+        <div class="cloud-img cloud9"></div>
+    </div>
 
-<div class="container">
-    <a class="back-link" href="index-tr.html">← Ana sayfaya dön</a>
+    <div class="page">
+        <div class="container">
+            <div class="topbar">
+                <div class="lang-dropdown" id="langDropdown">
+                    <button class="lang-button" id="langButton" type="button" aria-expanded="false">
+                        <span class="lang-flag">🇹🇷</span>
+                        <span class="lang-label">Türkçe</span>
+                        <span class="lang-arrow">▼</span>
+                    </button>
 
-    <div class="card">
-        <h1>GİZLİLİK POLİTİKASI</h1>
-
-        <div class="meta">
-            <p><strong>Son güncelleme:</strong> 1 Nisan 2026</p>
-            <p><strong>İşletmeci:</strong> Sky of Empire<br>
-            <strong>E-posta:</strong> support@skyofempire.com<br>
-            <strong>Merkez:</strong> İsviçre</p>
-            <p><strong>Yürürlük tarihi:</strong> Bu sürüm, geçerli hukuka uygun olarak oyun içi açılır pencere veya benzer bir bildirim yoluyla güncellemeler hakkında bilgilendirildiğiniz gün yürürlüğe girer.</p>
+                    <div class="lang-menu" id="langMenu">
+                        <a class="lang-item" href="privacy.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇩🇪</span>
+                            <span class="lang-item-label">Deutsch</span>
+                        </a>
+                        <a class="lang-item" href="privacy-en.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇬🇧</span>
+                            <span class="lang-item-label">English</span>
+                        </a>
+                        <a class="lang-item" href="privacy-fr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇫🇷</span>
+                            <span class="lang-item-label">Français</span>
+                        </a>
+                        <a class="lang-item" href="privacy-it.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇮🇹</span>
+                            <span class="lang-item-label">Italiano</span>
+                        </a>
+                        <a class="lang-item" href="privacy-es.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇪🇸</span>
+                            <span class="lang-item-label">Español</span>
+                        </a>
+                        <a class="lang-item" href="privacy-pt.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇵🇹</span>
+                            <span class="lang-item-label">Português</span>
+                        </a>
+                        <a class="lang-item active" href="privacy-tr.html">
+                            <span class="lang-check">✔</span>
+                            <span class="lang-item-flag">🇹🇷</span>
+                            <span class="lang-item-label">Türkçe</span>
+                        </a>
+                        <a class="lang-item" href="privacy-ru.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇷🇺</span>
+                            <span class="lang-item-label">Русский</span>
+                        </a>
+                        <a class="lang-item" href="privacy-ja.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇯🇵</span>
+                            <span class="lang-item-label">日本語</span>
+                        </a>
+                        <a class="lang-item" href="privacy-ko.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇰🇷</span>
+                            <span class="lang-item-label">한국어</span>
+                        </a>
+                        <a class="lang-item" href="privacy-zh.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇨🇳</span>
+                            <span class="lang-item-label">简体中文</span>
+                        </a>
+                        <a class="lang-item" href="privacy-th.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇹🇭</span>
+                            <span class="lang-item-label">ไทย</span>
+                        </a>
+                        <a class="lang-item" href="privacy-ar.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇸🇦</span>
+                            <span class="lang-item-label">العربية</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <h2>Uluslararası geçerlilik</h2>
-        <p>Bu politika dünya genelinde Sky of Empire’ın tüm kullanıcıları için geçerlidir. Hizmetlerimizin sunulduğu ülkelerde geçerli veri koruma yasalarına uymayı taahhüt ediyoruz. Yerel yasalar ek gereklilikler öngörüyorsa, bunlar ek hükümler veya bölgesel bildirimlerle düzenlenecektir.</p>
+        <div class="policy-wrap">
+            <h1>Gizlilik Politikası</h1>
 
-        <h2>1. GİRİŞ</h2>
-        <p>Bu Gizlilik Politikası (“Politika”), Sky of Empire oyunu ile bağlantılı olarak kişisel verilerin nasıl işlendiğini açıklar. Dijital ürün ve hizmetlerimizi kullanan tüm kullanıcılar (“siz”, “sizin”) için geçerlidir.</p>
-        <p>“Sky of Empire”, “biz”, “bize”, “bizim” ifadeleri, merkezi İsviçre’de bulunan Sky of Empire oyununun işletmecisini ifade eder.</p>
-        <p>Kişisel verilerinizi korumayı ve sorumlu şekilde işlemeyi taahhüt ediyoruz. Bu Politika hangi verileri topladığımızı, bunları nasıl kullandığımızı, sakladığımızı ve koruduğumuzu, ayrıca size tanınan hakları açıklar.</p>
-        <p>Büyük harfle yazılan tüm terimler, Sky of Empire Kullanım Koşullarındaki anlamlarıyla aynıdır.</p>
+            <p><strong>Son güncelleme:</strong> 1 Nisan 2026</p>
+            <p><strong>İşletmeci:</strong> Sky of Empire<br>
+            <strong>E-posta:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
+            <strong>Merkez:</strong> İsviçre</p>
 
-        <h2>2. VERİ SORUMLUSU</h2>
-        <p><strong>İşletmeci:</strong> Sky of Empire<br>
-        <strong>E-posta:</strong> support@skyofempire.com<br>
-        <strong>Merkez:</strong> İsviçre</p>
-        <p>Sky of Empire, GDPR dâhil olmak üzere geçerli veri koruma yasaları anlamında veri sorumlusudur.</p>
+            <h2>1. Giriş</h2>
+            <p>
+                Bu Gizlilik Politikası, Sky of Empire’ın ("biz", "bize" veya "bizim"), oyunumuzu, web sitemizi veya ilgili hizmetlerimizi kullandığınızda kişisel verilerinizi nasıl topladığını, kullandığını, işlediğini ve koruduğunu açıklar.
+            </p>
+            <p>
+                Hizmetlerimizi kullanarak bu Gizlilik Politikasını okuduğunuzu ve anladığınızı kabul etmiş olursunuz.
+            </p>
 
-        <h2>3. HANGİ BİLGİLERİ TOPLUYORUZ?</h2>
-        <p>Toplanan kişisel verilerin türü, hizmetlerimizi nasıl kullandığınıza bağlıdır.</p>
+            <h2>2. Hangi Verileri Topluyoruz</h2>
+            <p>Aşağıdaki veri kategorilerini toplayabiliriz:</p>
+            <ul>
+                <li>Hesap verileri, örneğin kullanıcı adı veya oyun içi kimlik</li>
+                <li>Bize sağladığınız takdirde e-posta adresiniz gibi iletişim verileri</li>
+                <li>Cihaz türü, işletim sistemi, dil, IP adresi ve cihaz tanımlayıcıları gibi cihaz verileri</li>
+                <li>Oyun ilerlemesi, ayarlar, satın alımlar, giriş kayıtları ve etkileşimler gibi kullanım verileri</li>
+                <li>Müşteri desteğine gönderdiğiniz mesajlar gibi destek verileri</li>
+                <li>Uygun olduğu durumlarda analiz ve reklam verileri</li>
+            </ul>
 
-        <p><strong>A. Doğrudan bize sağladığınız veriler</strong></p>
-        <ul>
-            <li>Ad ve e-posta adresi</li>
-            <li>Telefon numarası (isteğe bağlı)</li>
-            <li>Doğum tarihi (isteğe bağlı)</li>
-            <li>Oyun içi kullanıcı kimliği ve kullanıcı adı</li>
-            <li>Hesap doğrulama verileri</li>
-            <li>Destek talepleri ve iletişimler</li>
-            <li>Satın alma ve işlem bilgileri</li>
-            <li>Anket, çekiliş veya promosyonlardan gelen veriler</li>
-            <li>Gönüllü olarak sağlanan diğer bilgiler</li>
-        </ul>
+            <h2>3. Verilerinizi Nasıl Kullanıyoruz</h2>
+            <p>Verilerinizi aşağıdaki amaçlarla kullanıyoruz:</p>
+            <ul>
+                <li>Oyunu ve ilgili hizmetleri sağlamak, işletmek ve sürdürmek</li>
+                <li>Oyun içi hesabınızı yönetmek</li>
+                <li>İlerlemeyi, özellikleri ve ayarları kaydetmek</li>
+                <li>Teknik destek ve müşteri hizmeti sunmak</li>
+                <li>Performansı, kararlılığı ve kullanıcı deneyimini iyileştirmek</li>
+                <li>Hileyi, dolandırıcılığı, kötüye kullanımı ve yasa dışı faaliyetleri önlemek</li>
+                <li>Yasal ve düzenleyici yükümlülüklere uymak</li>
+                <li>Hizmetle ilgili önemli bildirimler göndermek</li>
+                <li>Uygun olduğu durumlarda kullanımı analiz etmek ve performansı ölçmek</li>
+            </ul>
 
-        <p><strong>B. Otomatik olarak toplanan veriler</strong></p>
-        <ul>
-            <li>IP adresi</li>
-            <li>Cihaz kimliği ve reklam kimliği</li>
-            <li>İşletim sistemi ve cihaz türü</li>
-            <li>Dil ayarları ve tarayıcı türü</li>
-            <li>Oyun istatistikleri ve ilerleme durumu</li>
-            <li>Kullanım ve analiz verileri</li>
-            <li>Sahtekârlığı önleme verileri</li>
-            <li>Pazarlama ve iletişim tercihleri</li>
-        </ul>
+            <h2>4. İşlemenin Hukuki Dayanağı</h2>
+            <p>Kişisel verileri, uygun olduğu durumlarda aşağıdaki hukuki dayanaklardan bir veya daha fazlasına dayanarak işleriz:</p>
+            <ul>
+                <li>Bir sözleşmenin ifası, yani oyunu ve hizmetleri size sunmak</li>
+                <li>Yasal yükümlülüklere uyum</li>
+                <li>Güvenlik, hizmet iyileştirme ve kötüye kullanımı önleme gibi meşru menfaatlerimiz</li>
+                <li>Yasalar gerektirdiğinde sizin açık rızanız</li>
+            </ul>
 
-        <p><strong>C. Üçüncü taraflardan gelen veriler</strong></p>
-        <ul>
-            <li>Apple, Google veya Steam gibi platformlardan giriş verileri</li>
-            <li>Ödeme hizmeti sağlayıcılarından ödeme onayları</li>
-            <li>Bağlantı kurmanız hâlinde sosyal medya bilgileri</li>
-            <li>Herkese açık değerlendirmeler veya geri bildirimler</li>
-        </ul>
+            <h2>5. Verilerin Üçüncü Taraflarla Paylaşılması</h2>
+            <p>Verilerinizi, gerektiğinde aşağıdakiler dahil olmak üzere hizmet sağlayıcıları veya iş ortakları kategorileriyle paylaşabiliriz:</p>
+            <ul>
+                <li>Barındırma ve bulut altyapısı sağlayıcıları</li>
+                <li>Analiz hizmeti sağlayıcıları</li>
+                <li>Ödeme işleyicileri, uygun olduğu durumlarda</li>
+                <li>Teknik destek ve müşteri hizmeti sağlayıcıları</li>
+                <li>Reklam ağları veya ölçüm sağlayıcıları, uygun olduğu durumlarda</li>
+                <li>Yasalar gerektirdiğinde kamu kurumları veya hukuki merciler</li>
+            </ul>
+            <p>
+                Kişisel verilerinizi, verilerin ticari anlamda satışı şeklindeki geleneksel anlamda satmıyoruz.
+            </p>
 
-        <h2>4. VERİLERİNİZİ NASIL TOPLUYORUZ?</h2>
-        <p>Verileri şu yollarla topluyoruz:</p>
+            <h2>6. Uluslararası Veri Aktarımları</h2>
+            <p>
+                Verileriniz, ikamet ettiğiniz ülkenin dışındaki ülkelerde işlenebilir. Böyle bir durumda, verilerinizi yürürlükteki mevzuata uygun şekilde korumak için standart sözleşme maddeleri veya yasal olarak tanınan diğer mekanizmalar gibi uygun güvenceleri uygularız.
+            </p>
 
-        <p><strong>Doğrudan etkileşimler</strong></p>
-        <ul>
-            <li>Hesap kaydı</li>
-            <li>Oyunun kullanılması</li>
-            <li>Destek ile iletişime geçilmesi</li>
-            <li>Anket veya yarışmalara katılım</li>
-        </ul>
+            <h2>7. Veri Saklama Süresi</h2>
+            <p>
+                Verilerinizi yalnızca bu Gizlilik Politikasında açıklanan amaçlar için gerekli olduğu süre boyunca veya yasaların gerektirdiği süre boyunca saklarız. Sonrasında veriler silinir, anonimleştirilir veya yalnızca yasal yükümlülüklerin yerine getirilmesi ya da hukuki taleplerin savunulması için gerekli olduğunda saklanır.
+            </p>
 
-        <p><strong>Üçüncü taraflar</strong></p>
-        <ul>
-            <li>Harici platformlar üzerinden giriş</li>
-            <li>Ödeme hizmeti sağlayıcıları</li>
-            <li>Reklam ve analiz ortakları</li>
-        </ul>
+            <h2>8. Veri Güvenliği</h2>
+            <p>
+                Verilerinizi yetkisiz erişime, kayba, değiştirilmeye veya hukuka aykırı ifşaya karşı korumak için uygun teknik ve organizasyonel önlemler uygularız. Ancak, internet üzerinden hiçbir sistemin veya veri aktarımının tamamen güvenli olduğu garanti edilemez.
+            </p>
 
-        <p><strong>Otomatik teknolojiler</strong></p>
-        <ul>
-            <li>Çerezler</li>
-            <li>Sunucu günlükleri</li>
-            <li>Analiz araçları ve izleme teknolojileri</li>
-        </ul>
+            <h2>9. Çocukların Gizliliği</h2>
+            <p>
+                Hizmetlerimiz, yürürlükteki yasalar izin vermedikçe, bilerek çocuklara yönelik değildir. Bir çocuğa ait kişisel verilerin hukuka aykırı şekilde veya gerekli hukuki dayanak olmadan toplandığını öğrenirsek, bu verileri silmek için uygun adımları atarız.
+            </p>
 
-        <h2>5. VERİLERİNİZİN KULLANIMI</h2>
-        <p>Kişisel verilerinizi şu amaçlarla kullanırız:</p>
-        <ul>
-            <li>hizmetlerimizi sunmak ve işletmek,</li>
-            <li>oyun deneyiminizi kişiselleştirmek,</li>
-            <li>ödemeleri işlemek,</li>
-            <li>hesapları yönetmek ve doğrulamak,</li>
-            <li>destek sağlamak,</li>
-            <li>güvenlik ve sahtekârlık önleme sağlamak,</li>
-            <li>analiz ve iyileştirmeler yapmak,</li>
-            <li>pazarlama ve reklam faaliyetleri yürütmek,</li>
-            <li>yasal yükümlülükleri yerine getirmek,</li>
-            <li>yarışmalar ve kampanyalar düzenlemek,</li>
-            <li>oyun içi sosyal işlevleri sunmak.</li>
-        </ul>
+            <h2>10. Haklarınız</h2>
+            <p>Yürürlükteki yasalara bağlı olarak aşağıdaki haklara sahip olabilirsiniz:</p>
+            <ul>
+                <li>Kişisel verilerinize erişim</li>
+                <li>Yanlış veya eksik verilerin düzeltilmesi</li>
+                <li>Verilerinizin silinmesini talep etme</li>
+                <li>İşlemenin kısıtlanmasını talep etme</li>
+                <li>Belirli işleme türlerine itiraz etme</li>
+                <li>İşlemenin rızaya dayandığı durumlarda rızanızı istediğiniz zaman geri çekme</li>
+                <li>Uygun olduğu durumlarda veri taşınabilirliği talep etme</li>
+                <li>Yetkili denetim makamına şikayette bulunma</li>
+            </ul>
+            <p>
+                Bu hakları kullanmak için bizimle şu adresten iletişime geçebilirsiniz:
+                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+            </p>
 
-        <h2>6. ÇEREZLER VE İZLEME TEKNOLOJİLERİ</h2>
-        <p>Çerezleri ve benzer teknolojileri şu amaçlarla kullanırız:</p>
-        <ul>
-            <li>hizmetlerimizin kullanımını analiz etmek,</li>
-            <li>işlevler sağlamak,</li>
-            <li>içeriği kişiselleştirmek,</li>
-            <li>reklamları optimize etmek,</li>
-            <li>sahtekârlığı önlemek.</li>
-        </ul>
-        <p>Çerezleri tarayıcı ayarlarınız üzerinden devre dışı bırakabilirsiniz. Bu durum oyunun işlevselliğini sınırlayabilir.</p>
+            <h2>11. Çerezler ve Benzer Teknolojiler</h2>
+            <p>
+                Web sitemizde veya ilgili hizmetlerde çerezler ya da benzer teknolojiler kullanabiliriz. Daha fazla bilgi için lütfen Çerez Politikamıza bakın.
+            </p>
 
-        <h2>7. VERİ İŞLEMENİN HUKUKİ DAYANAKLARI</h2>
-        <p>İşleme şu dayanaklara dayanır:</p>
-        <ul>
-            <li>rızanız,</li>
-            <li>bir sözleşmenin ifası,</li>
-            <li>meşru menfaatlerimiz,</li>
-            <li>yasal yükümlülükler.</li>
-        </ul>
-        <p>Kural olarak özel nitelikli kişisel veri kategorilerini işlemeyiz.</p>
+            <h2>12. Bu Politikadaki Değişiklikler</h2>
+            <p>
+                Bu Gizlilik Politikasını dilediğimiz zaman güncelleme hakkını saklı tutarız. Her türlü değişiklik bu sayfada veya uygun olduğu takdirde hizmetlerimiz içinde yayınlanacaktır. Aksi belirtilmedikçe, güncellenmiş sürüm yayınlandığı tarihten itibaren yürürlüğe girer.
+            </p>
 
-        <h2>8. ÇOCUKLAR VE REŞİT OLMAYANLAR</h2>
-        <p>Hizmetlerimiz 13 yaşından küçük çocuklara yönelik değildir. Avrupa Birliği’nde, aksi yasal olarak düzenlenmediği sürece asgari yaş 16’dır.</p>
-        <p>Ebeveyn izni olmadan bir çocuğa ait kişisel verilerin toplandığını fark edersek, bunları gecikmeksizin sileriz.</p>
+            <h2>13. İletişim</h2>
+            <p>
+                Bu Gizlilik Politikası veya verilerinizin işlenmesi hakkında herhangi bir sorunuz varsa bizimle şu adresten iletişime geçebilirsiniz:
+            </p>
+            <p>
+                Sky of Empire<br>
+                E-posta: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
+                Merkez: İsviçre
+            </p>
+        </div>
 
-        <h2>9. VERİLERİNİZİN PAYLAŞILMASI</h2>
-        <p>Kişisel verileri şu kişilerle paylaşabiliriz:</p>
-        <ul>
-            <li>barındırma ve BT hizmeti sağlayıcıları,</li>
-            <li>ödeme sağlayıcıları,</li>
-            <li>analiz ve reklam ortakları,</li>
-            <li>hukuk ve vergi danışmanları,</li>
-            <li>kanunen gerekli olması hâlinde yetkili makamlar,</li>
-            <li>birleşme veya devralma durumunda iş ortakları.</li>
-        </ul>
-
-        <h2>10. ULUSLARARASI VERİ AKTARIMLARI</h2>
-        <p>Verileriniz İsviçre veya Avrupa Ekonomik Alanı dışındaki ülkelere aktarılabilir. Bu gibi durumlarda aşağıdaki gibi uygun koruma önlemlerinin mevcut olmasını sağlarız:</p>
-        <ul>
-            <li>Avrupa Komisyonu standart sözleşme maddeleri,</li>
-            <li>yeterlilik kararları,</li>
-            <li>yasal olarak izin verilen istisnalar.</li>
-        </ul>
-
-        <h2>11. HAKLARINIZ</h2>
-        <p>Şu haklara sahipsiniz:</p>
-        <ul>
-            <li>verilerinize erişim,</li>
-            <li>yanlış verilerin düzeltilmesi,</li>
-            <li>verilerinizin silinmesi,</li>
-            <li>işlemenin sınırlandırılması,</li>
-            <li>veri taşınabilirliği,</li>
-            <li>işlemeye itiraz,</li>
-            <li>rızanızı geri çekme,</li>
-            <li>bir veri koruma otoritesine şikâyette bulunma.</li>
-        </ul>
-        <p>Haklarınızı kullanmak için bizimle şu adresten iletişime geçebilirsiniz:<br>
-        support@skyofempire.com</p>
-
-        <h2>12. PAZARLAMA</h2>
-        <p>Rızanızla size güncellemeler, teklifler ve kampanyalar hakkında bilgi göndeririz. Pazarlama iletilerini cihaz ayarlarınızdan veya bizimle iletişime geçerek istediğiniz zaman iptal edebilirsiniz.</p>
-
-        <h2>13. SAKLAMA SÜRESİ</h2>
-        <p>Kişisel verileri yalnızca gerekli olduğu sürece saklarız:</p>
-        <ul>
-            <li>hizmetlerimizi sunmak için,</li>
-            <li>yasal yükümlülükleri yerine getirmek için,</li>
-            <li>uyuşmazlıkları çözmek için,</li>
-            <li>sözleşmelerimizi uygulamak için.</li>
-        </ul>
-        <p>Etkin olmayan hesaplar 365 gün sonra silinebilir veya anonim hâle getirilebilir.</p>
-
-        <h2>14. VERİ GÜVENLİĞİ</h2>
-        <p>Verilerinizi korumak için aşağıdakiler dâhil uygun teknik ve organizasyonel önlemler kullanırız:</p>
-        <ul>
-            <li>şifreleme,</li>
-            <li>erişim kısıtlamaları,</li>
-            <li>güvenli sunucular,</li>
-            <li>düzenli güvenlik kontrolleri.</li>
-        </ul>
-        <p>Tüm önlemlere rağmen mutlak güvenlik garanti edilemez.</p>
-
-        <h2>15. ÜÇÜNCÜ TARAF BAĞLANTILARI</h2>
-        <p>Hizmetlerimiz üçüncü taraf web sitelerine bağlantılar içerebilir. Bunların içeriklerinden veya gizlilik uygulamalarından sorumlu değiliz.</p>
-
-        <h2>16. İLETİŞİM</h2>
-        <p>Gizlilikle ilgili sorularınız için bizimle şu adresten iletişime geçebilirsiniz:</p>
-        <p><strong>Sky of Empire</strong><br>
-        E-posta: support@skyofempire.com<br>
-        Merkez: İsviçre</p>
-
-        <h2>17. BU POLİTİKANIN DEĞİŞTİRİLMESİ</h2>
-        <p>Bu Gizlilik Politikasını güncelleme hakkımız saklıdır. Değişiklikler oyunda veya web sitemizde yayımlanacaktır.</p>
-        <p>Değişikliklerin yürürlüğe girmesinden sonra hizmetlerimizi kullanmaya devam etmeniz, güncellenmiş Politikayı kabul ettiğiniz anlamına gelir.</p>
+        <div class="footer-space"></div>
     </div>
-</div>
 
-<script>
-    const languageSelect = document.getElementById("languageSelect");
-    languageSelect.addEventListener("change", function () {
-        const lang = this.value;
-        const pageMap = {
-            de: "privacy.html",
-            en: "privacy-en.html",
-            fr: "privacy-fr.html",
-            it: "privacy-it.html",
-            es: "privacy-es.html",
-            pt: "privacy-pt.html",
-            tr: "privacy-tr.html",
-            ru: "privacy-ru.html",
-            ja: "privacy-ja.html"
-        };
-        window.location.href = pageMap[lang];
-    });
-</script>
+    <script>
+        const langDropdown = document.getElementById("langDropdown");
+        const langButton = document.getElementById("langButton");
+        const langMenu = document.getElementById("langMenu");
+
+        langButton.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const isOpen = langMenu.classList.contains("open");
+
+            if (isOpen) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            } else {
+                langMenu.classList.add("open");
+                langButton.setAttribute("aria-expanded", "true");
+            }
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!langDropdown.contains(e.target)) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+    </script>
 
 </body>
 </html>
