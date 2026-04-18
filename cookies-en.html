@@ -9,16 +9,69 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
             margin: 0;
             font-family: Arial, sans-serif;
             color: #f4ead7;
-            min-height: 100vh;
+            min-height: 100%;
             overflow-x: hidden;
             background:
                 radial-gradient(circle at 50% 18%, rgba(176, 132, 57, 0.08) 0%, rgba(176, 132, 57, 0.00) 18%),
                 linear-gradient(to bottom, #000000 0%, #040404 52%, #0a0a0a 100%);
-            padding: 0 20px 60px;
+        }
+
+        body {
+            position: relative;
+        }
+
+        .clouds-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .cloud-img {
+            position: absolute;
+            background: url("clouds.png") no-repeat center center / contain;
+            pointer-events: none;
+            opacity: 0.25;
+            filter: brightness(0.56) contrast(1.05) saturate(0.75);
+            mix-blend-mode: screen;
+        }
+
+        .cloud-img::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.22);
+            border-radius: 40px;
+            mix-blend-mode: multiply;
+        }
+
+        .cloud1 { width: 470px; height: 290px; top: -35px; left: -40px; }
+        .cloud2 { width: 340px; height: 215px; top: 35px; left: 280px; }
+        .cloud3 { width: 460px; height: 285px; top: -20px; right: -30px; }
+        .cloud4 { width: 255px; height: 165px; top: 155px; left: 130px; }
+        .cloud5 { width: 315px; height: 195px; top: 110px; left: 520px; }
+        .cloud6 { width: 280px; height: 175px; top: 220px; right: 160px; }
+        .cloud7 { width: 430px; height: 265px; top: 305px; left: -20px; }
+        .cloud8 { width: 235px; height: 150px; top: 430px; left: 430px; }
+        .cloud9 { width: 410px; height: 255px; top: 325px; right: -20px; }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 0 20px 40px;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 980px;
+            margin: 0 auto;
         }
 
         .topbar {
@@ -26,165 +79,358 @@
             justify-content: flex-start;
             padding-top: 14px;
             padding-left: 4px;
-            position: sticky;
-            top: 0;
-            z-index: 3;
+            position: relative;
+            z-index: 1000;
         }
 
-        .language-select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background: rgba(5, 5, 5, 0.90);
+        .lang-dropdown {
+            position: relative;
+            z-index: 1001;
+        }
+
+        .lang-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 170px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 2px solid #0d63ff;
+            background: rgba(5, 5, 5, 0.92);
             color: #f2e2bf;
-            border: 1px solid rgba(189, 148, 80, 0.30);
-            border-radius: 14px;
-            padding: 12px 46px 12px 16px;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 10px 22px rgba(0,0,0,0.20);
-            background-image:
-                linear-gradient(45deg, transparent 50%, #d8b66c 50%),
-                linear-gradient(135deg, #d8b66c 50%, transparent 50%);
-            background-position:
-                calc(100% - 20px) calc(50% - 3px),
-                calc(100% - 14px) calc(50% - 3px);
-            background-size: 6px 6px, 6px 6px;
-            background-repeat: no-repeat;
+            box-shadow:
+                0 0 0 2px rgba(216, 182, 108, 0.14) inset,
+                0 10px 22px rgba(0,0,0,0.24);
+            user-select: none;
         }
 
-        .container {
-            max-width: 980px;
-            margin: 24px auto 0;
+        .lang-button:hover {
+            filter: brightness(1.03);
         }
 
-        .back-link {
-            display: inline-block;
-            margin-bottom: 18px;
-            color: #f0d89e;
+        .lang-flag {
+            font-size: 22px;
+            line-height: 1;
+            flex: 0 0 auto;
+        }
+
+        .lang-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .lang-arrow {
+            font-size: 14px;
+            color: #e2c780;
+            flex: 0 0 auto;
+        }
+
+        .lang-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            width: 330px;
+            background: rgba(10, 10, 10, 0.96);
+            border: 1px solid rgba(255,255,255,0.20);
+            border-radius: 24px;
+            padding: 12px;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+            backdrop-filter: blur(10px);
+            display: none;
+            z-index: 1002;
+            overflow: hidden;
+        }
+
+        .lang-menu.open {
+            display: block;
+        }
+
+        .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 14px;
             text-decoration: none;
-            font-weight: bold;
+            color: #f2f2f2;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.1;
         }
 
-        .back-link:hover {
-            text-decoration: underline;
+        .lang-item:hover {
+            background: rgba(255,255,255,0.06);
         }
 
-        .card {
+        .lang-item.active {
+            color: #ffffff;
+        }
+
+        .lang-check {
+            width: 22px;
+            flex: 0 0 22px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .lang-item-flag {
+            width: 28px;
+            flex: 0 0 28px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        .lang-item-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .policy-wrap {
+            position: relative;
+            z-index: 5;
+            max-width: 980px;
+            margin: 20px auto 0;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 24px;
+            padding: 28px 26px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+            color: #f5ebd8;
+            line-height: 1.7;
         }
 
-        h1 {
-            font-size: 34px;
-            margin: 0 0 18px;
+        .policy-wrap h1,
+        .policy-wrap h2,
+        .policy-wrap h3 {
             color: #f2e2bf;
         }
 
-        h2 {
+        .policy-wrap h1 {
+            font-size: 30px;
+            margin-top: 0;
+            margin-bottom: 18px;
+        }
+
+        .policy-wrap h2 {
+            font-size: 22px;
             margin-top: 28px;
             margin-bottom: 12px;
-            font-size: 24px;
-            color: #f2e2bf;
         }
 
-        h3 {
+        .policy-wrap h3 {
+            font-size: 18px;
             margin-top: 22px;
             margin-bottom: 10px;
-            font-size: 20px;
-            color: #f2e2bf;
         }
 
-        p, li {
+        .policy-wrap p,
+        .policy-wrap li {
             font-size: 16px;
-            line-height: 1.6;
-            color: #f4ead7;
         }
 
-        ul {
+        .policy-wrap ul {
+            margin: 8px 0 16px 0;
             padding-left: 22px;
         }
 
-        .meta {
-            margin-bottom: 18px;
-            color: #d8c6a1;
-        }
-
-        a.inline-link {
+        .policy-wrap a {
             color: #f0d89e;
             text-decoration: none;
+            font-weight: bold;
         }
 
-        a.inline-link:hover {
+        .policy-wrap a:hover {
             text-decoration: underline;
         }
 
+        .footer-space {
+            height: 10px;
+        }
+
         @media (max-width: 768px) {
-            .language-select {
-                font-size: 14px;
-                padding: 10px 40px 10px 14px;
+            .topbar {
+                padding-top: 12px;
+                padding-left: 2px;
             }
 
-            .card {
-                padding: 22px 16px;
-            }
-
-            h1 {
-                font-size: 28px;
-            }
-
-            h2 {
-                font-size: 22px;
-            }
-
-            h3 {
-                font-size: 18px;
-            }
-
-            p, li {
+            .lang-button {
+                min-width: 170px;
+                padding: 10px 14px;
                 font-size: 15px;
             }
+
+            .lang-menu {
+                width: 320px;
+                padding: 10px;
+            }
+
+            .lang-item {
+                padding: 7px 8px;
+                font-size: 17px;
+            }
+
+            .policy-wrap {
+                padding: 20px 16px;
+                margin-top: 16px;
+            }
+
+            .policy-wrap h1 {
+                font-size: 24px;
+            }
+
+            .policy-wrap h2 {
+                font-size: 20px;
+            }
+
+            .policy-wrap p,
+            .policy-wrap li {
+                font-size: 15px;
+            }
+
+            .cloud1 { width: 250px; height: 160px; top: -10px; left: -20px; }
+            .cloud2 { width: 190px; height: 125px; top: 30px; left: 140px; }
+            .cloud3 { width: 240px; height: 155px; top: 0; right: -10px; }
+            .cloud4 { width: 150px; height: 100px; top: 120px; left: 50px; }
+            .cloud5 { width: 180px; height: 118px; top: 120px; left: 220px; }
+            .cloud6 { width: 165px; height: 108px; top: 190px; right: 70px; }
+            .cloud7 { width: 230px; height: 150px; top: 280px; left: -10px; }
+            .cloud8 { width: 140px; height: 92px; top: 380px; left: 210px; }
+            .cloud9 { width: 220px; height: 145px; top: 310px; right: -10px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="topbar">
-        <select class="language-select" id="languageSelect">
-            <option value="de">🇩🇪 Deutsch</option>
-            <option value="en" selected>🇬🇧 English</option>
-            <option value="fr">🇫🇷 Français</option>
-        </select>
+    <div class="clouds-layer">
+        <div class="cloud-img cloud1"></div>
+        <div class="cloud-img cloud2"></div>
+        <div class="cloud-img cloud3"></div>
+        <div class="cloud-img cloud4"></div>
+        <div class="cloud-img cloud5"></div>
+        <div class="cloud-img cloud6"></div>
+        <div class="cloud-img cloud7"></div>
+        <div class="cloud-img cloud8"></div>
+        <div class="cloud-img cloud9"></div>
     </div>
 
-    <div class="container">
-        <a class="back-link" href="index-en.html">← Back to Home</a>
+    <div class="page">
+        <div class="container">
+            <div class="topbar">
+                <div class="lang-dropdown" id="langDropdown">
+                    <button class="lang-button" id="langButton" type="button" aria-expanded="false">
+                        <span class="lang-flag">🇬🇧</span>
+                        <span class="lang-label">English</span>
+                        <span class="lang-arrow">▼</span>
+                    </button>
 
-        <div class="card">
-            <h1>COOKIE POLICY</h1>
-
-            <div class="meta">
-                <p><strong>Last Updated:</strong> April 1, 2026</p>
-                <p><strong>Operator:</strong> Sky of Empire<br>
-                <strong>Email:</strong> support@skyofempire.com<br>
-                <strong>Location:</strong> Switzerland</p>
+                    <div class="lang-menu" id="langMenu">
+                        <a class="lang-item" href="cookies.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇩🇪</span>
+                            <span class="lang-item-label">Deutsch</span>
+                        </a>
+                        <a class="lang-item active" href="cookies-en.html">
+                            <span class="lang-check">✔</span>
+                            <span class="lang-item-flag">🇬🇧</span>
+                            <span class="lang-item-label">English</span>
+                        </a>
+                        <a class="lang-item" href="cookies-fr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇫🇷</span>
+                            <span class="lang-item-label">Français</span>
+                        </a>
+                        <a class="lang-item" href="cookies-it.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇮🇹</span>
+                            <span class="lang-item-label">Italiano</span>
+                        </a>
+                        <a class="lang-item" href="cookies-es.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇪🇸</span>
+                            <span class="lang-item-label">Español</span>
+                        </a>
+                        <a class="lang-item" href="cookies-pt.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇵🇹</span>
+                            <span class="lang-item-label">Português</span>
+                        </a>
+                        <a class="lang-item" href="cookies-tr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇹🇷</span>
+                            <span class="lang-item-label">Türkçe</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ru.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇷🇺</span>
+                            <span class="lang-item-label">Русский</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ja.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇯🇵</span>
+                            <span class="lang-item-label">日本語</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ko.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇰🇷</span>
+                            <span class="lang-item-label">한국어</span>
+                        </a>
+                        <a class="lang-item" href="cookies-zh.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇨🇳</span>
+                            <span class="lang-item-label">简体中文</span>
+                        </a>
+                        <a class="lang-item" href="cookies-th.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇹🇭</span>
+                            <span class="lang-item-label">ไทย</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ar.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇸🇦</span>
+                            <span class="lang-item-label">العربية</span>
+                        </a>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <div class="policy-wrap">
+            <h1>Cookie Policy</h1>
+
+            <p><strong>Last Updated:</strong> April 1, 2026</p>
+            <p><strong>Operator:</strong> Sky of Empire<br>
+            <strong>Email:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
+            <strong>Registered Office:</strong> Switzerland</p>
 
             <h2>1. INTRODUCTION</h2>
-            <p>This Cookie Policy explains how Sky of Empire (“we”, “us” or “our”) uses cookies and similar technologies when you use our website or digital services. It describes what information we collect, how we use it, and what rights you have.</p>
+            <p>
+                This Cookie Policy explains how Sky of Empire ("we", "us", or "our") uses cookies and similar technologies
+                when you use our website or digital services. It describes what information we collect, how we use it,
+                and what rights you have.
+            </p>
 
             <h2>2. WHAT ARE COOKIES?</h2>
-            <p>Cookies are small text files stored on your computer or mobile device when you visit a website. They are used to operate websites more efficiently and to provide information about user behavior.</p>
-            <p>Cookies allow us to recognize your device and remember your preferences.</p>
+            <p>
+                Cookies are small text files that are stored on your computer or mobile device when you visit a website.
+                They help websites operate more efficiently and provide information about user behavior.
+            </p>
+            <p>
+                Cookies allow us to recognize your device and save your preferences.
+            </p>
 
             <h2>3. WHAT TYPES OF COOKIES DO WE USE?</h2>
 
-            <h3>3.1 Necessary Cookies</h3>
-            <p>These cookies are required for the operation of the website and cannot be disabled.</p>
+            <h3>3.1 Strictly Necessary Cookies</h3>
+            <p>
+                These cookies are required for the operation of the website and cannot be disabled.
+            </p>
             <p><strong>Examples:</strong></p>
             <ul>
                 <li>Session management</li>
@@ -193,7 +439,9 @@
             </ul>
 
             <h3>3.2 Analytics and Statistics Cookies</h3>
-            <p>These cookies help us understand how visitors use our website so that we can improve our services.</p>
+            <p>
+                These cookies help us understand how visitors use our website so that we can improve our services.
+            </p>
             <p><strong>Examples:</strong></p>
             <ul>
                 <li>Google Analytics</li>
@@ -201,7 +449,9 @@
             </ul>
 
             <h3>3.3 Functional Cookies</h3>
-            <p>These cookies enable enhanced functions and personalization.</p>
+            <p>
+                These cookies enable enhanced features and personalization.
+            </p>
             <p><strong>Examples:</strong></p>
             <ul>
                 <li>Saving language settings</li>
@@ -209,7 +459,9 @@
             </ul>
 
             <h3>3.4 Marketing and Advertising Cookies</h3>
-            <p>These cookies are used to display relevant advertising and to measure the effectiveness of campaigns.</p>
+            <p>
+                These cookies are used to display relevant advertising and measure campaign effectiveness.
+            </p>
             <p><strong>Examples:</strong></p>
             <ul>
                 <li>Google Ads</li>
@@ -219,7 +471,9 @@
             </ul>
 
             <h2>4. THIRD-PARTY COOKIES</h2>
-            <p>We may use third-party providers that use cookies on our behalf, including:</p>
+            <p>
+                We may use third-party providers who place cookies on our behalf, including:
+            </p>
             <ul>
                 <li>Google</li>
                 <li>Apple</li>
@@ -228,26 +482,34 @@
                 <li>Firebase</li>
                 <li>Advertising and analytics partners</li>
             </ul>
-            <p>These third parties process data in accordance with their own privacy policies.</p>
+            <p>
+                These third parties process data in accordance with their own privacy policies.
+            </p>
 
             <h2>5. LEGAL BASIS</h2>
-            <p>The use of cookies is based on:</p>
+            <p>
+                The use of cookies is based on:
+            </p>
             <ul>
-                <li>Your consent pursuant to Art. 6 para. 1 lit. a GDPR</li>
-                <li>Our legitimate interests pursuant to Art. 6 para. 1 lit. f GDPR</li>
+                <li>Your consent under Article 6(1)(a) GDPR</li>
+                <li>Our legitimate interests under Article 6(1)(f) GDPR</li>
                 <li>Legal obligations</li>
             </ul>
-            <p>Necessary cookies do not require consent.</p>
+            <p>
+                Strictly necessary cookies do not require consent.
+            </p>
 
             <h2>6. HOW CAN YOU MANAGE COOKIES?</h2>
-            <p>You can manage or disable cookies through your browser settings.</p>
+            <p>
+                You can manage or disable cookies through your browser settings.
+            </p>
 
             <p><strong>Browser settings:</strong></p>
             <ul>
-                <li>Chrome: <a class="inline-link" href="https://support.google.com/chrome" target="_blank">https://support.google.com/chrome</a></li>
-                <li>Safari: <a class="inline-link" href="https://support.apple.com" target="_blank">https://support.apple.com</a></li>
-                <li>Firefox: <a class="inline-link" href="https://support.mozilla.org" target="_blank">https://support.mozilla.org</a></li>
-                <li>Edge: <a class="inline-link" href="https://support.microsoft.com" target="_blank">https://support.microsoft.com</a></li>
+                <li>Chrome: <a href="https://support.google.com/chrome">support.google.com/chrome</a></li>
+                <li>Safari: <a href="https://support.apple.com">support.apple.com</a></li>
+                <li>Firefox: <a href="https://support.mozilla.org">support.mozilla.org</a></li>
+                <li>Edge: <a href="https://support.microsoft.com">support.microsoft.com</a></li>
             </ul>
 
             <p><strong>Mobile devices:</strong></p>
@@ -256,48 +518,82 @@
                 <li>Android: Settings → Google → Ads</li>
             </ul>
 
-            <p>Please note that disabling cookies may limit the functionality of our services.</p>
+            <p>
+                Please note that disabling cookies may limit the functionality of our services.
+            </p>
 
             <h2>7. RETENTION PERIOD</h2>
-            <p>Cookies may either be:</p>
+            <p>
+                Cookies may be:
+            </p>
             <ul>
-                <li><strong>Session cookies:</strong> deleted when the browser is closed.</li>
-                <li><strong>Persistent cookies:</strong> remain stored on your device until they are deleted or expire.</li>
+                <li><strong>Session cookies:</strong> Deleted when you close your browser</li>
+                <li><strong>Persistent cookies:</strong> Remain on your device until deleted or expired</li>
             </ul>
 
             <h2>8. YOUR RIGHTS</h2>
-            <p>You have the right to:</p>
+            <p>
+                You have the right to:
+            </p>
             <ul>
-                <li>access your data,</li>
-                <li>request correction or deletion,</li>
-                <li>restrict processing,</li>
-                <li>object to processing,</li>
-                <li>withdraw your consent.</li>
+                <li>Access your data</li>
+                <li>Correct or delete data</li>
+                <li>Restrict processing</li>
+                <li>Object to processing</li>
+                <li>Withdraw your consent</li>
             </ul>
-            <p>Requests may be sent to:<br>
-            support@skyofempire.com</p>
+
+            <p>
+                Requests may be sent to:
+                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+            </p>
 
             <h2>9. CHANGES TO THIS POLICY</h2>
-            <p>We reserve the right to update this Cookie Policy at any time. Changes will be published on our website.</p>
+            <p>
+                We reserve the right to update this Cookie Policy at any time. Changes will be published on our website.
+            </p>
 
             <h2>10. CONTACT</h2>
-            <p><strong>Sky of Empire</strong><br>
-            Email: support@skyofempire.com<br>
-            Location: Switzerland</p>
+            <p>
+                Sky of Empire<br>
+                Email: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
+                Registered Office: Switzerland
+            </p>
         </div>
+
+        <div class="footer-space"></div>
     </div>
 
     <script>
-        const languageSelect = document.getElementById("languageSelect");
+        const langDropdown = document.getElementById("langDropdown");
+        const langButton = document.getElementById("langButton");
+        const langMenu = document.getElementById("langMenu");
 
-        languageSelect.addEventListener("change", function () {
-            const lang = this.value;
-            const pageMap = {
-                de: "cookies.html",
-                en: "cookies-en.html",
-                fr: "cookies-fr.html"
-            };
-            window.location.href = pageMap[lang];
+        langButton.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const isOpen = langMenu.classList.contains("open");
+
+            if (isOpen) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            } else {
+                langMenu.classList.add("open");
+                langButton.setAttribute("aria-expanded", "true");
+            }
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!langDropdown.contains(e.target)) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
         });
     </script>
 
