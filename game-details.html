@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Details - Sky of Empire</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #f4ead7;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background:
+                radial-gradient(circle at 50% 18%, rgba(176, 132, 57, 0.08) 0%, rgba(176, 132, 57, 0.00) 18%),
+                linear-gradient(to bottom, #000000 0%, #040404 52%, #0a0a0a 100%);
+            padding: 0 20px 60px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: flex-start;
+            padding-top: 14px;
+            padding-left: 4px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .language-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: rgba(5, 5, 5, 0.90);
+            color: #f2e2bf;
+            border: 1px solid rgba(189, 148, 80, 0.30);
+            border-radius: 14px;
+            padding: 12px 46px 12px 16px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 22px rgba(0,0,0,0.20);
+            background-image:
+                linear-gradient(45deg, transparent 50%, #d8b66c 50%),
+                linear-gradient(135deg, #d8b66c 50%, transparent 50%);
+            background-position:
+                calc(100% - 20px) calc(50% - 3px),
+                calc(100% - 14px) calc(50% - 3px);
+            background-size: 6px 6px, 6px 6px;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 24px auto 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 18px;
+            color: #f0d89e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .card {
+            background: rgba(3, 3, 3, 0.82);
+            border: 1px solid rgba(189, 148, 80, 0.18);
+            border-radius: 22px;
+            padding: 28px 24px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+        }
+
+        h1 {
+            font-size: 34px;
+            margin: 0 0 18px;
+            color: #f2e2bf;
+        }
+
+        h2 {
+            margin-top: 28px;
+            margin-bottom: 12px;
+            font-size: 24px;
+            color: #f2e2bf;
+        }
+
+        p, li {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #f4ead7;
+        }
+
+        ul {
+            padding-left: 22px;
+        }
+
+        .meta {
+            margin-bottom: 18px;
+            color: #d8c6a1;
+        }
+
+        @media (max-width: 768px) {
+            .language-select {
+                font-size: 14px;
+                padding: 10px 40px 10px 14px;
+            }
+
+            .card {
+                padding: 22px 16px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            p, li {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <select class="language-select" id="languageSelect">
+        <option value="de" selected>🇩🇪 Deutsch</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="it">🇮🇹 Italiano</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="pt">🇵🇹 Português</option>
+        <option value="tr">🇹🇷 Türkçe</option>
+        <option value="ru">🇷🇺 Русский</option>
+        <option value="ja">🇯🇵 日本語</option>
+        <option value="ko">🇰🇷 한국어</option>
+        <option value="zh">🇨🇳 简体中文</option>
+        <option value="th">🇹🇭 ไทย</option>
+        <option value="ar">🇸🇦 العربية</option>
+    </select>
+</div>
+
+<div class="container">
+    <a class="back-link" href="index.html">← Zurück zur Startseite</a>
+
+    <div class="card">
+        <h1>Game Details</h1>
+
+        <div class="meta">
+            <p><strong>Spiel:</strong> Sky of Empire</p>
+            <p><strong>Genre:</strong> Strategie / Aufbau / Multiplayer</p>
+            <p><strong>Plattform:</strong> Mobile</p>
+            <p><strong>Betreiber:</strong> Sky of Empire</p>
+        </div>
+
+        <h2>Über das Spiel</h2>
+        <p>Sky of Empire ist ein Strategiespiel, in dem Spieler ihr eigenes Imperium aufbauen, Ressourcen verwalten, ihre Streitkräfte verstärken und sich in einer dynamischen Spielwelt mit anderen Spielern messen.</p>
+
+        <h2>Hauptfunktionen</h2>
+        <ul>
+            <li>Aufbau und Verwaltung eines eigenen Imperiums</li>
+            <li>Strategische Kämpfe und Wettbewerbe</li>
+            <li>Multiplayer-Elemente und Interaktionen mit anderen Spielern</li>
+            <li>Fortschrittssystem mit Upgrades und Belohnungen</li>
+            <li>Regelmäßige Inhalte, Events und Updates</li>
+        </ul>
+
+        <h2>Spielziel</h2>
+        <p>Das Ziel von Sky of Empire ist es, Ihr Reich erfolgreich auszubauen, Ihre Macht zu steigern und sich gegen andere Spieler oder Gegner in der Welt des Spiels durchzusetzen.</p>
+
+        <h2>Technische Hinweise</h2>
+        <p>Für ein optimales Spielerlebnis empfehlen wir die Nutzung eines aktuellen Geräts mit stabiler Internetverbindung und einer aktuellen Betriebssystemversion.</p>
+
+        <h2>Wichtige Hinweise</h2>
+        <ul>
+            <li>Einige Funktionen können eine Internetverbindung erfordern.</li>
+            <li>Das Spiel kann optionale In-App-Käufe enthalten.</li>
+            <li>Bestimmte Inhalte oder Funktionen können im Laufe der Zeit geändert oder erweitert werden.</li>
+        </ul>
+
+        <h2>Kontakt</h2>
+        <p>Bei Fragen zum Spiel können Sie uns unter folgender Adresse erreichen:</p>
+        <p><strong>support@skyofempire.com</strong></p>
+    </div>
+</div>
+
+<script>
+    const languageSelect = document.getElementById("languageSelect");
+
+    languageSelect.addEventListener("change", function () {
+        const lang = this.value;
+
+        const pageMap = {
+            de: "game-details.html",
+            en: "game-details-en.html",
+            fr: "game-details-fr.html",
+            it: "game-details-it.html",
+            es: "game-details-es.html",
+            pt: "game-details-pt.html",
+            tr: "game-details-tr.html",
+            ru: "game-details-ru.html",
+            ja: "game-details-ja.html",
+            ko: "game-details-ko.html",
+            zh: "game-details-zh.html",
+            th: "game-details-th.html",
+            ar: "game-details-ar.html"
+        };
+
+        window.location.href = pageMap[lang];
+    });
+</script>
+
+</body>
+</html>
