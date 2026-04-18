@@ -5,284 +5,600 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سياسة ملفات تعريف الارتباط - Sky of Empire</title>
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
-        body {
+        html, body {
             margin: 0;
             font-family: Arial, sans-serif;
             color: #f4ead7;
-            min-height: 100vh;
+            min-height: 100%;
             overflow-x: hidden;
             background:
                 radial-gradient(circle at 50% 18%, rgba(176, 132, 57, 0.08) 0%, rgba(176, 132, 57, 0.00) 18%),
                 linear-gradient(to bottom, #000000 0%, #040404 52%, #0a0a0a 100%);
-            padding: 0 20px 60px;
+        }
+
+        body {
+            position: relative;
+        }
+
+        .clouds-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .cloud-img {
+            position: absolute;
+            background: url("clouds.png") no-repeat center center / contain;
+            pointer-events: none;
+            opacity: 0.25;
+            filter: brightness(0.56) contrast(1.05) saturate(0.75);
+            mix-blend-mode: screen;
+        }
+
+        .cloud-img::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.22);
+            border-radius: 40px;
+            mix-blend-mode: multiply;
+        }
+
+        .cloud1 { width: 470px; height: 290px; top: -35px; left: -40px; }
+        .cloud2 { width: 340px; height: 215px; top: 35px; left: 280px; }
+        .cloud3 { width: 460px; height: 285px; top: -20px; right: -30px; }
+        .cloud4 { width: 255px; height: 165px; top: 155px; left: 130px; }
+        .cloud5 { width: 315px; height: 195px; top: 110px; left: 520px; }
+        .cloud6 { width: 280px; height: 175px; top: 220px; right: 160px; }
+        .cloud7 { width: 430px; height: 265px; top: 305px; left: -20px; }
+        .cloud8 { width: 235px; height: 150px; top: 430px; left: 430px; }
+        .cloud9 { width: 410px; height: 255px; top: 325px; right: -20px; }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 0 20px 40px;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 980px;
+            margin: 0 auto;
         }
 
         .topbar {
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-start;
             padding-top: 14px;
-            padding-right: 4px;
-            position: sticky;
-            top: 0;
-            z-index: 3;
+            padding-left: 4px;
+            position: relative;
+            z-index: 1000;
+            direction: ltr;
         }
 
-        .language-select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background: rgba(5, 5, 5, 0.90);
+        .lang-dropdown {
+            position: relative;
+            z-index: 1001;
+        }
+
+        .lang-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 170px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 2px solid #0d63ff;
+            background: rgba(5, 5, 5, 0.92);
             color: #f2e2bf;
-            border: 1px solid rgba(189, 148, 80, 0.30);
-            border-radius: 14px;
-            padding: 12px 16px 12px 46px;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 10px 22px rgba(0,0,0,0.20);
-            background-image:
-                linear-gradient(45deg, transparent 50%, #d8b66c 50%),
-                linear-gradient(135deg, #d8b66c 50%, transparent 50%);
-            background-position:
-                20px calc(50% - 3px),
-                14px calc(50% - 3px);
-            background-size: 6px 6px, 6px 6px;
-            background-repeat: no-repeat;
+            box-shadow:
+                0 0 0 2px rgba(216, 182, 108, 0.14) inset,
+                0 10px 22px rgba(0,0,0,0.24);
+            user-select: none;
         }
 
-        .container {
+        .lang-button:hover {
+            filter: brightness(1.03);
+        }
+
+        .lang-flag {
+            font-size: 22px;
+            line-height: 1;
+            flex: 0 0 auto;
+        }
+
+        .lang-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .lang-arrow {
+            font-size: 14px;
+            color: #e2c780;
+            flex: 0 0 auto;
+        }
+
+        .lang-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            width: 330px;
+            background: rgba(10, 10, 10, 0.96);
+            border: 1px solid rgba(255,255,255,0.20);
+            border-radius: 24px;
+            padding: 12px;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+            backdrop-filter: blur(10px);
+            display: none;
+            z-index: 1002;
+            overflow: hidden;
+        }
+
+        .lang-menu.open {
+            display: block;
+        }
+
+        .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .lang-item:hover {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .lang-item.active {
+            color: #ffffff;
+        }
+
+        .lang-check {
+            width: 22px;
+            flex: 0 0 22px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .lang-item-flag {
+            width: 28px;
+            flex: 0 0 28px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        .lang-item-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .policy-wrap {
+            position: relative;
+            z-index: 5;
             max-width: 980px;
-            margin: 24px auto 0;
+            margin: 20px auto 0;
+            background: rgba(3, 3, 3, 0.82);
+            border: 1px solid rgba(189, 148, 80, 0.18);
+            border-radius: 22px;
+            padding: 28px 26px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+            color: #f5ebd8;
+            line-height: 1.85;
+            text-align: right;
+            direction: rtl;
         }
 
-        .back-link {
-            display: inline-block;
+        .policy-wrap h1,
+        .policy-wrap h2,
+        .policy-wrap h3 {
+            color: #f2e2bf;
+            margin-top: 0;
+        }
+
+        .policy-wrap h1 {
+            font-size: 30px;
             margin-bottom: 18px;
+        }
+
+        .policy-wrap h2 {
+            font-size: 22px;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+
+        .policy-wrap h3 {
+            font-size: 18px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+        }
+
+        .policy-wrap p,
+        .policy-wrap li {
+            font-size: 16px;
+        }
+
+        .policy-wrap ul {
+            margin: 8px 0 16px 0;
+            padding-right: 22px;
+        }
+
+        .policy-wrap a {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .back-link:hover { text-decoration: underline; }
-
-        .card {
-            background: rgba(3, 3, 3, 0.82);
-            border: 1px solid rgba(189, 148, 80, 0.18);
-            border-radius: 22px;
-            padding: 28px 24px;
-            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+        .policy-wrap a:hover {
+            text-decoration: underline;
         }
 
-        h1 {
-            font-size: 34px;
-            margin: 0 0 18px;
-            color: #f2e2bf;
-        }
-
-        h2 {
-            margin-top: 28px;
-            margin-bottom: 12px;
-            font-size: 24px;
-            color: #f2e2bf;
-        }
-
-        p, li {
-            font-size: 16px;
-            line-height: 1.9;
-            color: #f4ead7;
-        }
-
-        ul { padding-right: 22px; }
-
-        .meta {
-            margin-bottom: 18px;
-            color: #d8c6a1;
-        }
-
-        a {
-            color: #f0d89e;
+        .footer-space {
+            height: 10px;
         }
 
         @media (max-width: 768px) {
-            .language-select {
-                font-size: 14px;
-                padding: 10px 14px 10px 40px;
+            .topbar {
+                padding-top: 12px;
+                padding-left: 2px;
             }
 
-            .card { padding: 22px 16px; }
-            h1 { font-size: 28px; }
-            h2 { font-size: 22px; }
-            p, li { font-size: 15px; }
+            .lang-button {
+                min-width: 170px;
+                padding: 10px 14px;
+                font-size: 15px;
+            }
+
+            .lang-menu {
+                width: 320px;
+                padding: 10px;
+            }
+
+            .lang-item {
+                padding: 7px 8px;
+                font-size: 17px;
+            }
+
+            .policy-wrap {
+                padding: 20px 16px;
+                margin-top: 16px;
+            }
+
+            .policy-wrap h1 {
+                font-size: 24px;
+            }
+
+            .policy-wrap h2 {
+                font-size: 20px;
+            }
+
+            .policy-wrap p,
+            .policy-wrap li {
+                font-size: 15px;
+            }
+
+            .cloud1 { width: 250px; height: 160px; top: -10px; left: -20px; }
+            .cloud2 { width: 190px; height: 125px; top: 30px; left: 140px; }
+            .cloud3 { width: 240px; height: 155px; top: 0; right: -10px; }
+            .cloud4 { width: 150px; height: 100px; top: 120px; left: 50px; }
+            .cloud5 { width: 180px; height: 118px; top: 120px; left: 220px; }
+            .cloud6 { width: 165px; height: 108px; top: 190px; right: 70px; }
+            .cloud7 { width: 230px; height: 150px; top: 280px; left: -10px; }
+            .cloud8 { width: 140px; height: 92px; top: 380px; left: 210px; }
+            .cloud9 { width: 220px; height: 145px; top: 310px; right: -10px; }
         }
     </style>
 </head>
 <body>
-<div class="topbar">
-    <select class="language-select" id="languageSelect">
-        <option value="de">🇩🇪 Deutsch</option>
-        <option value="en">🇬🇧 English</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="it">🇮🇹 Italiano</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="pt">🇵🇹 Português</option>
-        <option value="tr">🇹🇷 Türkçe</option>
-        <option value="ru">🇷🇺 Русский</option>
-        <option value="ja">🇯🇵 日本語</option>
-        <option value="ko">🇰🇷 한국어</option>
-        <option value="zh">🇨🇳 简体中文</option>
-        <option value="th">🇹🇭 ไทย</option>
-        <option value="ar" selected>🇸🇦 العربية</option>
-    </select>
-</div>
 
-<div class="container">
-    <a class="back-link" href="index-ar.html">العودة إلى الصفحة الرئيسية ←</a>
+    <div class="clouds-layer">
+        <div class="cloud-img cloud1"></div>
+        <div class="cloud-img cloud2"></div>
+        <div class="cloud-img cloud3"></div>
+        <div class="cloud-img cloud4"></div>
+        <div class="cloud-img cloud5"></div>
+        <div class="cloud-img cloud6"></div>
+        <div class="cloud-img cloud7"></div>
+        <div class="cloud-img cloud8"></div>
+        <div class="cloud-img cloud9"></div>
+    </div>
 
-    <div class="card">
-        <h1>سياسة ملفات تعريف الارتباط</h1>
+    <div class="page">
+        <div class="container">
+            <div class="topbar">
+                <div class="lang-dropdown" id="langDropdown">
+                    <button class="lang-button" id="langButton" type="button" aria-expanded="false">
+                        <span class="lang-flag">🇸🇦</span>
+                        <span class="lang-label">العربية</span>
+                        <span class="lang-arrow">▼</span>
+                    </button>
 
-        <div class="meta">
-            <p><strong>آخر تحديث:</strong> 1 أبريل 2026</p>
-            <p><strong>المشغّل:</strong> Sky of Empire<br>
-            <strong>البريد الإلكتروني:</strong> support@skyofempire.com<br>
-            <strong>المقر:</strong> سويسرا</p>
+                    <div class="lang-menu" id="langMenu">
+                        <a class="lang-item" href="cookies.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇩🇪</span>
+                            <span class="lang-item-label">Deutsch</span>
+                        </a>
+                        <a class="lang-item" href="cookies-en.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇬🇧</span>
+                            <span class="lang-item-label">English</span>
+                        </a>
+                        <a class="lang-item" href="cookies-fr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇫🇷</span>
+                            <span class="lang-item-label">Français</span>
+                        </a>
+                        <a class="lang-item" href="cookies-it.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇮🇹</span>
+                            <span class="lang-item-label">Italiano</span>
+                        </a>
+                        <a class="lang-item" href="cookies-es.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇪🇸</span>
+                            <span class="lang-item-label">Español</span>
+                        </a>
+                        <a class="lang-item" href="cookies-pt.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇵🇹</span>
+                            <span class="lang-item-label">Português</span>
+                        </a>
+                        <a class="lang-item" href="cookies-tr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇹🇷</span>
+                            <span class="lang-item-label">Türkçe</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ru.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇷🇺</span>
+                            <span class="lang-item-label">Русский</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ja.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇯🇵</span>
+                            <span class="lang-item-label">日本語</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ko.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇰🇷</span>
+                            <span class="lang-item-label">한국어</span>
+                        </a>
+                        <a class="lang-item" href="cookies-zh.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇨🇳</span>
+                            <span class="lang-item-label">简体中文</span>
+                        </a>
+                        <a class="lang-item" href="cookies-th.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇹🇭</span>
+                            <span class="lang-item-label">ไทย</span>
+                        </a>
+                        <a class="lang-item active" href="cookies-ar.html">
+                            <span class="lang-check">✔</span>
+                            <span class="lang-item-flag">🇸🇦</span>
+                            <span class="lang-item-label">العربية</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <h2>1. المقدمة</h2>
-        <p>توضح سياسة ملفات تعريف الارتباط هذه كيف تستخدم Sky of Empire (“نحن”) ملفات تعريف الارتباط والتقنيات المماثلة عندما تستخدم موقعنا الإلكتروني أو خدماتنا الرقمية. كما توضح ما المعلومات التي نجمعها، وكيف نستخدمها، وما الحقوق التي تتمتع بها.</p>
+        <div class="policy-wrap">
+            <h1>سياسة ملفات تعريف الارتباط</h1>
 
-        <h2>2. ما هي ملفات تعريف الارتباط؟</h2>
-        <p>ملفات تعريف الارتباط هي ملفات نصية صغيرة يتم تخزينها على جهاز الكمبيوتر أو الجهاز المحمول الخاص بك عند زيارة موقع إلكتروني. وهي تساعد المواقع الإلكترونية على العمل بكفاءة أكبر وتوفر معلومات عن سلوك المستخدم.</p>
-        <p>تتيح لنا ملفات تعريف الارتباط التعرف على جهازك وحفظ تفضيلاتك.</p>
+            <p><strong>آخر تحديث:</strong> 1 أبريل 2026</p>
+            <p><strong>المشغّل:</strong> Sky of Empire<br>
+            <strong>البريد الإلكتروني:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
+            <strong>المقر:</strong> سويسرا</p>
 
-        <h2>3. ما أنواع ملفات تعريف الارتباط التي نستخدمها؟</h2>
+            <h2>1. المقدمة</h2>
+            <p>
+                توضح سياسة ملفات تعريف الارتباط هذه كيف يستخدم Sky of Empire ("نحن" أو "لنا") ملفات تعريف الارتباط
+                والتقنيات المشابهة عند استخدامك لموقعنا الإلكتروني أو خدماتنا الرقمية. كما تشرح ما هي المعلومات
+                التي نقوم بجمعها، وكيف نستخدمها، وما هي الحقوق المتاحة لك.
+            </p>
 
-        <h2>3.1 ملفات تعريف الارتباط الضرورية</h2>
-        <p>هذه الملفات ضرورية لتشغيل الموقع الإلكتروني ولا يمكن تعطيلها.</p>
-        <p>أمثلة:</p>
-        <ul>
-            <li>إدارة الجلسات</li>
-            <li>الأمان والمصادقة</li>
-            <li>حفظ إعدادات الخصوصية</li>
-        </ul>
+            <h2>2. ما هي ملفات تعريف الارتباط؟</h2>
+            <p>
+                ملفات تعريف الارتباط هي ملفات نصية صغيرة يتم تخزينها على جهاز الكمبيوتر أو الهاتف المحمول الخاص بك
+                عند زيارة موقع إلكتروني. وهي تساعد على تشغيل المواقع بكفاءة أكبر، كما توفر معلومات عن سلوك المستخدم.
+            </p>
+            <p>
+                تمكّننا ملفات تعريف الارتباط من التعرّف على جهازك وحفظ تفضيلاتك.
+            </p>
 
-        <h2>3.2 ملفات تعريف الارتباط الخاصة بالتحليل والإحصاءات</h2>
-        <p>تساعدنا هذه الملفات على فهم كيفية استخدام الزوار للموقع الإلكتروني حتى نتمكن من تحسين خدماتنا.</p>
-        <p>أمثلة:</p>
-        <ul>
-            <li>Google Analytics</li>
-            <li>Firebase Analytics</li>
-        </ul>
+            <h2>3. ما أنواع ملفات تعريف الارتباط التي نستخدمها؟</h2>
 
-        <h2>3.3 ملفات تعريف الارتباط الوظيفية</h2>
-        <p>تتيح هذه الملفات ميزات محسّنة وتخصيصات إضافية.</p>
-        <p>أمثلة:</p>
-        <ul>
-            <li>حفظ إعدادات اللغة</li>
-            <li>تفضيلات المستخدم</li>
-        </ul>
+            <h3>3.1 ملفات تعريف الارتباط الضرورية</h3>
+            <p>
+                هذه الملفات ضرورية لتشغيل الموقع ولا يمكن تعطيلها.
+            </p>
+            <p><strong>أمثلة:</strong></p>
+            <ul>
+                <li>إدارة الجلسات</li>
+                <li>الأمان والمصادقة</li>
+                <li>حفظ إعدادات الخصوصية</li>
+            </ul>
 
-        <h2>3.4 ملفات تعريف الارتباط الخاصة بالتسويق والإعلانات</h2>
-        <p>تُستخدم هذه الملفات لعرض إعلانات ذات صلة وقياس فعالية الحملات الإعلانية.</p>
-        <p>أمثلة:</p>
-        <ul>
-            <li>Google Ads</li>
-            <li>Meta (Facebook) Pixel</li>
-            <li>Unity Ads</li>
-            <li>AdMob</li>
-        </ul>
+            <h3>3.2 ملفات تعريف الارتباط الخاصة بالتحليلات والإحصاءات</h3>
+            <p>
+                تساعدنا هذه الملفات على فهم كيفية استخدام الزوار لموقعنا حتى نتمكن من تحسين خدماتنا.
+            </p>
+            <p><strong>أمثلة:</strong></p>
+            <ul>
+                <li>Google Analytics</li>
+                <li>Firebase Analytics</li>
+            </ul>
 
-        <h2>4. ملفات تعريف الارتباط الخاصة بالأطراف الثالثة</h2>
-        <p>قد نستخدم مزودي خدمات من أطراف ثالثة، وقد يستخدمون ملفات تعريف الارتباط نيابةً عنا، ومنهم:</p>
-        <ul>
-            <li>Google</li>
-            <li>Apple</li>
-            <li>Unity Technologies</li>
-            <li>Meta Platforms</li>
-            <li>Firebase</li>
-            <li>شركاء الإعلانات والتحليلات</li>
-        </ul>
-        <p>يقوم هؤلاء الأطراف الثالثة بمعالجة البيانات وفقًا لسياسات الخصوصية الخاصة بهم.</p>
+            <h3>3.3 ملفات تعريف الارتباط الوظيفية</h3>
+            <p>
+                تتيح هذه الملفات ميزات إضافية وإعدادات مخصصة.
+            </p>
+            <p><strong>أمثلة:</strong></p>
+            <ul>
+                <li>حفظ إعدادات اللغة</li>
+                <li>تفضيلات المستخدم</li>
+            </ul>
 
-        <h2>5. الأساس القانوني</h2>
-        <p>يشمل الأساس القانوني لاستخدام ملفات تعريف الارتباط ما يلي:</p>
-        <ul>
-            <li>موافقتك وفقًا للمادة 6(1)(a) من اللائحة العامة لحماية البيانات (GDPR)</li>
-            <li>مصلحتنا المشروعة وفقًا للمادة 6(1)(f) من اللائحة العامة لحماية البيانات</li>
-            <li>الالتزامات القانونية</li>
-        </ul>
-        <p>لا تتطلب ملفات تعريف الارتباط الضرورية موافقتك.</p>
+            <h3>3.4 ملفات تعريف الارتباط التسويقية والإعلانية</h3>
+            <p>
+                تُستخدم هذه الملفات لعرض إعلانات ذات صلة وقياس فعالية الحملات.
+            </p>
+            <p><strong>أمثلة:</strong></p>
+            <ul>
+                <li>Google Ads</li>
+                <li>Meta (Facebook) Pixel</li>
+                <li>Unity Ads</li>
+                <li>AdMob</li>
+            </ul>
 
-        <h2>6. كيف يمكنك إدارة ملفات تعريف الارتباط؟</h2>
-        <p>يمكنك إدارة ملفات تعريف الارتباط أو تعطيلها من خلال إعدادات المتصفح الخاص بك.</p>
-        <p>إعدادات المتصفح:</p>
-        <ul>
-            <li>Chrome: <a href="https://support.google.com/chrome">https://support.google.com/chrome</a></li>
-            <li>Safari: <a href="https://support.apple.com">https://support.apple.com</a></li>
-            <li>Firefox: <a href="https://support.mozilla.org">https://support.mozilla.org</a></li>
-            <li>Edge: <a href="https://support.microsoft.com">https://support.microsoft.com</a></li>
-        </ul>
+            <h2>4. ملفات تعريف الارتباط الخاصة بالأطراف الثالثة</h2>
+            <p>
+                قد نستعين بجهات خارجية تستخدم ملفات تعريف الارتباط نيابةً عنا، بما في ذلك:
+            </p>
+            <ul>
+                <li>Google</li>
+                <li>Apple</li>
+                <li>Unity Technologies</li>
+                <li>Meta Platforms</li>
+                <li>Firebase</li>
+                <li>شركاء الإعلانات والتحليلات</li>
+            </ul>
+            <p>
+                تقوم هذه الجهات الخارجية بمعالجة البيانات وفقًا لسياسات الخصوصية الخاصة بها.
+            </p>
 
-        <p>الأجهزة المحمولة:</p>
-        <ul>
-            <li>iOS: الإعدادات ← الخصوصية ← التتبع</li>
-            <li>Android: الإعدادات ← Google ← الإعلانات</li>
-        </ul>
+            <h2>5. الأساس القانوني</h2>
+            <p>
+                يتم استخدام ملفات تعريف الارتباط على أساس:
+            </p>
+            <ul>
+                <li>موافقتك وفقًا للمادة 6 الفقرة 1 (أ) من اللائحة العامة لحماية البيانات (GDPR)</li>
+                <li>مصلحتنا المشروعة وفقًا للمادة 6 الفقرة 1 (و) من اللائحة العامة لحماية البيانات</li>
+                <li>الالتزامات القانونية</li>
+            </ul>
+            <p>
+                لا تتطلب ملفات تعريف الارتباط الضرورية موافقة مسبقة.
+            </p>
 
-        <p>يرجى ملاحظة أن تعطيل ملفات تعريف الارتباط قد يحد من بعض وظائف خدماتنا.</p>
+            <h2>6. كيف يمكنك إدارة ملفات تعريف الارتباط؟</h2>
+            <p>
+                يمكنك إدارة ملفات تعريف الارتباط أو تعطيلها من خلال إعدادات المتصفح الخاص بك.
+            </p>
 
-        <h2>7. مدة التخزين</h2>
-        <p>يمكن تقسيم ملفات تعريف الارتباط إلى:</p>
-        <ul>
-            <li>ملفات تعريف الارتباط الخاصة بالجلسة: يتم حذفها عند إغلاق المتصفح.</li>
-            <li>ملفات تعريف الارتباط الدائمة: تبقى على جهازك حتى يتم حذفها أو انتهاء صلاحيتها.</li>
-        </ul>
+            <p><strong>إعدادات المتصفح:</strong></p>
+            <ul>
+                <li>Chrome: <a href="https://support.google.com/chrome">support.google.com/chrome</a></li>
+                <li>Safari: <a href="https://support.apple.com">support.apple.com</a></li>
+                <li>Firefox: <a href="https://support.mozilla.org">support.mozilla.org</a></li>
+                <li>Edge: <a href="https://support.microsoft.com">support.microsoft.com</a></li>
+            </ul>
 
-        <h2>8. حقوقك</h2>
-        <p>لديك الحقوق التالية:</p>
-        <ul>
-            <li>الوصول إلى بياناتك</li>
-            <li>تصحيح البيانات أو حذفها</li>
-            <li>تقييد المعالجة</li>
-            <li>الاعتراض على المعالجة</li>
-            <li>سحب موافقتك</li>
-        </ul>
-        <p>لأي طلبات، يرجى التواصل عبر:<br>
-        <strong>support@skyofempire.com</strong></p>
+            <p><strong>الأجهزة المحمولة:</strong></p>
+            <ul>
+                <li>iOS: الإعدادات ← الخصوصية ← التتبع</li>
+                <li>Android: الإعدادات ← Google ← الإعلانات</li>
+            </ul>
 
-        <h2>9. التغييرات على هذه السياسة</h2>
-        <p>نحتفظ بالحق في تحديث سياسة ملفات تعريف الارتباط هذه في أي وقت. وسيتم نشر أي تغييرات على موقعنا الإلكتروني.</p>
+            <p>
+                يرجى ملاحظة أن تعطيل ملفات تعريف الارتباط قد يحد من وظائف خدماتنا.
+            </p>
 
-        <h2>10. التواصل</h2>
-        <p><strong>Sky of Empire</strong><br>
-        البريد الإلكتروني: support@skyofempire.com<br>
-        المقر: سويسرا</p>
+            <h2>7. مدة التخزين</h2>
+            <p>
+                يمكن أن تكون ملفات تعريف الارتباط:
+            </p>
+            <ul>
+                <li><strong>ملفات جلسة:</strong> يتم حذفها عند إغلاق المتصفح</li>
+                <li><strong>ملفات دائمة:</strong> تبقى محفوظة على جهازك حتى يتم حذفها أو انتهاء صلاحيتها</li>
+            </ul>
+
+            <h2>8. حقوقك</h2>
+            <p>
+                لديك الحق في:
+            </p>
+            <ul>
+                <li>الاطلاع على بياناتك</li>
+                <li>تصحيح البيانات أو حذفها</li>
+                <li>تقييد المعالجة</li>
+                <li>الاعتراض على المعالجة</li>
+                <li>سحب موافقتك</li>
+            </ul>
+
+            <p>
+                يمكن إرسال الطلبات إلى:
+                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+            </p>
+
+            <h2>9. التغييرات على هذه السياسة</h2>
+            <p>
+                نحتفظ بالحق في تحديث سياسة ملفات تعريف الارتباط هذه في أي وقت. وسيتم نشر أي تغييرات على موقعنا الإلكتروني.
+            </p>
+
+            <h2>10. التواصل</h2>
+            <p>
+                Sky of Empire<br>
+                البريد الإلكتروني: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
+                المقر: سويسرا
+            </p>
+        </div>
+
+        <div class="footer-space"></div>
     </div>
-</div>
 
-<script>
-    const languageSelect = document.getElementById("languageSelect");
-    languageSelect.addEventListener("change", function () {
-        const lang = this.value;
-        const pageMap = {
-            de: "cookies.html",
-            en: "cookies-en.html",
-            fr: "cookies-fr.html",
-            it: "cookies-it.html",
-            es: "cookies-es.html",
-            pt: "cookies-pt.html",
-            tr: "cookies-tr.html",
-            ru: "cookies-ru.html",
-            ja: "cookies-ja.html",
-            ko: "cookies-ko.html",
-            zh: "cookies-zh.html",
-            th: "cookies-th.html",
-            ar: "cookies-ar.html"
-        };
-        window.location.href = pageMap[lang];
-    });
-</script>
+    <script>
+        const langDropdown = document.getElementById("langDropdown");
+        const langButton = document.getElementById("langButton");
+        const langMenu = document.getElementById("langMenu");
+
+        langButton.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const isOpen = langMenu.classList.contains("open");
+
+            if (isOpen) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            } else {
+                langMenu.classList.add("open");
+                langButton.setAttribute("aria-expanded", "true");
+            }
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!langDropdown.contains(e.target)) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+    </script>
+
 </body>
 </html>
