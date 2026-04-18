@@ -5,18 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>隐私政策 - Sky of Empire</title>
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
-        body {
+        html, body {
             margin: 0;
             font-family: Arial, sans-serif;
             color: #f4ead7;
-            min-height: 100vh;
+            min-height: 100%;
             overflow-x: hidden;
             background:
                 radial-gradient(circle at 50% 18%, rgba(176, 132, 57, 0.08) 0%, rgba(176, 132, 57, 0.00) 18%),
                 linear-gradient(to bottom, #000000 0%, #040404 52%, #0a0a0a 100%);
-            padding: 0 20px 60px;
+        }
+
+        body {
+            position: relative;
+        }
+
+        .clouds-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .cloud-img {
+            position: absolute;
+            background: url("clouds.png") no-repeat center center / contain;
+            pointer-events: none;
+            opacity: 0.25;
+            filter: brightness(0.56) contrast(1.05) saturate(0.75);
+            mix-blend-mode: screen;
+        }
+
+        .cloud-img::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.22);
+            border-radius: 40px;
+            mix-blend-mode: multiply;
+        }
+
+        .cloud1 { width: 470px; height: 290px; top: -35px; left: -40px; }
+        .cloud2 { width: 340px; height: 215px; top: 35px; left: 280px; }
+        .cloud3 { width: 460px; height: 285px; top: -20px; right: -30px; }
+        .cloud4 { width: 255px; height: 165px; top: 155px; left: 130px; }
+        .cloud5 { width: 315px; height: 195px; top: 110px; left: 520px; }
+        .cloud6 { width: 280px; height: 175px; top: 220px; right: 160px; }
+        .cloud7 { width: 430px; height: 265px; top: 305px; left: -20px; }
+        .cloud8 { width: 235px; height: 150px; top: 430px; left: 430px; }
+        .cloud9 { width: 410px; height: 255px; top: 325px; right: -20px; }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 0 20px 40px;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 980px;
+            margin: 0 auto;
         }
 
         .topbar {
@@ -24,343 +79,485 @@
             justify-content: flex-start;
             padding-top: 14px;
             padding-left: 4px;
-            position: sticky;
-            top: 0;
-            z-index: 3;
+            position: relative;
+            z-index: 1000;
         }
 
-        .language-select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background: rgba(5, 5, 5, 0.90);
+        .lang-dropdown {
+            position: relative;
+            z-index: 1001;
+        }
+
+        .lang-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 170px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 2px solid #0d63ff;
+            background: rgba(5, 5, 5, 0.92);
             color: #f2e2bf;
-            border: 1px solid rgba(189, 148, 80, 0.30);
-            border-radius: 14px;
-            padding: 12px 46px 12px 16px;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 10px 22px rgba(0,0,0,0.20);
-            background-image:
-                linear-gradient(45deg, transparent 50%, #d8b66c 50%),
-                linear-gradient(135deg, #d8b66c 50%, transparent 50%);
-            background-position:
-                calc(100% - 20px) calc(50% - 3px),
-                calc(100% - 14px) calc(50% - 3px);
-            background-size: 6px 6px, 6px 6px;
-            background-repeat: no-repeat;
+            box-shadow:
+                0 0 0 2px rgba(216, 182, 108, 0.14) inset,
+                0 10px 22px rgba(0,0,0,0.24);
+            user-select: none;
         }
 
-        .container {
+        .lang-button:hover {
+            filter: brightness(1.03);
+        }
+
+        .lang-flag {
+            font-size: 22px;
+            line-height: 1;
+            flex: 0 0 auto;
+        }
+
+        .lang-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .lang-arrow {
+            font-size: 14px;
+            color: #e2c780;
+            flex: 0 0 auto;
+        }
+
+        .lang-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            width: 330px;
+            background: rgba(10, 10, 10, 0.96);
+            border: 1px solid rgba(255,255,255,0.20);
+            border-radius: 24px;
+            padding: 12px;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+            backdrop-filter: blur(10px);
+            display: none;
+            z-index: 1002;
+            overflow: hidden;
+        }
+
+        .lang-menu.open {
+            display: block;
+        }
+
+        .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .lang-item:hover {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .lang-item.active {
+            color: #ffffff;
+        }
+
+        .lang-check {
+            width: 22px;
+            flex: 0 0 22px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .lang-item-flag {
+            width: 28px;
+            flex: 0 0 28px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        .lang-item-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .policy-wrap {
+            position: relative;
+            z-index: 5;
             max-width: 980px;
-            margin: 24px auto 0;
+            margin: 20px auto 0;
+            background: rgba(3, 3, 3, 0.82);
+            border: 1px solid rgba(189, 148, 80, 0.18);
+            border-radius: 22px;
+            padding: 28px 26px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+            color: #f5ebd8;
+            line-height: 1.8;
         }
 
-        .back-link {
-            display: inline-block;
+        .policy-wrap h1,
+        .policy-wrap h2,
+        .policy-wrap h3 {
+            color: #f2e2bf;
+        }
+
+        .policy-wrap h1 {
+            font-size: 30px;
+            margin-top: 0;
             margin-bottom: 18px;
+        }
+
+        .policy-wrap h2 {
+            font-size: 22px;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+
+        .policy-wrap h3 {
+            font-size: 18px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+        }
+
+        .policy-wrap p,
+        .policy-wrap li {
+            font-size: 16px;
+        }
+
+        .policy-wrap ul {
+            margin: 8px 0 16px 0;
+            padding-left: 22px;
+        }
+
+        .policy-wrap a {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .back-link:hover { text-decoration: underline; }
-
-        .card {
-            background: rgba(3, 3, 3, 0.82);
-            border: 1px solid rgba(189, 148, 80, 0.18);
-            border-radius: 22px;
-            padding: 28px 24px;
-            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+        .policy-wrap a:hover {
+            text-decoration: underline;
         }
 
-        h1 {
-            font-size: 34px;
-            margin: 0 0 18px;
-            color: #f2e2bf;
-        }
-
-        h2 {
-            margin-top: 28px;
-            margin-bottom: 12px;
-            font-size: 24px;
-            color: #f2e2bf;
-        }
-
-        p, li {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #f4ead7;
-        }
-
-        ul { padding-left: 22px; }
-
-        .meta {
-            margin-bottom: 18px;
-            color: #d8c6a1;
+        .footer-space {
+            height: 10px;
         }
 
         @media (max-width: 768px) {
-            .language-select {
-                font-size: 14px;
-                padding: 10px 40px 10px 14px;
+            .topbar {
+                padding-top: 12px;
+                padding-left: 2px;
             }
 
-            .card { padding: 22px 16px; }
+            .lang-button {
+                min-width: 170px;
+                padding: 10px 14px;
+                font-size: 15px;
+            }
 
-            h1 { font-size: 28px; }
-            h2 { font-size: 22px; }
+            .lang-menu {
+                width: 320px;
+                padding: 10px;
+            }
 
-            p, li { font-size: 15px; }
+            .lang-item {
+                padding: 7px 8px;
+                font-size: 17px;
+            }
+
+            .policy-wrap {
+                padding: 20px 16px;
+                margin-top: 16px;
+            }
+
+            .policy-wrap h1 {
+                font-size: 24px;
+            }
+
+            .policy-wrap h2 {
+                font-size: 20px;
+            }
+
+            .policy-wrap p,
+            .policy-wrap li {
+                font-size: 15px;
+            }
+
+            .cloud1 { width: 250px; height: 160px; top: -10px; left: -20px; }
+            .cloud2 { width: 190px; height: 125px; top: 30px; left: 140px; }
+            .cloud3 { width: 240px; height: 155px; top: 0; right: -10px; }
+            .cloud4 { width: 150px; height: 100px; top: 120px; left: 50px; }
+            .cloud5 { width: 180px; height: 118px; top: 120px; left: 220px; }
+            .cloud6 { width: 165px; height: 108px; top: 190px; right: 70px; }
+            .cloud7 { width: 230px; height: 150px; top: 280px; left: -10px; }
+            .cloud8 { width: 140px; height: 92px; top: 380px; left: 210px; }
+            .cloud9 { width: 220px; height: 145px; top: 310px; right: -10px; }
         }
     </style>
 </head>
 <body>
 
-<div class="topbar">
-    <select class="language-select" id="languageSelect">
-        <option value="de">🇩🇪 Deutsch</option>
-        <option value="en">🇬🇧 English</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="it">🇮🇹 Italiano</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="pt">🇵🇹 Português</option>
-        <option value="tr">🇹🇷 Türkçe</option>
-        <option value="ru">🇷🇺 Русский</option>
-        <option value="ja">🇯🇵 日本語</option>
-        <option value="ko">🇰🇷 한국어</option>
-        <option value="zh" selected>🇨🇳 简体中文</option>
-        <option value="th">🇹🇭 ไทย</option>
-        <option value="ar">🇸🇦 العربية</option>
-    </select>
-</div>
+    <div class="clouds-layer">
+        <div class="cloud-img cloud1"></div>
+        <div class="cloud-img cloud2"></div>
+        <div class="cloud-img cloud3"></div>
+        <div class="cloud-img cloud4"></div>
+        <div class="cloud-img cloud5"></div>
+        <div class="cloud-img cloud6"></div>
+        <div class="cloud-img cloud7"></div>
+        <div class="cloud-img cloud8"></div>
+        <div class="cloud-img cloud9"></div>
+    </div>
 
-<div class="container">
-    <a class="back-link" href="index-zh.html">← 返回主页</a>
+    <div class="page">
+        <div class="container">
+            <div class="topbar">
+                <div class="lang-dropdown" id="langDropdown">
+                    <button class="lang-button" id="langButton" type="button" aria-expanded="false">
+                        <span class="lang-flag">🇨🇳</span>
+                        <span class="lang-label">简体中文</span>
+                        <span class="lang-arrow">▼</span>
+                    </button>
 
-    <div class="card">
-        <h1>隐私政策</h1>
-
-        <div class="meta">
-            <p><strong>最后更新：</strong>2026年4月1日</p>
-            <p><strong>运营方：</strong>Sky of Empire<br>
-            <strong>电子邮箱：</strong>support@skyofempire.com<br>
-            <strong>所在地：</strong>瑞士</p>
-            <p><strong>生效日期：</strong>本版本将在您根据适用法律通过游戏内弹窗或类似通知被告知更新之日起生效。</p>
+                    <div class="lang-menu" id="langMenu">
+                        <a class="lang-item" href="privacy.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇩🇪</span>
+                            <span class="lang-item-label">Deutsch</span>
+                        </a>
+                        <a class="lang-item" href="privacy-en.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇬🇧</span>
+                            <span class="lang-item-label">English</span>
+                        </a>
+                        <a class="lang-item" href="privacy-fr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇫🇷</span>
+                            <span class="lang-item-label">Français</span>
+                        </a>
+                        <a class="lang-item" href="privacy-it.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇮🇹</span>
+                            <span class="lang-item-label">Italiano</span>
+                        </a>
+                        <a class="lang-item" href="privacy-es.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇪🇸</span>
+                            <span class="lang-item-label">Español</span>
+                        </a>
+                        <a class="lang-item" href="privacy-pt.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇵🇹</span>
+                            <span class="lang-item-label">Português</span>
+                        </a>
+                        <a class="lang-item" href="privacy-tr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇹🇷</span>
+                            <span class="lang-item-label">Türkçe</span>
+                        </a>
+                        <a class="lang-item" href="privacy-ru.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇷🇺</span>
+                            <span class="lang-item-label">Русский</span>
+                        </a>
+                        <a class="lang-item" href="privacy-ja.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇯🇵</span>
+                            <span class="lang-item-label">日本語</span>
+                        </a>
+                        <a class="lang-item" href="privacy-ko.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇰🇷</span>
+                            <span class="lang-item-label">한국어</span>
+                        </a>
+                        <a class="lang-item active" href="privacy-zh.html">
+                            <span class="lang-check">✔</span>
+                            <span class="lang-item-flag">🇨🇳</span>
+                            <span class="lang-item-label">简体中文</span>
+                        </a>
+                        <a class="lang-item" href="privacy-th.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇹🇭</span>
+                            <span class="lang-item-label">ไทย</span>
+                        </a>
+                        <a class="lang-item" href="privacy-ar.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇸🇦</span>
+                            <span class="lang-item-label">العربية</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <h2>国际适用性</h2>
-        <p>本政策适用于全球所有 Sky of Empire 用户。我们承诺遵守服务提供国家适用的数据保护法律。如当地法律提出额外要求，将通过补充条款或地区性说明予以体现。</p>
+        <div class="policy-wrap">
+            <h1>隐私政策</h1>
 
-        <h2>1. 引言</h2>
-        <p>本隐私政策（“本政策”）说明与 Sky of Empire 游戏相关的个人数据如何被处理。其适用于所有使用我们数字产品和服务的用户（“您”）。</p>
-        <p>“Sky of Empire”“我们”“我们的”是指位于瑞士的 Sky of Empire 游戏运营方。</p>
-        <p>我们承诺保护您的个人数据并以负责任的方式处理这些数据。本政策说明我们收集哪些数据、如何使用、保存和保护这些数据，以及您享有哪些权利。</p>
-        <p>所有首字母大写的术语均与 Sky of Empire 使用条款中的含义相同。</p>
+            <p><strong>最后更新：</strong>2026年4月1日</p>
+            <p><strong>运营方：</strong>Sky of Empire<br>
+            <strong>电子邮箱：</strong><a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
+            <strong>所在地：</strong>瑞士</p>
 
-        <h2>2. 数据控制者</h2>
-        <p><strong>运营方：</strong>Sky of Empire<br>
-        <strong>电子邮箱：</strong>support@skyofempire.com<br>
-        <strong>所在地：</strong>瑞士</p>
-        <p>Sky of Empire 是适用数据保护法律（包括 GDPR）意义上的数据控制者。</p>
+            <h2>1. 引言</h2>
+            <p>
+                本隐私政策说明 Sky of Empire（“我们”）在您使用我们的游戏、网站或相关服务时，如何收集、使用、处理和保护您的个人数据。
+            </p>
+            <p>
+                使用我们的服务即表示您确认已阅读并理解本隐私政策。
+            </p>
 
-        <h2>3. 我们收集哪些信息？</h2>
-        <p>所收集个人数据的类型取决于您如何使用我们的服务。</p>
+            <h2>2. 我们收集哪些数据</h2>
+            <p>我们可能会收集以下类别的数据：</p>
+            <ul>
+                <li>账户数据，例如用户名或游戏内标识符</li>
+                <li>联系方式数据，例如您向我们提供的电子邮箱地址</li>
+                <li>设备数据，例如设备类型、操作系统、语言、IP 地址和设备标识符</li>
+                <li>使用数据，例如游戏进度、设置、购买记录、登录记录和互动行为</li>
+                <li>支持数据，例如您发送给客户支持的消息</li>
+                <li>分析和广告数据（如适用）</li>
+            </ul>
 
-        <p><strong>A. 您直接向我们提供的数据</strong></p>
-        <ul>
-            <li>姓名和电子邮箱地址</li>
-            <li>电话号码（可选）</li>
-            <li>出生日期（可选）</li>
-            <li>游戏内用户 ID 和用户名</li>
-            <li>账户验证数据</li>
-            <li>客服请求和沟通内容</li>
-            <li>购买和交易信息</li>
-            <li>问卷、抽奖或促销活动中的数据</li>
-            <li>其他您自愿提供的信息</li>
-        </ul>
+            <h2>3. 我们如何使用您的数据</h2>
+            <p>我们将您的数据用于以下目的：</p>
+            <ul>
+                <li>提供、运营和维护游戏及相关服务</li>
+                <li>管理您的游戏账户</li>
+                <li>保存进度、功能和设置</li>
+                <li>提供技术支持和客户服务</li>
+                <li>改进性能、稳定性和用户体验</li>
+                <li>防止作弊、欺诈、滥用和非法活动</li>
+                <li>遵守法律和监管义务</li>
+                <li>发送与服务相关的重要通知</li>
+                <li>分析使用情况并衡量性能（如适用）</li>
+            </ul>
 
-        <p><strong>B. 自动收集的数据</strong></p>
-        <ul>
-            <li>IP 地址</li>
-            <li>设备 ID 和广告 ID</li>
-            <li>操作系统和设备类型</li>
-            <li>语言设置和浏览器类型</li>
-            <li>游戏统计和进度</li>
-            <li>使用和分析数据</li>
-            <li>防欺诈数据</li>
-            <li>营销和通信偏好设置</li>
-        </ul>
+            <h2>4. 处理的法律依据</h2>
+            <p>在适用情况下，我们基于以下一项或多项法律依据处理个人数据：</p>
+            <ul>
+                <li>履行合同，即向您提供游戏和服务</li>
+                <li>遵守法律义务</li>
+                <li>我们的合法利益，例如安全、服务改进和防止滥用</li>
+                <li>在法律要求的情况下，基于您的同意</li>
+            </ul>
 
-        <p><strong>C. 来自第三方的数据</strong></p>
-        <ul>
-            <li>来自 Apple、Google 或 Steam 等平台的登录信息</li>
-            <li>支付服务提供商提供的付款确认信息</li>
-            <li>如果您进行关联，则包括社交媒体信息</li>
-            <li>公开可见的评价或反馈</li>
-        </ul>
+            <h2>5. 与第三方共享数据</h2>
+            <p>在必要时，我们可能会将您的数据共享给以下类别的服务提供商或合作伙伴，包括：</p>
+            <ul>
+                <li>托管和云基础设施提供商</li>
+                <li>分析服务提供商</li>
+                <li>支付处理服务提供商（如适用）</li>
+                <li>技术支持和客户服务提供商</li>
+                <li>广告网络或衡量服务提供商（如适用）</li>
+                <li>在法律要求下的公共机构或法律机关</li>
+            </ul>
+            <p>
+                我们不会以传统商业数据销售的意义出售您的个人数据。
+            </p>
 
-        <h2>4. 我们如何收集您的数据？</h2>
-        <p>我们通过以下方式收集数据：</p>
+            <h2>6. 国际数据传输</h2>
+            <p>
+                您的数据可能会在您居住国以外的国家进行处理。在这种情况下，我们将根据适用法律采取适当的保护措施来保护您的数据，例如标准合同条款或其他法律认可的机制。
+            </p>
 
-        <p><strong>直接互动</strong></p>
-        <ul>
-            <li>注册账户</li>
-            <li>使用游戏</li>
-            <li>联系客户支持</li>
-            <li>参与问卷调查或活动</li>
-        </ul>
+            <h2>7. 数据保存期限</h2>
+            <p>
+                我们仅在实现本隐私政策中所述目的所必需的期限内，或法律要求的期限内保存您的数据。此后，数据将被删除、匿名化，或仅在法律合规或法律主张抗辩所必需时保留。
+            </p>
 
-        <p><strong>第三方</strong></p>
-        <ul>
-            <li>通过外部平台登录</li>
-            <li>支付服务提供商</li>
-            <li>广告和分析合作伙伴</li>
-        </ul>
+            <h2>8. 数据安全</h2>
+            <p>
+                我们采取适当的技术和组织措施，以防止未经授权的访问、丢失、篡改或非法披露您的数据。然而，任何系统或互联网数据传输都无法保证绝对安全。
+            </p>
 
-        <p><strong>自动化技术</strong></p>
-        <ul>
-            <li>Cookie</li>
-            <li>服务器日志</li>
-            <li>分析工具和跟踪技术</li>
-        </ul>
+            <h2>9. 儿童隐私</h2>
+            <p>
+                除非适用法律允许，否则我们的服务不会有意面向儿童。如果我们发现儿童的个人数据是在违法或缺乏必要法律依据的情况下被收集的，我们将采取适当措施删除这些数据。
+            </p>
 
-        <h2>5. 我们如何使用您的数据</h2>
-        <p>我们将您的个人数据用于以下目的：</p>
-        <ul>
-            <li>提供和运营我们的服务，</li>
-            <li>个性化您的游戏体验，</li>
-            <li>处理付款，</li>
-            <li>管理和验证账户，</li>
-            <li>提供客户支持，</li>
-            <li>保障安全并防止欺诈，</li>
-            <li>进行分析和改进，</li>
-            <li>开展营销和广告活动，</li>
-            <li>履行法律义务，</li>
-            <li>开展活动和促销，</li>
-            <li>提供游戏中的社交功能。</li>
-        </ul>
+            <h2>10. 您的权利</h2>
+            <p>根据适用法律，您可能享有以下权利：</p>
+            <ul>
+                <li>访问您的个人数据</li>
+                <li>更正不准确或不完整的数据</li>
+                <li>请求删除您的数据</li>
+                <li>请求限制处理</li>
+                <li>反对某些类型的处理</li>
+                <li>在基于同意处理的情况下，随时撤回您的同意</li>
+                <li>在适用情况下请求数据可携带性</li>
+                <li>向有管辖权的监督机构提出投诉</li>
+            </ul>
+            <p>
+                若要行使这些权利，您可以通过以下方式联系我们：
+                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+            </p>
 
-        <h2>6. Cookie 和跟踪技术</h2>
-        <p>我们使用 Cookie 和类似技术来：</p>
-        <ul>
-            <li>分析服务使用情况，</li>
-            <li>提供功能，</li>
-            <li>个性化内容，</li>
-            <li>优化广告，</li>
-            <li>防止欺诈。</li>
-        </ul>
-        <p>您可以通过浏览器设置禁用 Cookie，这可能会限制游戏的部分功能。</p>
+            <h2>11. Cookie 和类似技术</h2>
+            <p>
+                我们可能会在网站或相关服务中使用 Cookie 或类似技术。更多信息请参阅我们的 Cookie 政策。
+            </p>
 
-        <h2>7. 处理的法律依据</h2>
-        <p>数据处理基于以下依据：</p>
-        <ul>
-            <li>您的同意，</li>
-            <li>合同履行，</li>
-            <li>我们的合法利益，</li>
-            <li>法律义务。</li>
-        </ul>
-        <p>原则上，我们不会处理特殊类别的个人数据。</p>
+            <h2>12. 本政策的变更</h2>
+            <p>
+                我们保留随时更新本隐私政策的权利。任何变更都将发布在本页面或在我们的服务中适当位置公布。除非另有说明，更新后的版本自发布之日起生效。
+            </p>
 
-        <h2>8. 儿童和未成年人</h2>
-        <p>我们的服务不面向 13 岁以下儿童。在欧盟，除非法律另有规定，最低年龄为 16 岁。</p>
-        <p>如果我们发现未经父母同意收集了儿童的个人数据，我们将立即删除这些数据。</p>
+            <h2>13. 联系方式</h2>
+            <p>
+                如果您对本隐私政策或您的数据处理有任何疑问，您可以通过以下方式联系我们：
+            </p>
+            <p>
+                Sky of Empire<br>
+                电子邮箱：<a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
+                所在地：瑞士
+            </p>
+        </div>
 
-        <h2>9. 数据共享</h2>
-        <p>我们可能会将个人数据共享给以下对象：</p>
-        <ul>
-            <li>托管和 IT 服务提供商，</li>
-            <li>支付服务提供商，</li>
-            <li>分析和广告合作伙伴，</li>
-            <li>法律和税务顾问，</li>
-            <li>在法律要求下的主管机关，</li>
-            <li>在合并或收购情况下的业务合作伙伴。</li>
-        </ul>
-
-        <h2>10. 国际数据传输</h2>
-        <p>您的数据可能会传输到瑞士或欧洲经济区以外的国家。在这种情况下，我们将确保采取适当的保护措施，例如：</p>
-        <ul>
-            <li>欧盟委员会标准合同条款，</li>
-            <li>充分性决定，</li>
-            <li>法律允许的例外情况。</li>
-        </ul>
-
-        <h2>11. 您的权利</h2>
-        <p>您享有以下权利：</p>
-        <ul>
-            <li>访问您的数据，</li>
-            <li>更正不准确的数据，</li>
-            <li>删除您的数据，</li>
-            <li>限制处理，</li>
-            <li>数据可携权，</li>
-            <li>反对处理，</li>
-            <li>撤回同意，</li>
-            <li>向数据保护机构投诉。</li>
-        </ul>
-        <p>如需行使您的权利，请通过以下地址联系我们：<br>
-        support@skyofempire.com</p>
-
-        <h2>12. 营销</h2>
-        <p>在获得您的同意后，我们可能向您发送有关更新、优惠和活动的信息。您可随时通过设备设置或联系我方取消接收营销信息。</p>
-
-        <h2>13. 保存期限</h2>
-        <p>我们仅在必要期间内保存个人数据：</p>
-        <ul>
-            <li>用于提供服务，</li>
-            <li>用于履行法律义务，</li>
-            <li>用于解决争议，</li>
-            <li>用于执行协议。</li>
-        </ul>
-        <p>不活跃账户可能会在 365 天后被删除或匿名化。</p>
-
-        <h2>14. 数据安全</h2>
-        <p>我们采取适当的技术和组织措施保护您的数据，包括：</p>
-        <ul>
-            <li>加密，</li>
-            <li>访问限制，</li>
-            <li>安全服务器，</li>
-            <li>定期安全检查。</li>
-        </ul>
-        <p>尽管采取了一切措施，我们仍无法保证绝对安全。</p>
-
-        <h2>15. 第三方链接</h2>
-        <p>我们的服务可能包含第三方网站链接。我们不对其内容或隐私惯例负责。</p>
-
-        <h2>16. 联系方式</h2>
-        <p>如果您对隐私问题有任何疑问，请通过以下方式联系我们：</p>
-        <p><strong>Sky of Empire</strong><br>
-        电子邮箱：support@skyofempire.com<br>
-        所在地：瑞士</p>
-
-        <h2>17. 本政策的变更</h2>
-        <p>我们保留更新本隐私政策的权利。变更将发布于游戏内或我们的网站上。</p>
-        <p>在变更生效后继续使用我们的服务，即表示您接受更新后的政策。</p>
+        <div class="footer-space"></div>
     </div>
-</div>
 
-<script>
-    const languageSelect = document.getElementById("languageSelect");
-    languageSelect.addEventListener("change", function () {
-        const lang = this.value;
-        const pageMap = {
-            de: "privacy.html",
-            en: "privacy-en.html",
-            fr: "privacy-fr.html",
-            it: "privacy-it.html",
-            es: "privacy-es.html",
-            pt: "privacy-pt.html",
-            tr: "privacy-tr.html",
-            ru: "privacy-ru.html",
-            ja: "privacy-ja.html",
-            ko: "privacy-ko.html",
-            zh: "privacy-zh.html",
-            th: "privacy-th.html",
-            ar: "privacy-ar.html"
-        };
-        window.location.href = pageMap[lang];
-    });
-</script>
+    <script>
+        const langDropdown = document.getElementById("langDropdown");
+        const langButton = document.getElementById("langButton");
+        const langMenu = document.getElementById("langMenu");
+
+        langButton.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const isOpen = langMenu.classList.contains("open");
+
+            if (isOpen) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            } else {
+                langMenu.classList.add("open");
+                langButton.setAttribute("aria-expanded", "true");
+            }
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!langDropdown.contains(e.target)) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+    </script>
 
 </body>
 </html>
