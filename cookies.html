@@ -1,198 +1,598 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cookie-Richtlinie – Sky of Empire</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1220;
-      color: #eaf0ff;
-      line-height: 1.7;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-    .card {
-      background: #131c2e;
-      border: 1px solid #24314f;
-      border-radius: 14px;
-      padding: 30px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-    }
-    h1, h2, h3 {
-      color: #ffffff;
-      margin-top: 0;
-    }
-    h1 {
-      font-size: 34px;
-      margin-bottom: 10px;
-    }
-    h2 {
-      font-size: 24px;
-      margin-top: 35px;
-      margin-bottom: 14px;
-      border-bottom: 1px solid #24314f;
-      padding-bottom: 8px;
-    }
-    p, li {
-      font-size: 16px;
-      color: #dbe7ff;
-    }
-    ul {
-      padding-left: 22px;
-    }
-    .meta {
-      background: #0f1728;
-      border: 1px solid #24314f;
-      border-radius: 10px;
-      padding: 18px;
-      margin: 20px 0 30px 0;
-    }
-    a {
-      color: #8ab4ff;
-      text-decoration: none;
-      word-break: break-word;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .top-link {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: #8ab4ff;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie-Richtlinie - Sky of Empire</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #f4ead7;
+            min-height: 100%;
+            overflow-x: hidden;
+            background:
+                radial-gradient(circle at 50% 18%, rgba(176, 132, 57, 0.08) 0%, rgba(176, 132, 57, 0.00) 18%),
+                linear-gradient(to bottom, #000000 0%, #040404 52%, #0a0a0a 100%);
+        }
+
+        body {
+            position: relative;
+        }
+
+        .clouds-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .cloud-img {
+            position: absolute;
+            background: url("clouds.png") no-repeat center center / contain;
+            pointer-events: none;
+            opacity: 0.25;
+            filter: brightness(0.56) contrast(1.05) saturate(0.75);
+            mix-blend-mode: screen;
+        }
+
+        .cloud-img::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.22);
+            border-radius: 40px;
+            mix-blend-mode: multiply;
+        }
+
+        .cloud1 { width: 470px; height: 290px; top: -35px; left: -40px; }
+        .cloud2 { width: 340px; height: 215px; top: 35px; left: 280px; }
+        .cloud3 { width: 460px; height: 285px; top: -20px; right: -30px; }
+        .cloud4 { width: 255px; height: 165px; top: 155px; left: 130px; }
+        .cloud5 { width: 315px; height: 195px; top: 110px; left: 520px; }
+        .cloud6 { width: 280px; height: 175px; top: 220px; right: 160px; }
+        .cloud7 { width: 430px; height: 265px; top: 305px; left: -20px; }
+        .cloud8 { width: 235px; height: 150px; top: 430px; left: 430px; }
+        .cloud9 { width: 410px; height: 255px; top: 325px; right: -20px; }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 0 20px 40px;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: flex-start;
+            padding-top: 14px;
+            padding-left: 4px;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .lang-dropdown {
+            position: relative;
+            z-index: 1001;
+        }
+
+        .lang-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 170px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 2px solid #0d63ff;
+            background: rgba(5, 5, 5, 0.92);
+            color: #f2e2bf;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow:
+                0 0 0 2px rgba(216, 182, 108, 0.14) inset,
+                0 10px 22px rgba(0,0,0,0.24);
+            user-select: none;
+        }
+
+        .lang-button:hover {
+            filter: brightness(1.03);
+        }
+
+        .lang-flag {
+            font-size: 22px;
+            line-height: 1;
+            flex: 0 0 auto;
+        }
+
+        .lang-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .lang-arrow {
+            font-size: 14px;
+            color: #e2c780;
+            flex: 0 0 auto;
+        }
+
+        .lang-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            width: 330px;
+            background: rgba(10, 10, 10, 0.96);
+            border: 1px solid rgba(255,255,255,0.20);
+            border-radius: 24px;
+            padding: 12px;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+            backdrop-filter: blur(10px);
+            display: none;
+            z-index: 1002;
+            overflow: hidden;
+        }
+
+        .lang-menu.open {
+            display: block;
+        }
+
+        .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .lang-item:hover {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .lang-item.active {
+            color: #ffffff;
+        }
+
+        .lang-check {
+            width: 22px;
+            flex: 0 0 22px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .lang-item-flag {
+            width: 28px;
+            flex: 0 0 28px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        .lang-item-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .policy-wrap {
+            position: relative;
+            z-index: 5;
+            max-width: 980px;
+            margin: 20px auto 0;
+            background: rgba(3, 3, 3, 0.82);
+            border: 1px solid rgba(189, 148, 80, 0.18);
+            border-radius: 22px;
+            padding: 28px 26px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+            color: #f5ebd8;
+            line-height: 1.7;
+        }
+
+        .policy-wrap h1,
+        .policy-wrap h2,
+        .policy-wrap h3 {
+            color: #f2e2bf;
+        }
+
+        .policy-wrap h1 {
+            font-size: 30px;
+            margin-top: 0;
+            margin-bottom: 18px;
+        }
+
+        .policy-wrap h2 {
+            font-size: 22px;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+
+        .policy-wrap h3 {
+            font-size: 18px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+        }
+
+        .policy-wrap p,
+        .policy-wrap li {
+            font-size: 16px;
+        }
+
+        .policy-wrap ul {
+            margin: 8px 0 16px 0;
+            padding-left: 22px;
+        }
+
+        .policy-wrap a {
+            color: #f0d89e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .policy-wrap a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-space {
+            height: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .topbar {
+                padding-top: 12px;
+                padding-left: 2px;
+            }
+
+            .lang-button {
+                min-width: 170px;
+                padding: 10px 14px;
+                font-size: 15px;
+            }
+
+            .lang-menu {
+                width: 320px;
+                padding: 10px;
+            }
+
+            .lang-item {
+                padding: 7px 8px;
+                font-size: 17px;
+            }
+
+            .policy-wrap {
+                padding: 20px 16px;
+                margin-top: 16px;
+            }
+
+            .policy-wrap h1 {
+                font-size: 24px;
+            }
+
+            .policy-wrap h2 {
+                font-size: 20px;
+            }
+
+            .policy-wrap p,
+            .policy-wrap li {
+                font-size: 15px;
+            }
+
+            .cloud1 { width: 250px; height: 160px; top: -10px; left: -20px; }
+            .cloud2 { width: 190px; height: 125px; top: 30px; left: 140px; }
+            .cloud3 { width: 240px; height: 155px; top: 0; right: -10px; }
+            .cloud4 { width: 150px; height: 100px; top: 120px; left: 50px; }
+            .cloud5 { width: 180px; height: 118px; top: 120px; left: 220px; }
+            .cloud6 { width: 165px; height: 108px; top: 190px; right: 70px; }
+            .cloud7 { width: 230px; height: 150px; top: 280px; left: -10px; }
+            .cloud8 { width: 140px; height: 92px; top: 380px; left: 210px; }
+            .cloud9 { width: 220px; height: 145px; top: 310px; right: -10px; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <a class="top-link" href="index.html">← Zurück zur Startseite</a>
 
-    <div class="card">
-      <h1>COOKIE-RICHTLINIE</h1>
-
-      <div class="meta">
-        <p><strong>Letzte Aktualisierung:</strong> 1. April 2026</p>
-        <p><strong>Betreiber:</strong> Sky of Empire<br>
-        <strong>E-Mail:</strong> support@skyofempire.com<br>
-        <strong>Sitz:</strong> Schweiz</p>
-      </div>
-
-      <h2>1. EINLEITUNG</h2>
-      <p>Diese Cookie-Richtlinie erklärt, wie Sky of Empire („wir“, „uns“ oder „unser“) Cookies und ähnliche Technologien verwendet, wenn Sie unsere Website oder digitalen Dienste nutzen. Sie beschreibt, welche Informationen wir erfassen, wie wir diese verwenden und welche Rechte Sie haben.</p>
-
-      <h2>2. WAS SIND COOKIES?</h2>
-      <p>Cookies sind kleine Textdateien, die auf Ihrem Computer oder Mobilgerät gespeichert werden, wenn Sie eine Website besuchen. Sie dienen dazu, Websites effizienter zu betreiben und Informationen über das Nutzerverhalten bereitzustellen.</p>
-      <p>Cookies ermöglichen es uns, Ihr Gerät wiederzuerkennen und Ihre Präferenzen zu speichern.</p>
-
-      <h2>3. WELCHE ARTEN VON COOKIES VERWENDEN WIR?</h2>
-
-      <h3>3.1 Notwendige Cookies</h3>
-      <p>Diese Cookies sind für den Betrieb der Website erforderlich und können nicht deaktiviert werden.</p>
-      <p><strong>Beispiele:</strong></p>
-      <ul>
-        <li>Sitzungsverwaltung</li>
-        <li>Sicherheit und Authentifizierung</li>
-        <li>Speicherung von Datenschutzeinstellungen</li>
-      </ul>
-
-      <h3>3.2 Analyse- und Statistik-Cookies</h3>
-      <p>Diese Cookies helfen uns zu verstehen, wie Besucher unsere Website nutzen, damit wir unsere Dienste verbessern können.</p>
-      <p><strong>Beispiele:</strong></p>
-      <ul>
-        <li>Google Analytics</li>
-        <li>Firebase Analytics</li>
-      </ul>
-
-      <h3>3.3 Funktionale Cookies</h3>
-      <p>Diese Cookies ermöglichen erweiterte Funktionen und Personalisierungen.</p>
-      <p><strong>Beispiele:</strong></p>
-      <ul>
-        <li>Speicherung von Spracheinstellungen</li>
-        <li>Benutzerpräferenzen</li>
-      </ul>
-
-      <h3>3.4 Marketing- und Werbe-Cookies</h3>
-      <p>Diese Cookies werden verwendet, um relevante Werbung anzuzeigen und die Effektivität von Kampagnen zu messen.</p>
-      <p><strong>Beispiele:</strong></p>
-      <ul>
-        <li>Google Ads</li>
-        <li>Meta (Facebook) Pixel</li>
-        <li>Unity Ads</li>
-        <li>AdMob</li>
-      </ul>
-
-      <h2>4. COOKIES VON DRITTANBIETERN</h2>
-      <p>Wir können Drittanbieter einsetzen, die Cookies in unserem Auftrag verwenden, darunter:</p>
-      <ul>
-        <li>Google</li>
-        <li>Apple</li>
-        <li>Unity Technologies</li>
-        <li>Meta Platforms</li>
-        <li>Firebase</li>
-        <li>Werbe- und Analysepartner</li>
-      </ul>
-      <p>Diese Drittanbieter verarbeiten Daten gemäß ihren eigenen Datenschutzrichtlinien.</p>
-
-      <h2>5. RECHTSGRUNDLAGE</h2>
-      <p>Die Verwendung von Cookies erfolgt auf Grundlage von:</p>
-      <ul>
-        <li>Ihrer Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO</li>
-        <li>unserem berechtigten Interesse gemäß Art. 6 Abs. 1 lit. f DSGVO</li>
-        <li>gesetzlichen Verpflichtungen</li>
-      </ul>
-      <p>Notwendige Cookies bedürfen keiner Einwilligung.</p>
-
-      <h2>6. WIE KÖNNEN SIE COOKIES VERWALTEN?</h2>
-      <p>Sie können Cookies über Ihre Browsereinstellungen verwalten oder deaktivieren.</p>
-
-      <p><strong>Browser-Einstellungen:</strong></p>
-      <ul>
-        <li>Chrome: <a href="https://support.google.com/chrome" target="_blank">https://support.google.com/chrome</a></li>
-        <li>Safari: <a href="https://support.apple.com" target="_blank">https://support.apple.com</a></li>
-        <li>Firefox: <a href="https://support.mozilla.org" target="_blank">https://support.mozilla.org</a></li>
-        <li>Edge: <a href="https://support.microsoft.com" target="_blank">https://support.microsoft.com</a></li>
-      </ul>
-
-      <p><strong>Mobile Geräte:</strong></p>
-      <ul>
-        <li>iOS: Einstellungen → Datenschutz → Tracking</li>
-        <li>Android: Einstellungen → Google → Werbung</li>
-      </ul>
-
-      <p>Bitte beachten Sie, dass das Deaktivieren von Cookies die Funktionalität unserer Dienste einschränken kann.</p>
-
-      <h2>7. SPEICHERDAUER</h2>
-      <p>Cookies können entweder sein:</p>
-      <ul>
-        <li><strong>Sitzungscookies:</strong> Werden beim Schließen des Browsers gelöscht.</li>
-        <li><strong>Persistente Cookies:</strong> Bleiben auf Ihrem Gerät gespeichert, bis sie gelöscht werden oder ablaufen.</li>
-      </ul>
-
-      <h2>8. IHRE RECHTE</h2>
-      <p>Sie haben das Recht auf:</p>
-      <ul>
-        <li>Auskunft über Ihre Daten,</li>
-        <li>Berichtigung oder Löschung,</li>
-        <li>Einschränkung der Verarbeitung,</li>
-        <li>Widerspruch gegen die Verarbeitung,</li>
-        <li>Widerruf Ihrer Einwilligung.</li>
-      </ul>
-      <p>Anfragen richten Sie bitte an:<br>
-      <a href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
-
-      <h2>9. ÄNDERUNGEN DIESER RICHTLINIE</h2>
-      <p>Wir behalten uns das Recht vor, diese Cookie-Richtlinie jederzeit zu aktualisieren. Änderungen werden auf unserer Website veröffentlicht.</p>
-
-      <h2>10. KONTAKT</h2>
-      <p><strong>Sky of Empire</strong><br>
-      E-Mail: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-      Sitz: Schweiz</p>
+    <div class="clouds-layer">
+        <div class="cloud-img cloud1"></div>
+        <div class="cloud-img cloud2"></div>
+        <div class="cloud-img cloud3"></div>
+        <div class="cloud-img cloud4"></div>
+        <div class="cloud-img cloud5"></div>
+        <div class="cloud-img cloud6"></div>
+        <div class="cloud-img cloud7"></div>
+        <div class="cloud-img cloud8"></div>
+        <div class="cloud-img cloud9"></div>
     </div>
-  </div>
+
+    <div class="page">
+        <div class="container">
+            <div class="topbar">
+                <div class="lang-dropdown" id="langDropdown">
+                    <button class="lang-button" id="langButton" type="button" aria-expanded="false">
+                        <span class="lang-flag">🇩🇪</span>
+                        <span class="lang-label">Deutsch</span>
+                        <span class="lang-arrow">▼</span>
+                    </button>
+
+                    <div class="lang-menu" id="langMenu">
+                        <a class="lang-item active" href="cookies.html">
+                            <span class="lang-check">✔</span>
+                            <span class="lang-item-flag">🇩🇪</span>
+                            <span class="lang-item-label">Deutsch</span>
+                        </a>
+                        <a class="lang-item" href="cookies-en.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇬🇧</span>
+                            <span class="lang-item-label">English</span>
+                        </a>
+                        <a class="lang-item" href="cookies-fr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇫🇷</span>
+                            <span class="lang-item-label">Français</span>
+                        </a>
+                        <a class="lang-item" href="cookies-it.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇮🇹</span>
+                            <span class="lang-item-label">Italiano</span>
+                        </a>
+                        <a class="lang-item" href="cookies-es.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇪🇸</span>
+                            <span class="lang-item-label">Español</span>
+                        </a>
+                        <a class="lang-item" href="cookies-pt.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇵🇹</span>
+                            <span class="lang-item-label">Português</span>
+                        </a>
+                        <a class="lang-item" href="cookies-tr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇹🇷</span>
+                            <span class="lang-item-label">Türkçe</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ru.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇷🇺</span>
+                            <span class="lang-item-label">Русский</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ja.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇯🇵</span>
+                            <span class="lang-item-label">日本語</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ko.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇰🇷</span>
+                            <span class="lang-item-label">한국어</span>
+                        </a>
+                        <a class="lang-item" href="cookies-zh.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇨🇳</span>
+                            <span class="lang-item-label">简体中文</span>
+                        </a>
+                        <a class="lang-item" href="cookies-th.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇹🇭</span>
+                            <span class="lang-item-label">ไทย</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ar.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇸🇦</span>
+                            <span class="lang-item-label">العربية</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="policy-wrap">
+            <h1>COOKIE-RICHTLINIE</h1>
+
+            <p><strong>Letzte Aktualisierung:</strong> 1. April 2026</p>
+            <p><strong>Betreiber:</strong> Sky of Empire<br>
+            <strong>E-Mail:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
+            <strong>Sitz:</strong> Schweiz</p>
+
+            <h2>1. EINLEITUNG</h2>
+            <p>
+                Diese Cookie-Richtlinie erklärt, wie Sky of Empire („wir“, „uns“ oder „unser“) Cookies und ähnliche Technologien verwendet, wenn Sie unsere Website oder digitale Dienste nutzen. Sie beschreibt, welche Informationen wir erheben, wie wir sie verwenden und welche Rechte Sie haben.
+            </p>
+
+            <h2>2. WAS SIND COOKIES?</h2>
+            <p>
+                Cookies sind kleine Textdateien, die auf Ihrem Computer oder mobilen Gerät gespeichert werden, wenn Sie eine Website besuchen. Sie dienen dazu, Websites effizienter zu betreiben und Informationen über das Nutzerverhalten bereitzustellen.
+            </p>
+            <p>
+                Cookies ermöglichen es uns, Ihr Gerät wiederzuerkennen und Ihre Einstellungen zu speichern.
+            </p>
+
+            <h2>3. WELCHE ARTEN VON COOKIES VERWENDEN WIR?</h2>
+
+            <h3>3.1 Notwendige Cookies</h3>
+            <p>
+                Diese Cookies sind für den Betrieb der Website erforderlich und können nicht deaktiviert werden.
+            </p>
+            <p><strong>Beispiele:</strong></p>
+            <ul>
+                <li>Sitzungsverwaltung</li>
+                <li>Sicherheit und Authentifizierung</li>
+                <li>Speicherung von Datenschutzeinstellungen</li>
+            </ul>
+
+            <h3>3.2 Analyse- und Statistik-Cookies</h3>
+            <p>
+                Diese Cookies helfen uns zu verstehen, wie Besucher unsere Website nutzen, damit wir unsere Dienste verbessern können.
+            </p>
+            <p><strong>Beispiele:</strong></p>
+            <ul>
+                <li>Google Analytics</li>
+                <li>Firebase Analytics</li>
+            </ul>
+
+            <h3>3.3 Funktionale Cookies</h3>
+            <p>
+                Diese Cookies ermöglichen erweiterte Funktionen und Personalisierung.
+            </p>
+            <p><strong>Beispiele:</strong></p>
+            <ul>
+                <li>Speicherung von Spracheinstellungen</li>
+                <li>Nutzerpräferenzen</li>
+            </ul>
+
+            <h3>3.4 Marketing- und Werbe-Cookies</h3>
+            <p>
+                Diese Cookies werden verwendet, um relevante Werbung anzuzeigen und die Wirksamkeit von Kampagnen zu messen.
+            </p>
+            <p><strong>Beispiele:</strong></p>
+            <ul>
+                <li>Google Ads</li>
+                <li>Meta (Facebook) Pixel</li>
+                <li>Unity Ads</li>
+                <li>AdMob</li>
+            </ul>
+
+            <h2>4. COOKIES VON DRITTANBIETERN</h2>
+            <p>
+                Wir können Drittanbieter einsetzen, die in unserem Auftrag Cookies setzen, darunter:
+            </p>
+            <ul>
+                <li>Google</li>
+                <li>Apple</li>
+                <li>Unity Technologies</li>
+                <li>Meta Platforms</li>
+                <li>Firebase</li>
+                <li>Werbe- und Analysepartner</li>
+            </ul>
+            <p>
+                Diese Drittanbieter verarbeiten Daten gemäß ihren eigenen Datenschutzrichtlinien.
+            </p>
+
+            <h2>5. RECHTSGRUNDLAGE</h2>
+            <p>
+                Die Verwendung von Cookies erfolgt auf Grundlage von:
+            </p>
+            <ul>
+                <li>Ihrer Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO</li>
+                <li>Unserem berechtigten Interesse gemäß Art. 6 Abs. 1 lit. f DSGVO</li>
+                <li>Gesetzlichen Verpflichtungen</li>
+            </ul>
+            <p>
+                Notwendige Cookies bedürfen keiner Einwilligung.
+            </p>
+
+            <h2>6. WIE KÖNNEN SIE COOKIES VERWALTEN?</h2>
+            <p>
+                Sie können Cookies über Ihre Browsereinstellungen verwalten oder deaktivieren.
+            </p>
+
+            <p><strong>Browser-Einstellungen:</strong></p>
+            <ul>
+                <li>Chrome: <a href="https://support.google.com/chrome">support.google.com/chrome</a></li>
+                <li>Safari: <a href="https://support.apple.com">support.apple.com</a></li>
+                <li>Firefox: <a href="https://support.mozilla.org">support.mozilla.org</a></li>
+                <li>Edge: <a href="https://support.microsoft.com">support.microsoft.com</a></li>
+            </ul>
+
+            <p><strong>Mobile Geräte:</strong></p>
+            <ul>
+                <li>iOS: Einstellungen → Datenschutz → Tracking</li>
+                <li>Android: Einstellungen → Google → Werbung</li>
+            </ul>
+
+            <p>
+                Bitte beachten Sie, dass die Deaktivierung von Cookies die Funktionalität unserer Dienste einschränken kann.
+            </p>
+
+            <h2>7. SPEICHERDAUER</h2>
+            <p>
+                Cookies können sein:
+            </p>
+            <ul>
+                <li><strong>Sitzungs-Cookies:</strong> Werden gelöscht, wenn Sie den Browser schließen</li>
+                <li><strong>Permanente Cookies:</strong> Bleiben auf Ihrem Gerät gespeichert, bis sie gelöscht werden oder ablaufen</li>
+            </ul>
+
+            <h2>8. IHRE RECHTE</h2>
+            <p>
+                Sie haben das Recht auf:
+            </p>
+            <ul>
+                <li>Auskunft über Ihre Daten</li>
+                <li>Berichtigung oder Löschung von Daten</li>
+                <li>Einschränkung der Verarbeitung</li>
+                <li>Widerspruch gegen die Verarbeitung</li>
+                <li>Widerruf Ihrer Einwilligung</li>
+            </ul>
+
+            <p>
+                Anfragen können gerichtet werden an:
+                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+            </p>
+
+            <h2>9. ÄNDERUNGEN DIESER RICHTLINIE</h2>
+            <p>
+                Wir behalten uns das Recht vor, diese Cookie-Richtlinie jederzeit zu aktualisieren. Änderungen werden auf unserer Website veröffentlicht.
+            </p>
+
+            <h2>10. KONTAKT</h2>
+            <p>
+                Sky of Empire<br>
+                E-Mail: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
+                Sitz: Schweiz
+            </p>
+        </div>
+
+        <div class="footer-space"></div>
+    </div>
+
+    <script>
+        const langDropdown = document.getElementById("langDropdown");
+        const langButton = document.getElementById("langButton");
+        const langMenu = document.getElementById("langMenu");
+
+        langButton.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const isOpen = langMenu.classList.contains("open");
+
+            if (isOpen) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            } else {
+                langMenu.classList.add("open");
+                langButton.setAttribute("aria-expanded", "true");
+            }
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!langDropdown.contains(e.target)) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+    </script>
+
 </body>
 </html>
