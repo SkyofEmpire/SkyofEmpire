@@ -5,18 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>นโยบายคุกกี้ - Sky of Empire</title>
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
-        body {
+        html, body {
             margin: 0;
             font-family: Arial, sans-serif;
             color: #f4ead7;
-            min-height: 100vh;
+            min-height: 100%;
             overflow-x: hidden;
             background:
                 radial-gradient(circle at 50% 18%, rgba(176, 132, 57, 0.08) 0%, rgba(176, 132, 57, 0.00) 18%),
                 linear-gradient(to bottom, #000000 0%, #040404 52%, #0a0a0a 100%);
-            padding: 0 20px 60px;
+        }
+
+        body {
+            position: relative;
+        }
+
+        .clouds-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .cloud-img {
+            position: absolute;
+            background: url("clouds.png") no-repeat center center / contain;
+            pointer-events: none;
+            opacity: 0.25;
+            filter: brightness(0.56) contrast(1.05) saturate(0.75);
+            mix-blend-mode: screen;
+        }
+
+        .cloud-img::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.22);
+            border-radius: 40px;
+            mix-blend-mode: multiply;
+        }
+
+        .cloud1 { width: 470px; height: 290px; top: -35px; left: -40px; }
+        .cloud2 { width: 340px; height: 215px; top: 35px; left: 280px; }
+        .cloud3 { width: 460px; height: 285px; top: -20px; right: -30px; }
+        .cloud4 { width: 255px; height: 165px; top: 155px; left: 130px; }
+        .cloud5 { width: 315px; height: 195px; top: 110px; left: 520px; }
+        .cloud6 { width: 280px; height: 175px; top: 220px; right: 160px; }
+        .cloud7 { width: 430px; height: 265px; top: 305px; left: -20px; }
+        .cloud8 { width: 235px; height: 150px; top: 430px; left: 430px; }
+        .cloud9 { width: 410px; height: 255px; top: 325px; right: -20px; }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 0 20px 40px;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 980px;
+            margin: 0 auto;
         }
 
         .topbar {
@@ -24,265 +79,520 @@
             justify-content: flex-start;
             padding-top: 14px;
             padding-left: 4px;
-            position: sticky;
-            top: 0;
-            z-index: 3;
+            position: relative;
+            z-index: 1000;
         }
 
-        .language-select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background: rgba(5, 5, 5, 0.90);
+        .lang-dropdown {
+            position: relative;
+            z-index: 1001;
+        }
+
+        .lang-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 170px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 2px solid #0d63ff;
+            background: rgba(5, 5, 5, 0.92);
             color: #f2e2bf;
-            border: 1px solid rgba(189, 148, 80, 0.30);
-            border-radius: 14px;
-            padding: 12px 46px 12px 16px;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 10px 22px rgba(0,0,0,0.20);
-            background-image:
-                linear-gradient(45deg, transparent 50%, #d8b66c 50%),
-                linear-gradient(135deg, #d8b66c 50%, transparent 50%);
-            background-position:
-                calc(100% - 20px) calc(50% - 3px),
-                calc(100% - 14px) calc(50% - 3px);
-            background-size: 6px 6px, 6px 6px;
-            background-repeat: no-repeat;
+            box-shadow:
+                0 0 0 2px rgba(216, 182, 108, 0.14) inset,
+                0 10px 22px rgba(0,0,0,0.24);
+            user-select: none;
         }
 
-        .container {
+        .lang-button:hover {
+            filter: brightness(1.03);
+        }
+
+        .lang-flag {
+            font-size: 22px;
+            line-height: 1;
+            flex: 0 0 auto;
+        }
+
+        .lang-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .lang-arrow {
+            font-size: 14px;
+            color: #e2c780;
+            flex: 0 0 auto;
+        }
+
+        .lang-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            width: 330px;
+            background: rgba(10, 10, 10, 0.96);
+            border: 1px solid rgba(255,255,255,0.20);
+            border-radius: 24px;
+            padding: 12px;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+            backdrop-filter: blur(10px);
+            display: none;
+            z-index: 1002;
+            overflow: hidden;
+        }
+
+        .lang-menu.open {
+            display: block;
+        }
+
+        .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .lang-item:hover {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .lang-item.active {
+            color: #ffffff;
+        }
+
+        .lang-check {
+            width: 22px;
+            flex: 0 0 22px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .lang-item-flag {
+            width: 28px;
+            flex: 0 0 28px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        .lang-item-label {
+            flex: 1;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .policy-wrap {
+            position: relative;
+            z-index: 5;
             max-width: 980px;
-            margin: 24px auto 0;
+            margin: 20px auto 0;
+            background: rgba(3, 3, 3, 0.82);
+            border: 1px solid rgba(189, 148, 80, 0.18);
+            border-radius: 22px;
+            padding: 28px 26px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+            color: #f5ebd8;
+            line-height: 1.8;
         }
 
-        .back-link {
-            display: inline-block;
+        .policy-wrap h1,
+        .policy-wrap h2,
+        .policy-wrap h3 {
+            color: #f2e2bf;
+        }
+
+        .policy-wrap h1 {
+            font-size: 30px;
+            margin-top: 0;
             margin-bottom: 18px;
+        }
+
+        .policy-wrap h2 {
+            font-size: 22px;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+
+        .policy-wrap h3 {
+            font-size: 18px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+        }
+
+        .policy-wrap p,
+        .policy-wrap li {
+            font-size: 16px;
+        }
+
+        .policy-wrap ul {
+            margin: 8px 0 16px 0;
+            padding-left: 22px;
+        }
+
+        .policy-wrap a {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .back-link:hover { text-decoration: underline; }
-
-        .card {
-            background: rgba(3, 3, 3, 0.82);
-            border: 1px solid rgba(189, 148, 80, 0.18);
-            border-radius: 22px;
-            padding: 28px 24px;
-            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+        .policy-wrap a:hover {
+            text-decoration: underline;
         }
 
-        h1 {
-            font-size: 34px;
-            margin: 0 0 18px;
-            color: #f2e2bf;
-        }
-
-        h2 {
-            margin-top: 28px;
-            margin-bottom: 12px;
-            font-size: 24px;
-            color: #f2e2bf;
-        }
-
-        p, li {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #f4ead7;
-        }
-
-        ul { padding-left: 22px; }
-
-        .meta {
-            margin-bottom: 18px;
-            color: #d8c6a1;
-        }
-
-        a {
-            color: #f0d89e;
+        .footer-space {
+            height: 10px;
         }
 
         @media (max-width: 768px) {
-            .language-select {
-                font-size: 14px;
-                padding: 10px 40px 10px 14px;
+            .topbar {
+                padding-top: 12px;
+                padding-left: 2px;
             }
 
-            .card { padding: 22px 16px; }
-            h1 { font-size: 28px; }
-            h2 { font-size: 22px; }
-            p, li { font-size: 15px; }
+            .lang-button {
+                min-width: 170px;
+                padding: 10px 14px;
+                font-size: 15px;
+            }
+
+            .lang-menu {
+                width: 320px;
+                padding: 10px;
+            }
+
+            .lang-item {
+                padding: 7px 8px;
+                font-size: 17px;
+            }
+
+            .policy-wrap {
+                padding: 20px 16px;
+                margin-top: 16px;
+            }
+
+            .policy-wrap h1 {
+                font-size: 24px;
+            }
+
+            .policy-wrap h2 {
+                font-size: 20px;
+            }
+
+            .policy-wrap p,
+            .policy-wrap li {
+                font-size: 15px;
+            }
+
+            .cloud1 { width: 250px; height: 160px; top: -10px; left: -20px; }
+            .cloud2 { width: 190px; height: 125px; top: 30px; left: 140px; }
+            .cloud3 { width: 240px; height: 155px; top: 0; right: -10px; }
+            .cloud4 { width: 150px; height: 100px; top: 120px; left: 50px; }
+            .cloud5 { width: 180px; height: 118px; top: 120px; left: 220px; }
+            .cloud6 { width: 165px; height: 108px; top: 190px; right: 70px; }
+            .cloud7 { width: 230px; height: 150px; top: 280px; left: -10px; }
+            .cloud8 { width: 140px; height: 92px; top: 380px; left: 210px; }
+            .cloud9 { width: 220px; height: 145px; top: 310px; right: -10px; }
         }
     </style>
 </head>
 <body>
-<div class="topbar">
-    <select class="language-select" id="languageSelect">
-        <option value="de">🇩🇪 Deutsch</option>
-        <option value="en">🇬🇧 English</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="it">🇮🇹 Italiano</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="pt">🇵🇹 Português</option>
-        <option value="tr">🇹🇷 Türkçe</option>
-        <option value="ru">🇷🇺 Русский</option>
-        <option value="ja">🇯🇵 日本語</option>
-        <option value="ko">🇰🇷 한국어</option>
-        <option value="zh">🇨🇳 简体中文</option>
-        <option value="th" selected>🇹🇭 ไทย</option>
-        <option value="ar">🇸🇦 العربية</option>
-    </select>
-</div>
 
-<div class="container">
-    <a class="back-link" href="index-th.html">← กลับสู่หน้าหลัก</a>
+    <div class="clouds-layer">
+        <div class="cloud-img cloud1"></div>
+        <div class="cloud-img cloud2"></div>
+        <div class="cloud-img cloud3"></div>
+        <div class="cloud-img cloud4"></div>
+        <div class="cloud-img cloud5"></div>
+        <div class="cloud-img cloud6"></div>
+        <div class="cloud-img cloud7"></div>
+        <div class="cloud-img cloud8"></div>
+        <div class="cloud-img cloud9"></div>
+    </div>
 
-    <div class="card">
-        <h1>นโยบายคุกกี้</h1>
+    <div class="page">
+        <div class="container">
+            <div class="topbar">
+                <div class="lang-dropdown" id="langDropdown">
+                    <button class="lang-button" id="langButton" type="button" aria-expanded="false">
+                        <span class="lang-flag">🇹🇭</span>
+                        <span class="lang-label">ไทย</span>
+                        <span class="lang-arrow">▼</span>
+                    </button>
 
-        <div class="meta">
-            <p><strong>อัปเดตล่าสุด:</strong> 1 เมษายน 2026</p>
-            <p><strong>ผู้ให้บริการ:</strong> Sky of Empire<br>
-            <strong>อีเมล:</strong> support@skyofempire.com<br>
-            <strong>ที่ตั้ง:</strong> สวิตเซอร์แลนด์</p>
+                    <div class="lang-menu" id="langMenu">
+                        <a class="lang-item" href="cookies.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇩🇪</span>
+                            <span class="lang-item-label">Deutsch</span>
+                        </a>
+                        <a class="lang-item" href="cookies-en.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇬🇧</span>
+                            <span class="lang-item-label">English</span>
+                        </a>
+                        <a class="lang-item" href="cookies-fr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇫🇷</span>
+                            <span class="lang-item-label">Français</span>
+                        </a>
+                        <a class="lang-item" href="cookies-it.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇮🇹</span>
+                            <span class="lang-item-label">Italiano</span>
+                        </a>
+                        <a class="lang-item" href="cookies-es.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇪🇸</span>
+                            <span class="lang-item-label">Español</span>
+                        </a>
+                        <a class="lang-item" href="cookies-pt.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇵🇹</span>
+                            <span class="lang-item-label">Português</span>
+                        </a>
+                        <a class="lang-item" href="cookies-tr.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇹🇷</span>
+                            <span class="lang-item-label">Türkçe</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ru.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇷🇺</span>
+                            <span class="lang-item-label">Русский</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ja.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇯🇵</span>
+                            <span class="lang-item-label">日本語</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ko.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇰🇷</span>
+                            <span class="lang-item-label">한국어</span>
+                        </a>
+                        <a class="lang-item" href="cookies-zh.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇨🇳</span>
+                            <span class="lang-item-label">简体中文</span>
+                        </a>
+                        <a class="lang-item active" href="cookies-th.html">
+                            <span class="lang-check">✔</span>
+                            <span class="lang-item-flag">🇹🇭</span>
+                            <span class="lang-item-label">ไทย</span>
+                        </a>
+                        <a class="lang-item" href="cookies-ar.html">
+                            <span class="lang-check"></span>
+                            <span class="lang-item-flag">🇸🇦</span>
+                            <span class="lang-item-label">العربية</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <h2>1. บทนำ</h2>
-        <p>นโยบายคุกกี้ฉบับนี้อธิบายว่า Sky of Empire (“เรา”) ใช้คุกกี้และเทคโนโลยีที่คล้ายกันอย่างไร เมื่อคุณใช้งานเว็บไซต์หรือบริการดิจิทัลของเรา รวมถึงข้อมูลที่เรารวบรวม วิธีที่เราใช้ข้อมูลดังกล่าว และสิทธิที่คุณมี</p>
+        <div class="policy-wrap">
+            <h1>นโยบายคุกกี้</h1>
 
-        <h2>2. คุกกี้คืออะไร?</h2>
-        <p>คุกกี้คือไฟล์ข้อความขนาดเล็กที่ถูกจัดเก็บไว้ในคอมพิวเตอร์หรืออุปกรณ์มือถือของคุณเมื่อคุณเข้าชมเว็บไซต์ คุกกี้ช่วยให้เว็บไซต์ทำงานได้อย่างมีประสิทธิภาพมากขึ้น และให้ข้อมูลเกี่ยวกับพฤติกรรมของผู้ใช้</p>
-        <p>คุกกี้ช่วยให้เราสามารถจดจำอุปกรณ์ของคุณและบันทึกค่ากำหนดต่าง ๆ ของคุณได้</p>
+            <p><strong>อัปเดตล่าสุด:</strong> 1 เมษายน 2026</p>
+            <p><strong>ผู้ให้บริการ:</strong> Sky of Empire<br>
+            <strong>อีเมล:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
+            <strong>ที่ตั้ง:</strong> สวิตเซอร์แลนด์</p>
 
-        <h2>3. เราใช้คุกกี้ประเภทใดบ้าง?</h2>
+            <h2>1. บทนำ</h2>
+            <p>
+                นโยบายคุกกี้ฉบับนี้อธิบายว่า Sky of Empire ("เรา", "พวกเรา" หรือ "ของเรา") ใช้คุกกี้และเทคโนโลยีที่คล้ายกันอย่างไร เมื่อคุณใช้เว็บไซต์หรือบริการดิจิทัลของเรา โดยจะอธิบายว่าเราเก็บข้อมูลอะไร ใช้อย่างไร และคุณมีสิทธิอะไรบ้าง
+            </p>
 
-        <h2>3.1 คุกกี้ที่จำเป็น</h2>
-        <p>คุกกี้เหล่านี้จำเป็นต่อการทำงานของเว็บไซต์ และไม่สามารถปิดใช้งานได้</p>
-        <p>ตัวอย่าง:</p>
-        <ul>
-            <li>การจัดการเซสชัน</li>
-            <li>ความปลอดภัยและการยืนยันตัวตน</li>
-            <li>การบันทึกการตั้งค่าความเป็นส่วนตัว</li>
-        </ul>
+            <h2>2. คุกกี้คืออะไร?</h2>
+            <p>
+                คุกกี้คือไฟล์ข้อความขนาดเล็กที่ถูกบันทึกไว้ในคอมพิวเตอร์หรืออุปกรณ์มือถือของคุณเมื่อคุณเยี่ยมชมเว็บไซต์ คุกกี้ช่วยให้เว็บไซต์ทำงานได้อย่างมีประสิทธิภาพมากขึ้น และให้ข้อมูลเกี่ยวกับพฤติกรรมของผู้ใช้
+            </p>
+            <p>
+                คุกกี้ช่วยให้เราสามารถจดจำอุปกรณ์ของคุณและบันทึกการตั้งค่าของคุณได้
+            </p>
 
-        <h2>3.2 คุกกี้เพื่อการวิเคราะห์และสถิติ</h2>
-        <p>คุกกี้เหล่านี้ช่วยให้เราเข้าใจว่าผู้เยี่ยมชมใช้งานเว็บไซต์อย่างไร เพื่อที่เราจะสามารถปรับปรุงบริการของเราได้</p>
-        <p>ตัวอย่าง:</p>
-        <ul>
-            <li>Google Analytics</li>
-            <li>Firebase Analytics</li>
-        </ul>
+            <h2>3. เราใช้คุกกี้ประเภทใดบ้าง?</h2>
 
-        <h2>3.3 คุกกี้เพื่อการทำงาน</h2>
-        <p>คุกกี้เหล่านี้ช่วยให้สามารถใช้งานฟังก์ชันเพิ่มเติมและการปรับแต่งเฉพาะบุคคลได้</p>
-        <p>ตัวอย่าง:</p>
-        <ul>
-            <li>การบันทึกการตั้งค่าภาษา</li>
-            <li>การบันทึกค่ากำหนดของผู้ใช้</li>
-        </ul>
+            <h3>3.1 คุกกี้ที่จำเป็น</h3>
+            <p>
+                คุกกี้เหล่านี้จำเป็นต่อการทำงานของเว็บไซต์และไม่สามารถปิดใช้งานได้
+            </p>
+            <p><strong>ตัวอย่าง:</strong></p>
+            <ul>
+                <li>การจัดการเซสชัน</li>
+                <li>ความปลอดภัยและการยืนยันตัวตน</li>
+                <li>การบันทึกการตั้งค่าความเป็นส่วนตัว</li>
+            </ul>
 
-        <h2>3.4 คุกกี้เพื่อการตลาดและโฆษณา</h2>
-        <p>คุกกี้เหล่านี้ใช้เพื่อแสดงโฆษณาที่เกี่ยวข้องและวัดผลประสิทธิภาพของแคมเปญต่าง ๆ</p>
-        <p>ตัวอย่าง:</p>
-        <ul>
-            <li>Google Ads</li>
-            <li>Meta (Facebook) Pixel</li>
-            <li>Unity Ads</li>
-            <li>AdMob</li>
-        </ul>
+            <h3>3.2 คุกกี้วิเคราะห์และสถิติ</h3>
+            <p>
+                คุกกี้เหล่านี้ช่วยให้เราเข้าใจว่าผู้เข้าชมใช้เว็บไซต์ของเราอย่างไร เพื่อให้เราสามารถปรับปรุงบริการของเราได้
+            </p>
+            <p><strong>ตัวอย่าง:</strong></p>
+            <ul>
+                <li>Google Analytics</li>
+                <li>Firebase Analytics</li>
+            </ul>
 
-        <h2>4. คุกกี้ของบุคคลที่สาม</h2>
-        <p>เราอาจใช้ผู้ให้บริการภายนอกดังต่อไปนี้ ซึ่งอาจใช้คุกกี้ในนามของเรา:</p>
-        <ul>
-            <li>Google</li>
-            <li>Apple</li>
-            <li>Unity Technologies</li>
-            <li>Meta Platforms</li>
-            <li>Firebase</li>
-            <li>พาร์ทเนอร์ด้านโฆษณาและการวิเคราะห์</li>
-        </ul>
-        <p>บุคคลที่สามเหล่านี้จะประมวลผลข้อมูลตามนโยบายความเป็นส่วนตัวของตนเอง</p>
+            <h3>3.3 คุกกี้เชิงฟังก์ชัน</h3>
+            <p>
+                คุกกี้เหล่านี้ช่วยให้สามารถใช้ฟังก์ชันเพิ่มเติมและการปรับแต่งส่วนบุคคลได้
+            </p>
+            <p><strong>ตัวอย่าง:</strong></p>
+            <ul>
+                <li>การบันทึกการตั้งค่าภาษา</li>
+                <li>การตั้งค่าผู้ใช้</li>
+            </ul>
 
-        <h2>5. ฐานทางกฎหมาย</h2>
-        <p>ฐานทางกฎหมายสำหรับการใช้คุกกี้ ได้แก่:</p>
-        <ul>
-            <li>ความยินยอมของคุณตาม GDPR มาตรา 6(1)(a)</li>
-            <li>ผลประโยชน์อันชอบด้วยกฎหมายของเราตาม GDPR มาตรา 6(1)(f)</li>
-            <li>ภาระผูกพันตามกฎหมาย</li>
-        </ul>
-        <p>คุกกี้ที่จำเป็นไม่ต้องอาศัยความยินยอมจากคุณ</p>
+            <h3>3.4 คุกกี้เพื่อการตลาดและโฆษณา</h3>
+            <p>
+                คุกกี้เหล่านี้ใช้เพื่อแสดงโฆษณาที่เกี่ยวข้องและวัดประสิทธิภาพของแคมเปญ
+            </p>
+            <p><strong>ตัวอย่าง:</strong></p>
+            <ul>
+                <li>Google Ads</li>
+                <li>Meta (Facebook) Pixel</li>
+                <li>Unity Ads</li>
+                <li>AdMob</li>
+            </ul>
 
-        <h2>6. คุณจะจัดการคุกกี้ได้อย่างไร?</h2>
-        <p>คุณสามารถจัดการหรือปิดใช้งานคุกกี้ผ่านการตั้งค่าเบราว์เซอร์ของคุณ</p>
-        <p>การตั้งค่าเบราว์เซอร์:</p>
-        <ul>
-            <li>Chrome: <a href="https://support.google.com/chrome">https://support.google.com/chrome</a></li>
-            <li>Safari: <a href="https://support.apple.com">https://support.apple.com</a></li>
-            <li>Firefox: <a href="https://support.mozilla.org">https://support.mozilla.org</a></li>
-            <li>Edge: <a href="https://support.microsoft.com">https://support.microsoft.com</a></li>
-        </ul>
+            <h2>4. คุกกี้ของบุคคลที่สาม</h2>
+            <p>
+                เราอาจใช้ผู้ให้บริการบุคคลที่สามที่วางคุกกี้ในนามของเรา รวมถึง:
+            </p>
+            <ul>
+                <li>Google</li>
+                <li>Apple</li>
+                <li>Unity Technologies</li>
+                <li>Meta Platforms</li>
+                <li>Firebase</li>
+                <li>พันธมิตรด้านโฆษณาและการวิเคราะห์</li>
+            </ul>
+            <p>
+                บุคคลที่สามเหล่านี้ประมวลผลข้อมูลตามนโยบายความเป็นส่วนตัวของตนเอง
+            </p>
 
-        <p>อุปกรณ์มือถือ:</p>
-        <ul>
-            <li>iOS: การตั้งค่า → ความเป็นส่วนตัว → การติดตาม</li>
-            <li>Android: การตั้งค่า → Google → โฆษณา</li>
-        </ul>
+            <h2>5. ฐานทางกฎหมาย</h2>
+            <p>
+                การใช้คุกกี้อาศัยพื้นฐานทางกฎหมายดังต่อไปนี้:
+            </p>
+            <ul>
+                <li>ความยินยอมของคุณตามมาตรา 6 วรรค 1 ข้อ (a) ของ GDPR</li>
+                <li>ผลประโยชน์อันชอบด้วยกฎหมายของเราตามมาตรา 6 วรรค 1 ข้อ (f) ของ GDPR</li>
+                <li>ภาระผูกพันทางกฎหมาย</li>
+            </ul>
+            <p>
+                คุกกี้ที่จำเป็นไม่ต้องได้รับความยินยอมล่วงหน้า
+            </p>
 
-        <p>โปรดทราบว่าการปิดใช้งานคุกกี้อาจทำให้ฟังก์ชันบางอย่างของบริการของเราถูกจำกัด</p>
+            <h2>6. คุณสามารถจัดการคุกกี้ได้อย่างไร?</h2>
+            <p>
+                คุณสามารถจัดการหรือปิดใช้งานคุกกี้ผ่านการตั้งค่าเบราว์เซอร์ของคุณได้
+            </p>
 
-        <h2>7. ระยะเวลาการจัดเก็บ</h2>
-        <p>คุกกี้สามารถแบ่งออกเป็น:</p>
-        <ul>
-            <li>คุกกี้แบบเซสชัน: จะถูกลบเมื่อคุณปิดเบราว์เซอร์</li>
-            <li>คุกกี้ถาวร: จะยังคงอยู่ในอุปกรณ์ของคุณจนกว่าจะถูกลบหรือหมดอายุ</li>
-        </ul>
+            <p><strong>การตั้งค่าเบราว์เซอร์:</strong></p>
+            <ul>
+                <li>Chrome: <a href="https://support.google.com/chrome">support.google.com/chrome</a></li>
+                <li>Safari: <a href="https://support.apple.com">support.apple.com</a></li>
+                <li>Firefox: <a href="https://support.mozilla.org">support.mozilla.org</a></li>
+                <li>Edge: <a href="https://support.microsoft.com">support.microsoft.com</a></li>
+            </ul>
 
-        <h2>8. สิทธิของคุณ</h2>
-        <p>คุณมีสิทธิดังต่อไปนี้:</p>
-        <ul>
-            <li>เข้าถึงข้อมูลของคุณ</li>
-            <li>แก้ไขหรือลบข้อมูล</li>
-            <li>จำกัดการประมวลผล</li>
-            <li>คัดค้านการประมวลผล</li>
-            <li>ถอนความยินยอมของคุณ</li>
-        </ul>
-        <p>หากมีคำขอใด ๆ กรุณาติดต่อ:<br>
-        <strong>support@skyofempire.com</strong></p>
+            <p><strong>อุปกรณ์มือถือ:</strong></p>
+            <ul>
+                <li>iOS: การตั้งค่า → ความเป็นส่วนตัว → การติดตาม</li>
+                <li>Android: การตั้งค่า → Google → โฆษณา</li>
+            </ul>
 
-        <h2>9. การเปลี่ยนแปลงนโยบายนี้</h2>
-        <p>เราขอสงวนสิทธิ์ในการอัปเดตนโยบายคุกกี้นี้ได้ทุกเมื่อ การเปลี่ยนแปลงจะเผยแพร่บนเว็บไซต์ของเรา</p>
+            <p>
+                โปรดทราบว่าการปิดใช้งานคุกกี้อาจทำให้การทำงานของบริการของเราบางส่วนถูกจำกัด
+            </p>
 
-        <h2>10. การติดต่อ</h2>
-        <p><strong>Sky of Empire</strong><br>
-        อีเมล: support@skyofempire.com<br>
-        ที่ตั้ง: สวิตเซอร์แลนด์</p>
+            <h2>7. ระยะเวลาการจัดเก็บ</h2>
+            <p>
+                คุกกี้อาจเป็นได้ดังนี้:
+            </p>
+            <ul>
+                <li><strong>คุกกี้เซสชัน:</strong> จะถูกลบเมื่อคุณปิดเบราว์เซอร์</li>
+                <li><strong>คุกกี้ถาวร:</strong> จะยังคงอยู่ในอุปกรณ์ของคุณจนกว่าจะถูกลบหรือหมดอายุ</li>
+            </ul>
+
+            <h2>8. สิทธิของคุณ</h2>
+            <p>
+                คุณมีสิทธิที่จะ:
+            </p>
+            <ul>
+                <li>เข้าถึงข้อมูลของคุณ</li>
+                <li>แก้ไขหรือลบข้อมูล</li>
+                <li>จำกัดการประมวลผล</li>
+                <li>คัดค้านการประมวลผล</li>
+                <li>เพิกถอนความยินยอมของคุณ</li>
+            </ul>
+
+            <p>
+                สามารถส่งคำขอได้ที่:
+                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+            </p>
+
+            <h2>9. การเปลี่ยนแปลงนโยบายนี้</h2>
+            <p>
+                เราขอสงวนสิทธิ์ในการอัปเดตนโยบายคุกกี้นี้ได้ตลอดเวลา โดยการเปลี่ยนแปลงจะเผยแพร่บนเว็บไซต์ของเรา
+            </p>
+
+            <h2>10. ติดต่อ</h2>
+            <p>
+                Sky of Empire<br>
+                อีเมล: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
+                ที่ตั้ง: สวิตเซอร์แลนด์
+            </p>
+        </div>
+
+        <div class="footer-space"></div>
     </div>
-</div>
 
-<script>
-    const languageSelect = document.getElementById("languageSelect");
-    languageSelect.addEventListener("change", function () {
-        const lang = this.value;
-        const pageMap = {
-            de: "cookies.html",
-            en: "cookies-en.html",
-            fr: "cookies-fr.html",
-            it: "cookies-it.html",
-            es: "cookies-es.html",
-            pt: "cookies-pt.html",
-            tr: "cookies-tr.html",
-            ru: "cookies-ru.html",
-            ja: "cookies-ja.html",
-            ko: "cookies-ko.html",
-            zh: "cookies-zh.html",
-            th: "cookies-th.html",
-            ar: "cookies-ar.html"
-        };
-        window.location.href = pageMap[lang];
-    });
-</script>
+    <script>
+        const langDropdown = document.getElementById("langDropdown");
+        const langButton = document.getElementById("langButton");
+        const langMenu = document.getElementById("langMenu");
+
+        langButton.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const isOpen = langMenu.classList.contains("open");
+
+            if (isOpen) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            } else {
+                langMenu.classList.add("open");
+                langButton.setAttribute("aria-expanded", "true");
+            }
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!langDropdown.contains(e.target)) {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+                langMenu.classList.remove("open");
+                langButton.setAttribute("aria-expanded", "false");
+            }
+        });
+    </script>
+
 </body>
 </html>
