@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Sky of Empire</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #f4ead7;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background:
+                radial-gradient(circle at 50% 18%, rgba(176, 132, 57, 0.08) 0%, rgba(176, 132, 57, 0.00) 18%),
+                linear-gradient(to bottom, #000000 0%, #040404 52%, #0a0a0a 100%);
+            padding: 0 20px 60px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: flex-start;
+            padding-top: 14px;
+            padding-left: 4px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .language-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: rgba(5, 5, 5, 0.90);
+            color: #f2e2bf;
+            border: 1px solid rgba(189, 148, 80, 0.30);
+            border-radius: 14px;
+            padding: 12px 46px 12px 16px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 22px rgba(0,0,0,0.20);
+            background-image:
+                linear-gradient(45deg, transparent 50%, #d8b66c 50%),
+                linear-gradient(135deg, #d8b66c 50%, transparent 50%);
+            background-position:
+                calc(100% - 20px) calc(50% - 3px),
+                calc(100% - 14px) calc(50% - 3px);
+            background-size: 6px 6px, 6px 6px;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 24px auto 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 18px;
+            color: #f0d89e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .card {
+            background: rgba(3, 3, 3, 0.82);
+            border: 1px solid rgba(189, 148, 80, 0.18);
+            border-radius: 22px;
+            padding: 28px 24px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+        }
+
+        h1 {
+            font-size: 34px;
+            margin: 0 0 18px;
+            color: #f2e2bf;
+        }
+
+        h2 {
+            margin-top: 28px;
+            margin-bottom: 12px;
+            font-size: 24px;
+            color: #f2e2bf;
+        }
+
+        p, li, label {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #f4ead7;
+        }
+
+        .meta {
+            margin-bottom: 18px;
+            color: #d8c6a1;
+        }
+
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .feedback-form input,
+        .feedback-form textarea,
+        .feedback-form select {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(189, 148, 80, 0.25);
+            background: rgba(18, 18, 18, 0.95);
+            color: #f4ead7;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .feedback-form textarea {
+            min-height: 160px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            display: inline-block;
+            text-decoration: none;
+            color: #1b1306;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 15px 20px;
+            border-radius: 14px;
+            background: linear-gradient(180deg, #f0d89e 0%, #d8b66c 48%, #be9552 100%);
+            border: 1px solid rgba(255, 232, 176, 0.30);
+            box-shadow: 0 10px 22px rgba(0,0,0,0.28);
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            filter: brightness(1.03);
+        }
+
+        .info-box {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 16px;
+            background: rgba(18, 18, 18, 0.85);
+            border: 1px solid rgba(189, 148, 80, 0.15);
+        }
+
+        a {
+            color: #f0d89e;
+        }
+
+        @media (max-width: 768px) {
+            .language-select {
+                font-size: 14px;
+                padding: 10px 40px 10px 14px;
+            }
+
+            .card {
+                padding: 22px 16px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            p, li, label {
+                font-size: 15px;
+            }
+
+            .feedback-form input,
+            .feedback-form textarea,
+            .feedback-form select {
+                font-size: 15px;
+            }
+
+            .submit-button {
+                font-size: 16px;
+                padding: 13px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <select class="language-select" id="languageSelect">
+        <option value="de" selected>🇩🇪 Deutsch</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="it">🇮🇹 Italiano</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="pt">🇵🇹 Português</option>
+        <option value="tr">🇹🇷 Türkçe</option>
+        <option value="ru">🇷🇺 Русский</option>
+        <option value="ja">🇯🇵 日本語</option>
+        <option value="ko">🇰🇷 한국어</option>
+        <option value="zh">🇨🇳 简体中文</option>
+        <option value="th">🇹🇭 ไทย</option>
+        <option value="ar">🇸🇦 العربية</option>
+    </select>
+</div>
+
+<div class="container">
+    <a class="back-link" href="index.html">← Zurück zur Startseite</a>
+
+    <div class="card">
+        <h1>Feedback</h1>
+
+        <div class="meta">
+            <p>Wir freuen uns über Ihr Feedback zu Sky of Empire. Sie können uns Vorschläge, Wünsche, Verbesserungen oder Probleme mitteilen.</p>
+        </div>
+
+        <h2>Feedback senden</h2>
+
+        <form class="feedback-form" action="mailto:support@skyofempire.com" method="post" enctype="text/plain">
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="Name" placeholder="Ihr Name">
+            </div>
+
+            <div>
+                <label for="email">E-Mail</label>
+                <input type="email" id="email" name="E-Mail" placeholder="Ihre E-Mail-Adresse">
+            </div>
+
+            <div>
+                <label for="type">Art des Feedbacks</label>
+                <select id="type" name="Feedback-Art">
+                    <option value="Allgemein">Allgemein</option>
+                    <option value="Verbesserungsvorschlag">Verbesserungsvorschlag</option>
+                    <option value="Bug melden">Bug melden</option>
+                    <option value="Balancing">Balancing</option>
+                    <option value="Event oder Inhalt">Event oder Inhalt</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="message">Nachricht</label>
+                <textarea id="message" name="Nachricht" placeholder="Schreiben Sie hier Ihr Feedback..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-button">Feedback senden</button>
+        </form>
+
+        <div class="info-box">
+            <p><strong>Hinweis:</strong> Je nach Gerät oder Browser öffnet sich beim Senden Ihr E-Mail-Programm.</p>
+            <p>Alternativ können Sie Ihr Feedback direkt an <a href="mailto:support@skyofempire.com">support@skyofempire.com</a> senden.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const languageSelect = document.getElementById("languageSelect");
+
+    languageSelect.addEventListener("change", function () {
+        const lang = this.value;
+
+        const pageMap = {
+            de: "feedback.html",
+            en: "feedback-en.html",
+            fr: "feedback-fr.html",
+            it: "feedback-it.html",
+            es: "feedback-es.html",
+            pt: "feedback-pt.html",
+            tr: "feedback-tr.html",
+            ru: "feedback-ru.html",
+            ja: "feedback-ja.html",
+            ko: "feedback-ko.html",
+            zh: "feedback-zh.html",
+            th: "feedback-th.html",
+            ar: "feedback-ar.html"
+        };
+
+        window.location.href = pageMap[lang];
+    });
+</script>
+
+</body>
+</html>
