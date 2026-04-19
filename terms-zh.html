@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -77,18 +77,21 @@
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -101,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -134,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -192,78 +205,87 @@
             white-space: nowrap;
         }
 
-        .policy-wrap {
+        .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 2;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
             max-width: 980px;
-            margin: 20px auto 0;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 26px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
-            color: #f5ebd8;
-            line-height: 1.8;
+            text-align: left;
         }
 
-        .policy-wrap h1,
-        .policy-wrap h2,
-        .policy-wrap h3 {
+        h1 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 30px;
             color: #f2e2bf;
         }
 
-        .policy-wrap h1 {
-            font-size: 30px;
-            margin-top: 0;
-            margin-bottom: 18px;
-        }
-
-        .policy-wrap h2 {
-            font-size: 22px;
-            margin-top: 28px;
+        h2 {
+            margin-top: 26px;
             margin-bottom: 12px;
+            font-size: 22px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h3 {
-            font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
-        }
-
-        .policy-wrap p,
-        .policy-wrap li {
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
-        .policy-wrap ul {
-            margin: 8px 0 16px 0;
+        ul {
+            margin: 0 0 14px 0;
             padding-left: 22px;
         }
 
-        .policy-wrap a {
+        a.inline-link {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .policy-wrap a:hover {
+        a.inline-link:hover {
             text-decoration: underline;
         }
 
-        .footer-space {
-            height: 10px;
+        .meta {
+            margin-bottom: 22px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -276,21 +298,19 @@
                 font-size: 17px;
             }
 
-            .policy-wrap {
+            .card {
                 padding: 20px 16px;
-                margin-top: 16px;
             }
 
-            .policy-wrap h1 {
-                font-size: 24px;
+            h1 {
+                font-size: 25px;
             }
 
-            .policy-wrap h2 {
+            h2 {
                 font-size: 20px;
             }
 
-            .policy-wrap p,
-            .policy-wrap li {
+            p, li {
                 font-size: 15px;
             }
 
@@ -326,7 +346,7 @@
                 <div class="lang-dropdown" id="langDropdown">
                     <button class="lang-button" id="langButton" type="button" aria-expanded="false">
                         <span class="lang-flag">🇨🇳</span>
-                        <span class="lang-label">简体中文</span>
+                        <span class="lang-label">中文</span>
                         <span class="lang-arrow">▼</span>
                     </button>
 
@@ -384,7 +404,7 @@
                         <a class="lang-item active" href="terms-zh.html">
                             <span class="lang-check">✔</span>
                             <span class="lang-item-flag">🇨🇳</span>
-                            <span class="lang-item-label">简体中文</span>
+                            <span class="lang-item-label">中文</span>
                         </a>
                         <a class="lang-item" href="terms-th.html">
                             <span class="lang-check"></span>
@@ -398,142 +418,105 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index-zh.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">返回</span>
+                </a>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h1>使用条款</h1>
+
+                    <div class="meta">
+                        <p><strong>最后更新：</strong>2026年4月1日</p>
+                        <p><strong>运营方：</strong>Sky of Empire</p>
+                        <p><strong>电子邮箱：</strong><a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
+                        <p><strong>所在地：</strong>瑞士</p>
+                    </div>
+
+                    <h2>1. 简介</h2>
+                    <p>
+                        本使用条款规范您对 Sky of Empire 网站的访问和使用，包括所有相关内容、页面和服务。使用本网站即表示您同意受本条款约束。
+                    </p>
+
+                    <h2>2. 条款接受</h2>
+                    <p>
+                        通过访问或使用本网站，您确认您已阅读、理解并同意本条款。如果您不同意这些条款，请不要使用本网站或任何相关服务。
+                    </p>
+
+                    <h2>3. 条款变更</h2>
+                    <p>
+                        我们可能会不时更新本条款。更新后的版本将附带新的最后更新日期发布在本页面。您在变更发布后继续使用网站即表示您接受更新后的条款。
+                    </p>
+
+                    <h2>4. 网站使用</h2>
+                    <p>
+                        您同意仅以合法和适当的方式使用本网站。您不得滥用网站、尝试干扰网站运行、未经授权访问系统，或以可能对我们或其他用户造成损害的方式使用网站。
+                    </p>
+
+                    <h2>5. 知识产权</h2>
+                    <p>
+                        除非另有说明，本网站上的所有文本、设计、图形、标识和内容均归 Sky of Empire 所有或经授权使用，并受适用的知识产权法律保护。
+                    </p>
+
+                    <h2>6. 内容与信息</h2>
+                    <p>
+                        我们努力保持网站信息的准确和最新，但不保证所有内容始终无误、完整或最新。内容可能随时被修改、删除或更新。
+                    </p>
+
+                    <h2>7. 外部网站链接</h2>
+                    <p>
+                        本网站可能包含指向第三方网站或服务的链接。我们不对这些外部网站的内容、做法或可用性负责。使用这些网站的风险由您自行承担。
+                    </p>
+
+                    <h2>8. 隐私</h2>
+                    <p>
+                        个人数据的使用同样受我们的
+                        <a class="inline-link" href="privacy-zh.html">隐私政策</a>
+                        约束。使用本网站即表示您同时认可相关隐私政策。
+                    </p>
+
+                    <h2>9. Cookie</h2>
+                    <p>
+                        本网站可能使用 Cookie 和类似技术来提升功能和用户体验。您可以在我们的
+                        <a class="inline-link" href="cookies-zh.html">Cookie 政策</a>
+                        中了解更多信息。
+                    </p>
+
+                    <h2>10. 免责声明</h2>
+                    <p>
+                        本网站及其内容按“现状”和“可用性”提供，在适用法律允许的范围内，不提供任何明示或暗示的保证。
+                    </p>
+
+                    <h2>11. 责任限制</h2>
+                    <p>
+                        在法律允许的范围内，Sky of Empire 对因您使用或无法使用本网站而产生的任何直接、间接、附带、后果性或特殊损害不承担责任。
+                    </p>
+
+                    <h2>12. 暂停或终止</h2>
+                    <p>
+                        如果我们认为这些条款被违反，或出于法律、安全或运营原因有必要，我们可以随时暂停、限制或终止对网站或其部分内容的访问。
+                    </p>
+
+                    <h2>13. 适用法律</h2>
+                    <p>
+                        除非强制性法律另有规定，本条款受瑞士法律管辖并按其解释。
+                    </p>
+
+                    <h2>14. 联系我们</h2>
+                    <p>
+                        如果您对这些条款有任何疑问，可以通过以下电子邮箱与我们联系：
+                        <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+                    </p>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
             </div>
         </div>
-
-        <div class="policy-wrap">
-            <h1>使用条款</h1>
-
-            <p><strong>最后更新：</strong>2026年4月1日</p>
-            <p><strong>运营方：</strong>Sky of Empire<br>
-            <strong>电子邮箱：</strong><a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-            <strong>所在地：</strong>瑞士</p>
-
-            <h2>1. 接受、适用范围与适用</h2>
-            <p>
-                本使用条款适用于您对 Sky of Empire 及其相关网站、内容、功能和服务的访问与使用。访问或使用本游戏或我们的任何服务，即表示您同意受本条款的约束。
-            </p>
-            <p>
-                如果您不同意本条款，则不得使用我们的服务。
-            </p>
-
-            <h2>2. 使用资格</h2>
-            <p>
-                只有在您根据适用法律具有订立具有约束力协议的法律能力时，您才可以使用我们的服务。如果您是未成年人，则必须获得您的父母或法定监护人的授权。
-            </p>
-
-            <h2>3. 账户</h2>
-            <p>
-                游戏的某些功能可能要求您创建账户。您有责任对您的登录凭证保密，并对通过您的账户进行的所有活动负责。
-            </p>
-            <p>
-                您同意提供准确、最新且完整的信息，并在必要时保持更新。
-            </p>
-
-            <h2>4. 许可</h2>
-            <p>
-                我们授予您一项有限的、非独占的、不可转让的、可撤销的许可，允许您根据本条款将游戏及相关服务用于个人、非商业用途。
-            </p>
-            <p>
-                此许可不会向您转让任何所有权或知识产权。
-            </p>
-
-            <h2>5. 禁止行为</h2>
-            <p>您同意不会从事以下行为：</p>
-            <ul>
-                <li>使用作弊程序、机器人、自动化工具或未经授权的第三方软件</li>
-                <li>利用游戏中的错误、漏洞或安全缺陷</li>
-                <li>尝试未经授权访问账户、系统或服务器</li>
-                <li>未经我们许可出售、交易或转让账户</li>
-                <li>违反任何适用法律或法规</li>
-                <li>骚扰、辱骂、威胁、冒充或伤害其他用户</li>
-                <li>以任何可能干扰游戏完整性、安全性或正常运行的方式使用我们的服务</li>
-            </ul>
-
-            <h2>6. 虚拟物品和虚拟货币</h2>
-            <p>
-                游戏可能包含虚拟货币、虚拟物品或数字功能。这些内容是许可给您的，而非出售给您的。除非适用法律另有要求，否则您不会获得虚拟物品的现实世界所有权或金钱价值。
-            </p>
-            <p>
-                我们保留随时修改、删除、重置或终止任何虚拟物品、货币或奖励系统的权利。
-            </p>
-
-            <h2>7. 购买与支付</h2>
-            <p>
-                如果您进行游戏内购买，即表示您同意支付所有适用费用和税款。支付可能通过第三方支付服务提供商处理，并可能同时受其条款和政策约束。
-            </p>
-            <p>
-                除非适用法律另有规定，所有购买均为最终交易且不可退款。
-            </p>
-
-            <h2>8. 更新与变更</h2>
-            <p>
-                我们可以在任何时间且无需事先通知的情况下，对游戏或我们的任何服务进行更新、修改、暂停或终止。这包括对游戏机制、功能、内容、虚拟物品和可用性的变更。
-            </p>
-
-            <h2>9. 暂停与终止</h2>
-            <p>
-                如果我们认为您违反了本条款，或为了保护我们的服务、用户或履行法律义务而有必要，我们保留随时在有或没有通知的情况下暂停、限制或终止您访问游戏或账户的权利。
-            </p>
-
-            <h2>10. 知识产权</h2>
-            <p>
-                游戏和我们的服务中的所有权利、所有权和利益，包括但不限于软件、设计、文本、图形、标识、游戏名称和功能，均归 Sky of Empire 或其许可方所有。
-            </p>
-            <p>
-                除非适用法律明确允许，否则您不得复制、修改、分发、反向工程或利用我们服务的任何部分。
-            </p>
-
-            <h2>11. 隐私</h2>
-            <p>
-                您对我们服务的使用还受我们的隐私政策约束，该政策说明我们如何收集、使用和保护您的数据。
-            </p>
-
-            <h2>12. 免责声明</h2>
-            <p>
-                在法律允许的最大范围内，游戏和服务按“现状”和“可用”基础提供，不作任何形式的明示或默示保证。
-            </p>
-            <p>
-                我们不保证服务不会出错、不会中断、完全安全，或在任何时候都可用。
-            </p>
-
-            <h2>13. 责任限制</h2>
-            <p>
-                在适用法律允许的最大范围内，Sky of Empire 不对因您使用或无法使用我们的服务而产生或与之相关的任何间接、附带、特殊、后果性或惩罚性损害承担责任，也不对任何利润、数据、商誉或业务中断的损失承担责任。
-            </p>
-
-            <h2>14. 赔偿</h2>
-            <p>
-                在法律允许的范围内，您同意赔偿、为 Sky of Empire 辩护并使其免受因您违反本条款或滥用服务而引起的任何索赔、责任、损害、损失、费用和支出的影响。
-            </p>
-
-            <h2>15. 适用法律</h2>
-            <p>
-                除非您居住地的强制性法律另有规定，本条款应受瑞士法律管辖并按其解释。
-            </p>
-
-            <h2>16. 可分割性</h2>
-            <p>
-                如果本条款中的任何规定被认定为无效或不可执行，其余条款仍应继续完全有效。
-            </p>
-
-            <h2>17. 条款变更</h2>
-            <p>
-                我们可随时修改本使用条款。更新后的版本将发布在本页面或我们的服务中。在变更生效后继续使用服务，即表示您接受修订后的条款。
-            </p>
-
-            <h2>18. 联系方式</h2>
-            <p>
-                如果您对本使用条款有任何疑问，您可以通过以下方式联系我们：
-            </p>
-            <p>
-                Sky of Empire<br>
-                电子邮箱：<a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-                所在地：瑞士
-            </p>
-        </div>
-
-        <div class="footer-space"></div>
     </div>
 
     <script>
