@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Политика cookie - Sky of Empire</title>
+    <title>Политика использования файлов cookie - Sky of Empire</title>
     <style>
         * {
             box-sizing: border-box;
@@ -77,18 +77,21 @@
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -101,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -134,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -192,78 +205,87 @@
             white-space: nowrap;
         }
 
-        .policy-wrap {
+        .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 2;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
             max-width: 980px;
-            margin: 20px auto 0;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 26px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
-            color: #f5ebd8;
-            line-height: 1.7;
+            text-align: left;
         }
 
-        .policy-wrap h1,
-        .policy-wrap h2,
-        .policy-wrap h3 {
+        h1 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 30px;
             color: #f2e2bf;
         }
 
-        .policy-wrap h1 {
-            font-size: 30px;
-            margin-top: 0;
-            margin-bottom: 18px;
-        }
-
-        .policy-wrap h2 {
-            font-size: 22px;
-            margin-top: 28px;
+        h2 {
+            margin-top: 26px;
             margin-bottom: 12px;
+            font-size: 22px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h3 {
-            font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
-        }
-
-        .policy-wrap p,
-        .policy-wrap li {
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
-        .policy-wrap ul {
-            margin: 8px 0 16px 0;
+        ul {
+            margin: 0 0 14px 0;
             padding-left: 22px;
         }
 
-        .policy-wrap a {
+        a.inline-link {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .policy-wrap a:hover {
+        a.inline-link:hover {
             text-decoration: underline;
         }
 
-        .footer-space {
-            height: 10px;
+        .meta {
+            margin-bottom: 22px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -276,21 +298,19 @@
                 font-size: 17px;
             }
 
-            .policy-wrap {
+            .card {
                 padding: 20px 16px;
-                margin-top: 16px;
             }
 
-            .policy-wrap h1 {
-                font-size: 24px;
+            h1 {
+                font-size: 25px;
             }
 
-            .policy-wrap h2 {
+            h2 {
                 font-size: 20px;
             }
 
-            .policy-wrap p,
-            .policy-wrap li {
+            p, li {
                 font-size: 15px;
             }
 
@@ -398,167 +418,68 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index-ru.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">Назад</span>
+                </a>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h1>Политика использования файлов cookie</h1>
+
+                    <div class="meta">
+                        <p><strong>Последнее обновление:</strong> 1 апреля 2026 г.</p>
+                        <p><strong>Оператор:</strong> Sky of Empire</p>
+                        <p><strong>Электронная почта:</strong> <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
+                    </div>
+
+                    <h2>1. Что такое файлы cookie?</h2>
+                    <p>
+                        Файлы cookie — это небольшие текстовые файлы, которые сохраняются на вашем устройстве при посещении веб-сайта. Они помогают улучшить работу сайта, запоминать определённые настройки и поддерживать основные функции.
+                    </p>
+
+                    <h2>2. Как мы используем файлы cookie?</h2>
+                    <p>
+                        Мы используем файлы cookie для обеспечения корректной работы сайта, улучшения пользовательского опыта, сохранения предпочтений, таких как выбранный язык, а также для понимания того, как посетители используют наши страницы.
+                    </p>
+
+                    <h2>3. Какие типы файлов cookie мы можем использовать</h2>
+                    <ul>
+                        <li><strong>Необходимые cookie:</strong> требуются для базовой работы сайта.</li>
+                        <li><strong>Cookie предпочтений:</strong> сохраняют такие настройки, как выбранный язык.</li>
+                        <li><strong>Аналитические cookie:</strong> помогают нам понимать использование сайта и улучшать наш контент.</li>
+                        <li><strong>Cookie производительности:</strong> поддерживают скорость и стабильность загрузки сайта.</li>
+                    </ul>
+
+                    <h2>4. Cookie третьих сторон</h2>
+                    <p>
+                        В некоторых случаях могут использоваться внешние сервисы, которые устанавливают собственные файлы cookie, например для аналитики или отображения встроенных элементов. Использование таких cookie регулируется политиками конфиденциальности соответствующих третьих сторон.
+                    </p>
+
+                    <h2>5. Управление файлами cookie</h2>
+                    <p>
+                        Вы можете управлять файлами cookie или удалять их через настройки вашего браузера. Обратите внимание, что отключение некоторых cookie может повлиять на работу отдельных частей сайта или снизить удобство его использования.
+                    </p>
+
+                    <h2>6. Изменения в этой политике</h2>
+                    <p>
+                        Мы можем время от времени обновлять настоящую Политику использования файлов cookie. Любые обновления будут опубликованы на этой странице вместе с изменённой датой последнего обновления.
+                    </p>
+
+                    <h2>7. Свяжитесь с нами</h2>
+                    <p>
+                        Если у вас есть вопросы по поводу использования нами файлов cookie, вы можете связаться с нами по электронной почте:
+                        <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a>.
+                    </p>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
             </div>
         </div>
-
-        <div class="policy-wrap">
-            <h1>ПОЛИТИКА COOKIE</h1>
-
-            <p><strong>Последнее обновление:</strong> 1 апреля 2026 г.</p>
-            <p><strong>Оператор:</strong> Sky of Empire<br>
-            <strong>Email:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-            <strong>Местонахождение:</strong> Швейцария</p>
-
-            <h2>1. ВВЕДЕНИЕ</h2>
-            <p>
-                Настоящая Политика cookie объясняет, как Sky of Empire («мы», «нас», «наш») использует cookie-файлы и аналогичные технологии, когда вы пользуетесь нашим веб-сайтом или цифровыми сервисами. В ней описывается, какую информацию мы собираем, как мы ее используем и какие права у вас есть.
-            </p>
-
-            <h2>2. ЧТО ТАКОЕ COOKIE?</h2>
-            <p>
-                Cookie — это небольшие текстовые файлы, которые сохраняются на вашем компьютере или мобильном устройстве при посещении веб-сайта. Они помогают сайтам работать более эффективно и предоставляют информацию о поведении пользователей.
-            </p>
-            <p>
-                Cookie позволяют нам распознавать ваше устройство и сохранять ваши предпочтения.
-            </p>
-
-            <h2>3. КАКИЕ ТИПЫ COOKIE МЫ ИСПОЛЬЗУЕМ?</h2>
-
-            <h3>3.1 Необходимые cookie</h3>
-            <p>
-                Эти cookie необходимы для работы сайта и не могут быть отключены.
-            </p>
-            <p><strong>Примеры:</strong></p>
-            <ul>
-                <li>Управление сессией</li>
-                <li>Безопасность и аутентификация</li>
-                <li>Сохранение настроек конфиденциальности</li>
-            </ul>
-
-            <h3>3.2 Аналитические и статистические cookie</h3>
-            <p>
-                Эти cookie помогают нам понять, как посетители используют наш сайт, чтобы мы могли улучшать наши услуги.
-            </p>
-            <p><strong>Примеры:</strong></p>
-            <ul>
-                <li>Google Analytics</li>
-                <li>Firebase Analytics</li>
-            </ul>
-
-            <h3>3.3 Функциональные cookie</h3>
-            <p>
-                Эти cookie обеспечивают расширенные функции и персонализацию.
-            </p>
-            <p><strong>Примеры:</strong></p>
-            <ul>
-                <li>Сохранение языковых настроек</li>
-                <li>Предпочтения пользователя</li>
-            </ul>
-
-            <h3>3.4 Маркетинговые и рекламные cookie</h3>
-            <p>
-                Эти cookie используются для показа релевантной рекламы и измерения эффективности кампаний.
-            </p>
-            <p><strong>Примеры:</strong></p>
-            <ul>
-                <li>Google Ads</li>
-                <li>Meta (Facebook) Pixel</li>
-                <li>Unity Ads</li>
-                <li>AdMob</li>
-            </ul>
-
-            <h2>4. COOKIE ТРЕТЬИХ ЛИЦ</h2>
-            <p>
-                Мы можем использовать сторонних поставщиков, которые размещают cookie от нашего имени, включая:
-            </p>
-            <ul>
-                <li>Google</li>
-                <li>Apple</li>
-                <li>Unity Technologies</li>
-                <li>Meta Platforms</li>
-                <li>Firebase</li>
-                <li>Рекламные и аналитические партнеры</li>
-            </ul>
-            <p>
-                Эти третьи лица обрабатывают данные в соответствии со своими собственными политиками конфиденциальности.
-            </p>
-
-            <h2>5. ПРАВОВОЕ ОСНОВАНИЕ</h2>
-            <p>
-                Использование cookie основано на:
-            </p>
-            <ul>
-                <li>Вашем согласии в соответствии со статьей 6(1)(a) GDPR</li>
-                <li>Нашем законном интересе в соответствии со статьей 6(1)(f) GDPR</li>
-                <li>Юридических обязательствах</li>
-            </ul>
-            <p>
-                Необходимые cookie не требуют согласия.
-            </p>
-
-            <h2>6. КАК ВЫ МОЖЕТЕ УПРАВЛЯТЬ COOKIE?</h2>
-            <p>
-                Вы можете управлять cookie или отключать их через настройки вашего браузера.
-            </p>
-
-            <p><strong>Настройки браузера:</strong></p>
-            <ul>
-                <li>Chrome: <a href="https://support.google.com/chrome">support.google.com/chrome</a></li>
-                <li>Safari: <a href="https://support.apple.com">support.apple.com</a></li>
-                <li>Firefox: <a href="https://support.mozilla.org">support.mozilla.org</a></li>
-                <li>Edge: <a href="https://support.microsoft.com">support.microsoft.com</a></li>
-            </ul>
-
-            <p><strong>Мобильные устройства:</strong></p>
-            <ul>
-                <li>iOS: Настройки → Конфиденциальность → Отслеживание</li>
-                <li>Android: Настройки → Google → Реклама</li>
-            </ul>
-
-            <p>
-                Обратите внимание, что отключение cookie может ограничить функциональность наших сервисов.
-            </p>
-
-            <h2>7. СРОК ХРАНЕНИЯ</h2>
-            <p>
-                Cookie могут быть:
-            </p>
-            <ul>
-                <li><strong>Сессионные cookie:</strong> удаляются при закрытии браузера</li>
-                <li><strong>Постоянные cookie:</strong> сохраняются на вашем устройстве до удаления или истечения срока действия</li>
-            </ul>
-
-            <h2>8. ВАШИ ПРАВА</h2>
-            <p>
-                Вы имеете право:
-            </p>
-            <ul>
-                <li>Получить доступ к своим данным</li>
-                <li>Исправить или удалить данные</li>
-                <li>Ограничить обработку</li>
-                <li>Возразить против обработки</li>
-                <li>Отозвать свое согласие</li>
-            </ul>
-
-            <p>
-                Запросы можно направлять по адресу:
-                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
-            </p>
-
-            <h2>9. ИЗМЕНЕНИЯ В НАСТОЯЩЕЙ ПОЛИТИКЕ</h2>
-            <p>
-                Мы оставляем за собой право обновлять настоящую Политику cookie в любое время. Изменения будут опубликованы на нашем веб-сайте.
-            </p>
-
-            <h2>10. КОНТАКТЫ</h2>
-            <p>
-                Sky of Empire<br>
-                Email: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-                Местонахождение: Швейцария
-            </p>
-        </div>
-
-        <div class="footer-space"></div>
     </div>
 
     <script>
