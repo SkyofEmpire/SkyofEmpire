@@ -77,18 +77,21 @@
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -101,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -134,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -192,78 +205,87 @@
             white-space: nowrap;
         }
 
-        .policy-wrap {
+        .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 2;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
             max-width: 980px;
-            margin: 20px auto 0;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 26px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
-            color: #f5ebd8;
-            line-height: 1.7;
+            text-align: left;
         }
 
-        .policy-wrap h1,
-        .policy-wrap h2,
-        .policy-wrap h3 {
+        h1 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 30px;
             color: #f2e2bf;
         }
 
-        .policy-wrap h1 {
-            font-size: 30px;
-            margin-top: 0;
-            margin-bottom: 18px;
-        }
-
-        .policy-wrap h2 {
-            font-size: 22px;
-            margin-top: 28px;
+        h2 {
+            margin-top: 26px;
             margin-bottom: 12px;
+            font-size: 22px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h3 {
-            font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
-        }
-
-        .policy-wrap p,
-        .policy-wrap li {
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
-        .policy-wrap ul {
-            margin: 8px 0 16px 0;
+        ul {
+            margin: 0 0 14px 0;
             padding-left: 22px;
         }
 
-        .policy-wrap a {
+        a.inline-link {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .policy-wrap a:hover {
+        a.inline-link:hover {
             text-decoration: underline;
         }
 
-        .footer-space {
-            height: 10px;
+        .meta {
+            margin-bottom: 22px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -276,21 +298,19 @@
                 font-size: 17px;
             }
 
-            .policy-wrap {
+            .card {
                 padding: 20px 16px;
-                margin-top: 16px;
             }
 
-            .policy-wrap h1 {
-                font-size: 24px;
+            h1 {
+                font-size: 25px;
             }
 
-            .policy-wrap h2 {
+            h2 {
                 font-size: 20px;
             }
 
-            .policy-wrap p,
-            .policy-wrap li {
+            p, li {
                 font-size: 15px;
             }
 
@@ -398,167 +418,68 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index-tr.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">Geri</span>
+                </a>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h1>Çerez Politikası</h1>
+
+                    <div class="meta">
+                        <p><strong>Son güncelleme:</strong> 1 Nisan 2026</p>
+                        <p><strong>İşletmeci:</strong> Sky of Empire</p>
+                        <p><strong>E-posta:</strong> <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
+                    </div>
+
+                    <h2>1. Çerezler nedir?</h2>
+                    <p>
+                        Çerezler, bir web sitesini ziyaret ettiğinizde cihazınıza kaydedilen küçük metin dosyalarıdır. Web sitesinin işleyişini geliştirmeye, belirli ayarları hatırlamaya ve temel işlevleri desteklemeye yardımcı olurlar.
+                    </p>
+
+                    <h2>2. Çerezleri nasıl kullanıyoruz?</h2>
+                    <p>
+                        Çerezleri, web sitesinin doğru şekilde çalışmasını sağlamak, kullanıcı deneyimini geliştirmek, seçilen dil gibi tercihleri kaydetmek ve ziyaretçilerin sayfalarımızı nasıl kullandığını anlamak için kullanıyoruz.
+                    </p>
+
+                    <h2>3. Kullanabileceğimiz çerez türleri</h2>
+                    <ul>
+                        <li><strong>Gerekli çerezler:</strong> web sitesinin temel işleyişi için gereklidir.</li>
+                        <li><strong>Tercih çerezleri:</strong> seçilen dil gibi ayarları saklar.</li>
+                        <li><strong>Analiz çerezleri:</strong> web sitesinin kullanımını anlamamıza ve içeriğimizi geliştirmemize yardımcı olur.</li>
+                        <li><strong>Performans çerezleri:</strong> web sitesinin yüklenme hızı ve kararlılığını destekler.</li>
+                    </ul>
+
+                    <h2>4. Üçüncü taraf çerezleri</h2>
+                    <p>
+                        Bazı durumlarda, analiz amaçları veya belirli gömülü öğelerin gösterimi için kendi çerezlerini yerleştiren harici hizmetler kullanılabilir. Bu tür çerezlerin kullanımı ilgili üçüncü tarafların gizlilik politikalarına tabidir.
+                    </p>
+
+                    <h2>5. Çerezlerin yönetimi</h2>
+                    <p>
+                        Çerezleri tarayıcı ayarlarınız üzerinden kontrol edebilir veya silebilirsiniz. Ancak bazı çerezleri devre dışı bırakmanın web sitesinin bazı bölümlerinin işlevini etkileyebileceğini veya kullanım kolaylığını azaltabileceğini lütfen unutmayın.
+                    </p>
+
+                    <h2>6. Bu politikadaki değişiklikler</h2>
+                    <p>
+                        Bu Çerez Politikasını zaman zaman güncelleyebiliriz. Herhangi bir güncelleme, gözden geçirilmiş son güncelleme tarihi ile birlikte bu sayfada yayımlanacaktır.
+                    </p>
+
+                    <h2>7. Bize ulaşın</h2>
+                    <p>
+                        Çerez kullanımımızla ilgili herhangi bir sorunuz varsa bizimle şu e-posta adresi üzerinden iletişime geçebilirsiniz:
+                        <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+                    </p>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
             </div>
         </div>
-
-        <div class="policy-wrap">
-            <h1>ÇEREZ POLİTİKASI</h1>
-
-            <p><strong>Son güncelleme:</strong> 1 Nisan 2026</p>
-            <p><strong>İşletmeci:</strong> Sky of Empire<br>
-            <strong>E-posta:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-            <strong>Merkez:</strong> İsviçre</p>
-
-            <h2>1. GİRİŞ</h2>
-            <p>
-                Bu Çerez Politikası, Sky of Empire’ın ("biz", "bize" veya "bizim") web sitemizi veya dijital hizmetlerimizi kullandığınızda çerezleri ve benzer teknolojileri nasıl kullandığını açıklar. Hangi bilgileri topladığımızı, bunları nasıl kullandığımızı ve hangi haklara sahip olduğunuzu açıklar.
-            </p>
-
-            <h2>2. ÇEREZ NEDİR?</h2>
-            <p>
-                Çerezler, bir web sitesini ziyaret ettiğinizde bilgisayarınıza veya mobil cihazınıza kaydedilen küçük metin dosyalarıdır. Web sitelerinin daha verimli çalışmasına yardımcı olur ve kullanıcı davranışları hakkında bilgi sağlar.
-            </p>
-            <p>
-                Çerezler, cihazınızı tanımamıza ve tercihlerinizi kaydetmemize olanak tanır.
-            </p>
-
-            <h2>3. HANGİ ÇEREZ TÜRLERİNİ KULLANIYORUZ?</h2>
-
-            <h3>3.1 Zorunlu Çerezler</h3>
-            <p>
-                Bu çerezler web sitesinin çalışması için gereklidir ve devre dışı bırakılamaz.
-            </p>
-            <p><strong>Örnekler:</strong></p>
-            <ul>
-                <li>Oturum yönetimi</li>
-                <li>Güvenlik ve kimlik doğrulama</li>
-                <li>Gizlilik ayarlarının saklanması</li>
-            </ul>
-
-            <h3>3.2 Analiz ve İstatistik Çerezleri</h3>
-            <p>
-                Bu çerezler, ziyaretçilerin web sitemizi nasıl kullandığını anlamamıza yardımcı olur; böylece hizmetlerimizi geliştirebiliriz.
-            </p>
-            <p><strong>Örnekler:</strong></p>
-            <ul>
-                <li>Google Analytics</li>
-                <li>Firebase Analytics</li>
-            </ul>
-
-            <h3>3.3 İşlevsel Çerezler</h3>
-            <p>
-                Bu çerezler gelişmiş özellikler ve kişiselleştirme sağlar.
-            </p>
-            <p><strong>Örnekler:</strong></p>
-            <ul>
-                <li>Dil ayarlarının kaydedilmesi</li>
-                <li>Kullanıcı tercihleri</li>
-            </ul>
-
-            <h3>3.4 Pazarlama ve Reklam Çerezleri</h3>
-            <p>
-                Bu çerezler ilgili reklamların gösterilmesi ve kampanya etkinliğinin ölçülmesi için kullanılır.
-            </p>
-            <p><strong>Örnekler:</strong></p>
-            <ul>
-                <li>Google Ads</li>
-                <li>Meta (Facebook) Pixel</li>
-                <li>Unity Ads</li>
-                <li>AdMob</li>
-            </ul>
-
-            <h2>4. ÜÇÜNCÜ TARAF ÇEREZLERİ</h2>
-            <p>
-                Bizim adımıza çerez yerleştiren üçüncü taraf hizmet sağlayıcıları kullanabiliriz, bunlar arasında şunlar yer alır:
-            </p>
-            <ul>
-                <li>Google</li>
-                <li>Apple</li>
-                <li>Unity Technologies</li>
-                <li>Meta Platforms</li>
-                <li>Firebase</li>
-                <li>Reklam ve analiz ortakları</li>
-            </ul>
-            <p>
-                Bu üçüncü taraflar verileri kendi gizlilik politikalarına uygun olarak işler.
-            </p>
-
-            <h2>5. HUKUKİ DAYANAK</h2>
-            <p>
-                Çerezlerin kullanımı aşağıdakilere dayanır:
-            </p>
-            <ul>
-                <li>GDPR Madde 6(1)(a) uyarınca sizin rızanız</li>
-                <li>GDPR Madde 6(1)(f) uyarınca meşru menfaatimiz</li>
-                <li>Yasal yükümlülükler</li>
-            </ul>
-            <p>
-                Zorunlu çerezler için ayrıca onay gerekmez.
-            </p>
-
-            <h2>6. ÇEREZLERİ NASIL YÖNETEBİLİRSİNİZ?</h2>
-            <p>
-                Çerezleri tarayıcı ayarlarınız üzerinden yönetebilir veya devre dışı bırakabilirsiniz.
-            </p>
-
-            <p><strong>Tarayıcı ayarları:</strong></p>
-            <ul>
-                <li>Chrome: <a href="https://support.google.com/chrome">support.google.com/chrome</a></li>
-                <li>Safari: <a href="https://support.apple.com">support.apple.com</a></li>
-                <li>Firefox: <a href="https://support.mozilla.org">support.mozilla.org</a></li>
-                <li>Edge: <a href="https://support.microsoft.com">support.microsoft.com</a></li>
-            </ul>
-
-            <p><strong>Mobil cihazlar:</strong></p>
-            <ul>
-                <li>iOS: Ayarlar → Gizlilik → Takip</li>
-                <li>Android: Ayarlar → Google → Reklamlar</li>
-            </ul>
-
-            <p>
-                Çerezleri devre dışı bırakmanın hizmetlerimizin işlevselliğini sınırlayabileceğini lütfen unutmayın.
-            </p>
-
-            <h2>7. SAKLAMA SÜRESİ</h2>
-            <p>
-                Çerezler aşağıdaki türlerde olabilir:
-            </p>
-            <ul>
-                <li><strong>Oturum çerezleri:</strong> Tarayıcıyı kapattığınızda silinir</li>
-                <li><strong>Kalıcı çerezler:</strong> Silinene veya süreleri dolana kadar cihazınızda kalır</li>
-            </ul>
-
-            <h2>8. HAKLARINIZ</h2>
-            <p>
-                Şu haklara sahipsiniz:
-            </p>
-            <ul>
-                <li>Verilerinize erişim</li>
-                <li>Verilerin düzeltilmesi veya silinmesi</li>
-                <li>İşlemenin kısıtlanması</li>
-                <li>İşlemeye itiraz etme</li>
-                <li>Verdiğiniz rızayı geri çekme</li>
-            </ul>
-
-            <p>
-                Talepler şu adrese gönderilebilir:
-                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
-            </p>
-
-            <h2>9. BU POLİTİKADAKİ DEĞİŞİKLİKLER</h2>
-            <p>
-                Bu Çerez Politikasını istediğimiz zaman güncelleme hakkını saklı tutarız. Değişiklikler web sitemizde yayımlanacaktır.
-            </p>
-
-            <h2>10. İLETİŞİM</h2>
-            <p>
-                Sky of Empire<br>
-                E-posta: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-                Merkez: İsviçre
-            </p>
-        </div>
-
-        <div class="footer-space"></div>
     </div>
 
     <script>
