@@ -77,18 +77,21 @@
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -101,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -134,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -192,78 +205,87 @@
             white-space: nowrap;
         }
 
-        .policy-wrap {
+        .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 2;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
             max-width: 980px;
-            margin: 20px auto 0;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 26px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
-            color: #f5ebd8;
-            line-height: 1.8;
+            text-align: left;
         }
 
-        .policy-wrap h1,
-        .policy-wrap h2,
-        .policy-wrap h3 {
+        h1 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 30px;
             color: #f2e2bf;
         }
 
-        .policy-wrap h1 {
-            font-size: 30px;
-            margin-top: 0;
-            margin-bottom: 18px;
-        }
-
-        .policy-wrap h2 {
-            font-size: 22px;
-            margin-top: 28px;
+        h2 {
+            margin-top: 26px;
             margin-bottom: 12px;
+            font-size: 22px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h3 {
-            font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
-        }
-
-        .policy-wrap p,
-        .policy-wrap li {
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
-        .policy-wrap ul {
-            margin: 8px 0 16px 0;
+        ul {
+            margin: 0 0 14px 0;
             padding-left: 22px;
         }
 
-        .policy-wrap a {
+        a.inline-link {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .policy-wrap a:hover {
+        a.inline-link:hover {
             text-decoration: underline;
         }
 
-        .footer-space {
-            height: 10px;
+        .meta {
+            margin-bottom: 22px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -276,21 +298,19 @@
                 font-size: 17px;
             }
 
-            .policy-wrap {
+            .card {
                 padding: 20px 16px;
-                margin-top: 16px;
             }
 
-            .policy-wrap h1 {
-                font-size: 24px;
+            h1 {
+                font-size: 25px;
             }
 
-            .policy-wrap h2 {
+            h2 {
                 font-size: 20px;
             }
 
-            .policy-wrap p,
-            .policy-wrap li {
+            p, li {
                 font-size: 15px;
             }
 
@@ -398,167 +418,68 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index-ko.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">뒤로</span>
+                </a>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h1>쿠키 정책</h1>
+
+                    <div class="meta">
+                        <p><strong>최종 업데이트:</strong> 2026년 4월 1일</p>
+                        <p><strong>운영자:</strong> Sky of Empire</p>
+                        <p><strong>이메일:</strong> <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
+                    </div>
+
+                    <h2>1. 쿠키란 무엇인가요?</h2>
+                    <p>
+                        쿠키는 웹사이트를 방문할 때 사용자의 기기에 저장되는 작은 텍스트 파일입니다. 쿠키는 웹사이트의 기능을 향상시키고, 특정 설정을 기억하며, 기본 기능을 지원하는 데 도움이 됩니다.
+                    </p>
+
+                    <h2>2. 당사는 쿠키를 어떻게 사용하나요?</h2>
+                    <p>
+                        당사는 웹사이트가 올바르게 작동하도록 하고, 사용자 경험을 개선하며, 언어 설정과 같은 기본 설정을 저장하고, 방문자가 페이지를 어떻게 사용하는지 이해하기 위해 쿠키를 사용합니다.
+                    </p>
+
+                    <h2>3. 당사가 사용할 수 있는 쿠키 유형</h2>
+                    <ul>
+                        <li><strong>필수 쿠키:</strong> 웹사이트의 기본 작동에 필요한 쿠키입니다.</li>
+                        <li><strong>환경설정 쿠키:</strong> 선택한 언어와 같은 설정을 저장합니다.</li>
+                        <li><strong>분석 쿠키:</strong> 웹사이트 사용 방식을 이해하고 콘텐츠를 개선하는 데 도움이 됩니다.</li>
+                        <li><strong>성능 쿠키:</strong> 웹사이트 로딩 속도와 안정성을 지원합니다.</li>
+                    </ul>
+
+                    <h2>4. 제3자 쿠키</h2>
+                    <p>
+                        경우에 따라 외부 서비스가 자체 쿠키를 설정할 수 있습니다. 예를 들어 분석 목적이나 특정 삽입 요소를 표시하기 위한 경우가 있습니다. 이러한 쿠키의 사용은 해당 제3자의 개인정보 보호정책에 따릅니다.
+                    </p>
+
+                    <h2>5. 쿠키 관리</h2>
+                    <p>
+                        사용자는 브라우저 설정을 통해 쿠키를 제어하거나 삭제할 수 있습니다. 단, 일부 쿠키를 비활성화하면 웹사이트의 일부 기능에 영향을 주거나 사용 편의성이 떨어질 수 있습니다.
+                    </p>
+
+                    <h2>6. 본 정책의 변경</h2>
+                    <p>
+                        당사는 때때로 본 쿠키 정책을 업데이트할 수 있습니다. 업데이트가 있을 경우, 수정된 최종 업데이트 날짜와 함께 이 페이지에 게시됩니다.
+                    </p>
+
+                    <h2>7. 문의하기</h2>
+                    <p>
+                        쿠키 사용에 대해 궁금한 점이 있으시면 아래 이메일로 문의해 주세요:
+                        <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+                    </p>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
             </div>
         </div>
-
-        <div class="policy-wrap">
-            <h1>쿠키 정책</h1>
-
-            <p><strong>최종 업데이트:</strong> 2026년 4월 1일</p>
-            <p><strong>운영자:</strong> Sky of Empire<br>
-            <strong>이메일:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-            <strong>소재지:</strong> 스위스</p>
-
-            <h2>1. 소개</h2>
-            <p>
-                본 쿠키 정책은 Sky of Empire(이하 “당사”)가 귀하가 당사의 웹사이트 또는 디지털 서비스를 이용할 때 쿠키 및 유사 기술을 어떻게 사용하는지 설명합니다. 또한 어떤 정보를 수집하는지, 이를 어떻게 사용하는지, 그리고 귀하에게 어떤 권리가 있는지를 설명합니다.
-            </p>
-
-            <h2>2. 쿠키란 무엇인가요?</h2>
-            <p>
-                쿠키는 웹사이트를 방문할 때 귀하의 컴퓨터 또는 모바일 기기에 저장되는 작은 텍스트 파일입니다. 쿠키는 웹사이트가 보다 효율적으로 작동하도록 돕고, 사용자 행동에 대한 정보를 제공합니다.
-            </p>
-            <p>
-                쿠키를 통해 당사는 귀하의 기기를 인식하고 귀하의 설정을 저장할 수 있습니다.
-            </p>
-
-            <h2>3. 당사가 사용하는 쿠키의 유형</h2>
-
-            <h3>3.1 필수 쿠키</h3>
-            <p>
-                이 쿠키는 웹사이트 운영에 필수적이며 비활성화할 수 없습니다.
-            </p>
-            <p><strong>예시:</strong></p>
-            <ul>
-                <li>세션 관리</li>
-                <li>보안 및 인증</li>
-                <li>개인정보 설정 저장</li>
-            </ul>
-
-            <h3>3.2 분석 및 통계 쿠키</h3>
-            <p>
-                이 쿠키는 방문자가 당사 웹사이트를 어떻게 이용하는지 이해하는 데 도움을 주며, 이를 통해 서비스를 개선할 수 있습니다.
-            </p>
-            <p><strong>예시:</strong></p>
-            <ul>
-                <li>Google Analytics</li>
-                <li>Firebase Analytics</li>
-            </ul>
-
-            <h3>3.3 기능 쿠키</h3>
-            <p>
-                이 쿠키는 향상된 기능과 개인화 기능을 제공합니다.
-            </p>
-            <p><strong>예시:</strong></p>
-            <ul>
-                <li>언어 설정 저장</li>
-                <li>사용자 환경설정</li>
-            </ul>
-
-            <h3>3.4 마케팅 및 광고 쿠키</h3>
-            <p>
-                이 쿠키는 관련성 있는 광고를 표시하고 캠페인 효과를 측정하는 데 사용됩니다.
-            </p>
-            <p><strong>예시:</strong></p>
-            <ul>
-                <li>Google Ads</li>
-                <li>Meta (Facebook) Pixel</li>
-                <li>Unity Ads</li>
-                <li>AdMob</li>
-            </ul>
-
-            <h2>4. 제3자 쿠키</h2>
-            <p>
-                당사는 다음을 포함한 제3자 제공업체가 당사를 대신해 쿠키를 설정하도록 할 수 있습니다.
-            </p>
-            <ul>
-                <li>Google</li>
-                <li>Apple</li>
-                <li>Unity Technologies</li>
-                <li>Meta Platforms</li>
-                <li>Firebase</li>
-                <li>광고 및 분석 파트너</li>
-            </ul>
-            <p>
-                이러한 제3자는 각자의 개인정보 보호정책에 따라 데이터를 처리합니다.
-            </p>
-
-            <h2>5. 법적 근거</h2>
-            <p>
-                쿠키 사용은 다음을 근거로 합니다.
-            </p>
-            <ul>
-                <li>GDPR 제6조 제1항 (a)에 따른 귀하의 동의</li>
-                <li>GDPR 제6조 제1항 (f)에 따른 당사의 정당한 이익</li>
-                <li>법적 의무</li>
-            </ul>
-            <p>
-                필수 쿠키는 별도의 동의를 필요로 하지 않습니다.
-            </p>
-
-            <h2>6. 쿠키는 어떻게 관리할 수 있나요?</h2>
-            <p>
-                귀하는 브라우저 설정을 통해 쿠키를 관리하거나 비활성화할 수 있습니다.
-            </p>
-
-            <p><strong>브라우저 설정:</strong></p>
-            <ul>
-                <li>Chrome: <a href="https://support.google.com/chrome">support.google.com/chrome</a></li>
-                <li>Safari: <a href="https://support.apple.com">support.apple.com</a></li>
-                <li>Firefox: <a href="https://support.mozilla.org">support.mozilla.org</a></li>
-                <li>Edge: <a href="https://support.microsoft.com">support.microsoft.com</a></li>
-            </ul>
-
-            <p><strong>모바일 기기:</strong></p>
-            <ul>
-                <li>iOS: 설정 → 개인정보 보호 → 추적</li>
-                <li>Android: 설정 → Google → 광고</li>
-            </ul>
-
-            <p>
-                쿠키를 비활성화하면 당사 서비스의 일부 기능이 제한될 수 있습니다.
-            </p>
-
-            <h2>7. 보관 기간</h2>
-            <p>
-                쿠키는 다음과 같을 수 있습니다.
-            </p>
-            <ul>
-                <li><strong>세션 쿠키:</strong> 브라우저를 닫으면 삭제됩니다</li>
-                <li><strong>영구 쿠키:</strong> 삭제되거나 만료될 때까지 기기에 저장됩니다</li>
-            </ul>
-
-            <h2>8. 귀하의 권리</h2>
-            <p>
-                귀하는 다음과 같은 권리를 가집니다.
-            </p>
-            <ul>
-                <li>본인 데이터에 대한 접근</li>
-                <li>데이터의 정정 또는 삭제</li>
-                <li>처리 제한</li>
-                <li>처리에 대한 반대</li>
-                <li>동의 철회</li>
-            </ul>
-
-            <p>
-                요청은 다음으로 보내실 수 있습니다:
-                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
-            </p>
-
-            <h2>9. 본 정책의 변경</h2>
-            <p>
-                당사는 언제든지 본 쿠키 정책을 업데이트할 권리를 보유합니다. 변경 사항은 당사 웹사이트에 게시됩니다.
-            </p>
-
-            <h2>10. 문의처</h2>
-            <p>
-                Sky of Empire<br>
-                이메일: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-                소재지: 스위스
-            </p>
-        </div>
-
-        <div class="footer-space"></div>
     </div>
 
     <script>
