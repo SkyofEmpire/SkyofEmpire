@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datenschutzrichtlinie - Sky of Empire</title>
+    <title>Datenschutzerklärung - Sky of Empire</title>
     <style>
         * {
             box-sizing: border-box;
@@ -77,18 +77,21 @@
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -101,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -134,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -192,78 +205,87 @@
             white-space: nowrap;
         }
 
-        .policy-wrap {
+        .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 2;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
             max-width: 980px;
-            margin: 20px auto 0;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 26px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
-            color: #f5ebd8;
-            line-height: 1.7;
+            text-align: left;
         }
 
-        .policy-wrap h1,
-        .policy-wrap h2,
-        .policy-wrap h3 {
+        h1 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 30px;
             color: #f2e2bf;
         }
 
-        .policy-wrap h1 {
-            font-size: 30px;
-            margin-top: 0;
-            margin-bottom: 18px;
-        }
-
-        .policy-wrap h2 {
-            font-size: 22px;
-            margin-top: 28px;
+        h2 {
+            margin-top: 26px;
             margin-bottom: 12px;
+            font-size: 22px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h3 {
-            font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
-        }
-
-        .policy-wrap p,
-        .policy-wrap li {
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
-        .policy-wrap ul {
-            margin: 8px 0 16px 0;
+        ul {
+            margin: 0 0 14px 0;
             padding-left: 22px;
         }
 
-        .policy-wrap a {
+        a.inline-link {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .policy-wrap a:hover {
+        a.inline-link:hover {
             text-decoration: underline;
         }
 
-        .footer-space {
-            height: 10px;
+        .meta {
+            margin-bottom: 22px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -276,21 +298,19 @@
                 font-size: 17px;
             }
 
-            .policy-wrap {
+            .card {
                 padding: 20px 16px;
-                margin-top: 16px;
             }
 
-            .policy-wrap h1 {
-                font-size: 24px;
+            h1 {
+                font-size: 25px;
             }
 
-            .policy-wrap h2 {
+            h2 {
                 font-size: 20px;
             }
 
-            .policy-wrap p,
-            .policy-wrap li {
+            p, li {
                 font-size: 15px;
             }
 
@@ -398,132 +418,101 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">Zurück</span>
+                </a>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h1>Datenschutzerklärung</h1>
+
+                    <div class="meta">
+                        <p><strong>Letzte Aktualisierung:</strong> 1. April 2026</p>
+                        <p><strong>Betreiber:</strong> Sky of Empire</p>
+                        <p><strong>E-Mail:</strong> <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
+                        <p><strong>Sitz:</strong> Schweiz</p>
+                    </div>
+
+                    <h2>1. Einleitung</h2>
+                    <p>
+                        Diese Datenschutzerklärung erläutert, wie Sky of Empire personenbezogene Informationen erhebt, verwendet und schützt, wenn Sie unsere Website besuchen oder unsere Dienste nutzen. Wir nehmen den Schutz Ihrer Daten ernst und behandeln Ihre Informationen verantwortungsvoll.
+                    </p>
+
+                    <h2>2. Daten, die wir erheben können</h2>
+                    <ul>
+                        <li>Kontaktdaten wie Ihren Namen und Ihre E-Mail-Adresse, wenn Sie uns eine Nachricht senden.</li>
+                        <li>Technische Daten wie Browsertyp, Gerätetyp, IP-Adresse und allgemeine Nutzungsinformationen.</li>
+                        <li>Nachrichten oder Anfragen, die Sie uns über Kontakt- oder Supportformulare senden.</li>
+                        <li>Grundlegende Einstellungen wie die auf der Website gewählte Sprache.</li>
+                    </ul>
+
+                    <h2>3. Wie wir Daten verwenden</h2>
+                    <p>
+                        Wir können erhobene Daten verwenden, um die Website zu betreiben, Support bereitzustellen, Anfragen zu beantworten, Inhalte und Dienste zu verbessern, Sicherheit und technische Stabilität zu erhöhen sowie gesetzlichen Verpflichtungen nachzukommen, sofern dies erforderlich ist.
+                    </p>
+
+                    <h2>4. Rechtsgrundlage der Verarbeitung</h2>
+                    <p>
+                        Personenbezogene Daten werden verarbeitet, wenn dies erforderlich ist, um unsere Dienste bereitzustellen, mit Ihnen auf Ihre Anfrage zu kommunizieren, unsere berechtigten Interessen am Betrieb und an der Verbesserung der Website zu schützen oder geltende gesetzliche Verpflichtungen zu erfüllen.
+                    </p>
+
+                    <h2>5. Weitergabe von Daten</h2>
+                    <p>
+                        Wir verkaufen Ihre personenbezogenen Daten nicht. Informationen können nur dann weitergegeben werden, wenn dies erforderlich ist an vertrauenswürdige Dienstleister, die den Betrieb der Website oder den technischen Support unterstützen, oder wenn dies gesetzlich vorgeschrieben ist oder zum Schutz unserer Rechte und unserer Nutzer notwendig ist.
+                    </p>
+
+                    <h2>6. Speicherung und Aufbewahrung von Daten</h2>
+                    <p>
+                        Wir speichern personenbezogene Daten nur so lange, wie es für die Zwecke, für die sie erhoben wurden, erforderlich ist oder gesetzlich vorgeschrieben wird. Danach werden die Daten gelöscht oder angemessen eingeschränkt.
+                    </p>
+
+                    <h2>7. Sicherheit</h2>
+                    <p>
+                        Wir ergreifen geeignete technische und organisatorische Maßnahmen, um personenbezogene Daten vor unbefugtem Zugriff, Verlust, Missbrauch oder Veränderung zu schützen. Dennoch ist keine elektronische Übertragung oder Speicherung vollständig sicher.
+                    </p>
+
+                    <h2>8. Cookies und ähnliche Technologien</h2>
+                    <p>
+                        Unsere Website kann Cookies oder ähnliche Technologien verwenden, um wesentliche Funktionen zu unterstützen und die Benutzerfreundlichkeit zu verbessern. Weitere Informationen finden Sie in unserer
+                        <a class="inline-link" href="cookies.html">Cookie-Richtlinie</a>.
+                    </p>
+
+                    <h2>9. Ihre Rechte</h2>
+                    <p>
+                        Je nach anwendbarem Recht haben Sie möglicherweise das Recht, Auskunft über Ihre personenbezogenen Daten zu verlangen, deren Berichtigung, Löschung oder Einschränkung der Verarbeitung zu fordern oder der Verarbeitung zu widersprechen. Sie haben möglicherweise auch das Recht, eine Beschwerde bei einer zuständigen Datenschutzbehörde einzureichen.
+                    </p>
+
+                    <h2>10. Externe Links</h2>
+                    <p>
+                        Unsere Website kann Links zu externen Websites oder Diensten enthalten. Wir sind nicht für die Inhalte oder Datenschutzpraktiken dieser Dritten verantwortlich. Bitte prüfen Sie deren Richtlinien gesondert.
+                    </p>
+
+                    <h2>11. Datenschutz von Kindern</h2>
+                    <p>
+                        Wir erheben nicht wissentlich personenbezogene Daten von Kindern, wenn dies gesetzlich untersagt ist. Wenn Sie der Meinung sind, dass uns Informationen über ein Kind ohne entsprechende Erlaubnis übermittelt wurden, kontaktieren Sie uns bitte.
+                    </p>
+
+                    <h2>12. Änderungen an dieser Erklärung</h2>
+                    <p>
+                        Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Änderungen werden auf dieser Seite zusammen mit dem angepassten Datum der letzten Aktualisierung veröffentlicht.
+                    </p>
+
+                    <h2>13. Kontakt</h2>
+                    <p>
+                        Wenn Sie Fragen zu dieser Datenschutzerklärung oder zur Verarbeitung Ihrer personenbezogenen Daten haben, können Sie uns per E-Mail unter
+                        <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+                        kontaktieren.
+                    </p>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
             </div>
         </div>
-
-        <div class="policy-wrap">
-            <h1>Datenschutzrichtlinie</h1>
-
-            <p><strong>Letzte Aktualisierung:</strong> 1. April 2026</p>
-            <p><strong>Betreiber:</strong> Sky of Empire<br>
-            <strong>E-Mail:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-            <strong>Sitz:</strong> Schweiz</p>
-
-            <h2>1. Einleitung</h2>
-            <p>
-                Diese Datenschutzrichtlinie erklärt, wie Sky of Empire („wir“, „uns“ oder „unser“) Ihre personenbezogenen Daten erhebt, verwendet, verarbeitet und schützt, wenn Sie unser Spiel, unsere Website oder damit verbundene Dienste nutzen.
-            </p>
-            <p>
-                Durch die Nutzung unserer Dienste bestätigen Sie, dass Sie diese Datenschutzrichtlinie gelesen und verstanden haben.
-            </p>
-
-            <h2>2. Welche Daten wir erheben</h2>
-            <p>Wir können folgende Datenkategorien erheben:</p>
-            <ul>
-                <li>Kontodaten, wie Benutzername oder In-Game-ID</li>
-                <li>Kontaktdaten, wie Ihre E-Mail-Adresse, sofern Sie uns diese mitteilen</li>
-                <li>Gerätedaten, wie Gerätetyp, Betriebssystem, Sprache, IP-Adresse und Gerätekennungen</li>
-                <li>Nutzungsdaten, wie Spielfortschritt, Einstellungen, Käufe, Login-Protokolle und Interaktionen</li>
-                <li>Supportdaten, wie Nachrichten, die Sie an den Kundensupport senden</li>
-                <li>Analyse- und Werbedaten, soweit anwendbar</li>
-            </ul>
-
-            <h2>3. Wie wir Ihre Daten verwenden</h2>
-            <p>Wir verwenden Ihre Daten für folgende Zwecke:</p>
-            <ul>
-                <li>Bereitstellung, Betrieb und Wartung des Spiels und zugehöriger Dienste</li>
-                <li>Verwaltung Ihres In-Game-Kontos</li>
-                <li>Speicherung von Fortschritt, Funktionen und Einstellungen</li>
-                <li>Bereitstellung von technischem Support und Kundendienst</li>
-                <li>Verbesserung von Leistung, Stabilität und Benutzererfahrung</li>
-                <li>Verhinderung von Betrug, Missbrauch, Cheating und rechtswidrigen Aktivitäten</li>
-                <li>Einhaltung gesetzlicher und regulatorischer Verpflichtungen</li>
-                <li>Versand wichtiger dienstbezogener Mitteilungen</li>
-                <li>Analyse der Nutzung und Messung der Leistung, soweit anwendbar</li>
-            </ul>
-
-            <h2>4. Rechtsgrundlage der Verarbeitung</h2>
-            <p>Wir verarbeiten personenbezogene Daten auf Grundlage einer oder mehrerer der folgenden Rechtsgrundlagen, soweit anwendbar:</p>
-            <ul>
-                <li>Erfüllung eines Vertrags, also die Bereitstellung des Spiels und der Dienste</li>
-                <li>Einhaltung gesetzlicher Verpflichtungen</li>
-                <li>Unsere berechtigten Interessen, etwa Sicherheit, Verbesserung der Dienste und Missbrauchsprävention</li>
-                <li>Ihre Einwilligung, soweit gesetzlich erforderlich</li>
-            </ul>
-
-            <h2>5. Weitergabe von Daten an Dritte</h2>
-            <p>Wir können Ihre Daten, soweit erforderlich, an folgende Kategorien von Dienstleistern oder Partnern weitergeben:</p>
-            <ul>
-                <li>Hosting- und Cloud-Infrastrukturanbieter</li>
-                <li>Analyseanbieter</li>
-                <li>Zahlungsdienstleister, soweit anwendbar</li>
-                <li>Technische Support- und Kundendienstanbieter</li>
-                <li>Werbenetzwerke oder Messdienstleister, soweit anwendbar</li>
-                <li>Öffentliche Stellen oder rechtliche Behörden, wenn dies gesetzlich erforderlich ist</li>
-            </ul>
-            <p>
-                Wir verkaufen Ihre personenbezogenen Daten nicht im traditionellen Sinne eines kommerziellen Datenverkaufs.
-            </p>
-
-            <h2>6. Internationale Datenübermittlungen</h2>
-            <p>
-                Ihre Daten können in Ländern außerhalb Ihres Wohnsitzlandes verarbeitet werden. In diesem Fall treffen wir geeignete Schutzmaßnahmen, um Ihre Daten im Einklang mit dem geltenden Recht zu schützen, etwa Standardvertragsklauseln oder andere gesetzlich anerkannte Mechanismen.
-            </p>
-
-            <h2>7. Speicherdauer</h2>
-            <p>
-                Wir speichern Ihre Daten nur so lange, wie es für die in dieser Datenschutzrichtlinie beschriebenen Zwecke erforderlich ist oder wie es gesetzlich vorgeschrieben ist. Danach werden Daten gelöscht, anonymisiert oder nur insoweit aufbewahrt, wie dies zur Einhaltung gesetzlicher Pflichten oder zur Verteidigung von Rechtsansprüchen erforderlich ist.
-            </p>
-
-            <h2>8. Datensicherheit</h2>
-            <p>
-                Wir setzen geeignete technische und organisatorische Maßnahmen ein, um Ihre Daten vor unbefugtem Zugriff, Verlust, Veränderung oder unrechtmäßiger Offenlegung zu schützen. Dennoch kann kein System oder keine Datenübertragung über das Internet vollständig sicher garantiert werden.
-            </p>
-
-            <h2>9. Datenschutz von Kindern</h2>
-            <p>
-                Unsere Dienste richten sich nicht wissentlich an Kinder, es sei denn, dies ist nach geltendem Recht zulässig. Wenn wir Kenntnis davon erlangen, dass personenbezogene Daten eines Kindes unrechtmäßig oder ohne erforderliche Grundlage erhoben wurden, werden wir geeignete Maßnahmen ergreifen, um diese Daten zu löschen.
-            </p>
-
-            <h2>10. Ihre Rechte</h2>
-            <p>Abhängig vom geltenden Recht haben Sie möglicherweise das Recht auf:</p>
-            <ul>
-                <li>Auskunft über Ihre personenbezogenen Daten</li>
-                <li>Berichtigung unrichtiger oder unvollständiger Daten</li>
-                <li>Löschung Ihrer Daten</li>
-                <li>Einschränkung der Verarbeitung</li>
-                <li>Widerspruch gegen bestimmte Arten der Verarbeitung</li>
-                <li>Widerruf Ihrer Einwilligung jederzeit, wenn die Verarbeitung auf Einwilligung beruht</li>
-                <li>Datenübertragbarkeit, soweit anwendbar</li>
-                <li>Beschwerde bei einer zuständigen Aufsichtsbehörde</li>
-            </ul>
-            <p>
-                Zur Ausübung dieser Rechte können Sie uns kontaktieren unter:
-                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
-            </p>
-
-            <h2>11. Cookies und ähnliche Technologien</h2>
-            <p>
-                Wir können auf unserer Website oder in verbundenen Diensten Cookies oder ähnliche Technologien verwenden. Weitere Informationen finden Sie in unserer Cookie-Richtlinie.
-            </p>
-
-            <h2>12. Änderungen dieser Richtlinie</h2>
-            <p>
-                Wir behalten uns das Recht vor, diese Datenschutzrichtlinie jederzeit zu aktualisieren. Änderungen werden auf dieser Seite oder, soweit passend, innerhalb unserer Dienste veröffentlicht. Die aktualisierte Version tritt ab dem Veröffentlichungsdatum in Kraft, sofern nichts anderes angegeben ist.
-            </p>
-
-            <h2>13. Kontakt</h2>
-            <p>
-                Wenn Sie Fragen zu dieser Datenschutzrichtlinie oder zur Verarbeitung Ihrer Daten haben, können Sie uns kontaktieren unter:
-            </p>
-            <p>
-                Sky of Empire<br>
-                E-Mail: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-                Sitz: Schweiz
-            </p>
-        </div>
-
-        <div class="footer-space"></div>
     </div>
 
     <script>
