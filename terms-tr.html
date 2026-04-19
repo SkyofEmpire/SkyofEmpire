@@ -77,18 +77,21 @@
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -101,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -134,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -192,78 +205,87 @@
             white-space: nowrap;
         }
 
-        .policy-wrap {
+        .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 2;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
             max-width: 980px;
-            margin: 20px auto 0;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 26px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
-            color: #f5ebd8;
-            line-height: 1.7;
+            text-align: left;
         }
 
-        .policy-wrap h1,
-        .policy-wrap h2,
-        .policy-wrap h3 {
+        h1 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 30px;
             color: #f2e2bf;
         }
 
-        .policy-wrap h1 {
-            font-size: 30px;
-            margin-top: 0;
-            margin-bottom: 18px;
-        }
-
-        .policy-wrap h2 {
-            font-size: 22px;
-            margin-top: 28px;
+        h2 {
+            margin-top: 26px;
             margin-bottom: 12px;
+            font-size: 22px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h3 {
-            font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
-        }
-
-        .policy-wrap p,
-        .policy-wrap li {
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
-        .policy-wrap ul {
-            margin: 8px 0 16px 0;
+        ul {
+            margin: 0 0 14px 0;
             padding-left: 22px;
         }
 
-        .policy-wrap a {
+        a.inline-link {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .policy-wrap a:hover {
+        a.inline-link:hover {
             text-decoration: underline;
         }
 
-        .footer-space {
-            height: 10px;
+        .meta {
+            margin-bottom: 22px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -276,21 +298,19 @@
                 font-size: 17px;
             }
 
-            .policy-wrap {
+            .card {
                 padding: 20px 16px;
-                margin-top: 16px;
             }
 
-            .policy-wrap h1 {
-                font-size: 24px;
+            h1 {
+                font-size: 25px;
             }
 
-            .policy-wrap h2 {
+            h2 {
                 font-size: 20px;
             }
 
-            .policy-wrap p,
-            .policy-wrap li {
+            p, li {
                 font-size: 15px;
             }
 
@@ -398,142 +418,105 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index-tr.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">Geri</span>
+                </a>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h1>Kullanım Şartları</h1>
+
+                    <div class="meta">
+                        <p><strong>Son güncelleme:</strong> 1 Nisan 2026</p>
+                        <p><strong>İşletmeci:</strong> Sky of Empire</p>
+                        <p><strong>E-posta:</strong> <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
+                        <p><strong>Merkez:</strong> İsviçre</p>
+                    </div>
+
+                    <h2>1. Giriş</h2>
+                    <p>
+                        Bu Kullanım Şartları, Sky of Empire web sitesine erişiminizi ve kullanımınızı, ayrıca ilgili tüm içerik, sayfa ve hizmetleri düzenler. Bu web sitesini kullanarak bu şartlara bağlı olmayı kabul edersiniz.
+                    </p>
+
+                    <h2>2. Şartların kabulü</h2>
+                    <p>
+                        Web sitesini ziyaret ederek veya kullanarak, bu şartları okuduğunuzu, anladığınızı ve kabul ettiğinizi beyan edersiniz. Bu şartları kabul etmiyorsanız, lütfen web sitesini veya ilgili hizmetleri kullanmayın.
+                    </p>
+
+                    <h2>3. Şartlarda değişiklik</h2>
+                    <p>
+                        Bu şartları zaman zaman güncelleyebiliriz. Güncellenmiş sürüm, yeni bir son güncelleme tarihi ile bu sayfada yayınlanacaktır. Değişikliklerin yayınlanmasından sonra web sitesini kullanmaya devam etmeniz, güncellenmiş şartları kabul ettiğiniz anlamına gelir.
+                    </p>
+
+                    <h2>4. Web sitesinin kullanımı</h2>
+                    <p>
+                        Web sitesini yalnızca yasal ve uygun bir şekilde kullanmayı kabul edersiniz. Web sitesini kötüye kullanamaz, kesintiye uğratmaya çalışamaz, sistemlere yetkisiz erişim sağlayamaz veya bize ya da diğer kullanıcılara zarar verebilecek şekilde kullanamazsınız.
+                    </p>
+
+                    <h2>5. Fikri mülkiyet</h2>
+                    <p>
+                        Aksi belirtilmedikçe, bu web sitesinde yer alan tüm metinler, tasarımlar, grafikler, logolar ve içerikler Sky of Empire’a aittir veya izinle kullanılmaktadır ve yürürlükteki fikri mülkiyet yasalarıyla korunmaktadır.
+                    </p>
+
+                    <h2>6. İçerik ve bilgiler</h2>
+                    <p>
+                        Web sitesindeki bilgileri doğru ve güncel tutmaya çalışıyoruz, ancak tüm içeriklerin her zaman hatasız, eksiksiz veya güncel olacağını garanti etmiyoruz. İçerik her zaman değiştirilebilir, kaldırılabilir veya güncellenebilir.
+                    </p>
+
+                    <h2>7. Harici web sitelerine bağlantılar</h2>
+                    <p>
+                        Web sitesi üçüncü taraf web sitelerine veya hizmetlere bağlantılar içerebilir. Bu harici sitelerin içeriğinden, uygulamalarından veya erişilebilirliğinden sorumlu değiliz. Kullanım tamamen sizin sorumluluğunuzdadır.
+                    </p>
+
+                    <h2>8. Gizlilik</h2>
+                    <p>
+                        Kişisel verilerin kullanımı ayrıca
+                        <a class="inline-link" href="privacy-tr.html">Gizlilik Politikamız</a>
+                        kapsamında düzenlenir. Web sitesini kullanarak, ilgili gizlilik politikasını da kabul etmiş olursunuz.
+                    </p>
+
+                    <h2>9. Çerezler</h2>
+                    <p>
+                        Web sitesi, işlevselliği ve kullanıcı deneyimini geliştirmek için çerezler ve benzeri teknolojiler kullanabilir. Daha fazla bilgi için
+                        <a class="inline-link" href="cookies-tr.html">Çerez Politikamıza</a>
+                        bakabilirsiniz.
+                    </p>
+
+                    <h2>10. Sorumluluk reddi</h2>
+                    <p>
+                        Web sitesi ve içeriği, yürürlükteki yasaların izin verdiği ölçüde, açık veya zımni herhangi bir garanti olmaksızın “olduğu gibi” ve “mevcut olduğu şekilde” sunulmaktadır.
+                    </p>
+
+                    <h2>11. Sorumluluğun sınırlandırılması</h2>
+                    <p>
+                        Yasanın izin verdiği ölçüde, Sky of Empire, web sitesini kullanımınızdan veya kullanamamanızdan kaynaklanan doğrudan, dolaylı, arızi, sonuçsal veya özel zararlardan sorumlu tutulamaz.
+                    </p>
+
+                    <h2>12. Askıya alma veya fesih</h2>
+                    <p>
+                        Bu şartların ihlal edildiğine inanırsak veya hukuki, güvenlik ya da operasyonel nedenlerle gerekli görürsek, web sitesine veya bazı bölümlerine erişimi herhangi bir zamanda askıya alabilir, kısıtlayabilir veya sonlandırabiliriz.
+                    </p>
+
+                    <h2>13. Uygulanacak hukuk</h2>
+                    <p>
+                        Bu şartlar, aksi zorunlu hukuk hükümleri belirtilmedikçe, İsviçre yasalarına göre yönetilir ve yorumlanır.
+                    </p>
+
+                    <h2>14. İletişim</h2>
+                    <p>
+                        Bu şartlarla ilgili sorularınız varsa, bizimle şu e-posta adresi üzerinden iletişime geçebilirsiniz:
+                        <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+                    </p>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
             </div>
         </div>
-
-        <div class="policy-wrap">
-            <h1>Kullanım Şartları</h1>
-
-            <p><strong>Son Güncelleme:</strong> 1 Nisan 2026</p>
-            <p><strong>İşletmeci:</strong> Sky of Empire<br>
-            <strong>E-posta:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-            <strong>Merkez:</strong> İsviçre</p>
-
-            <h2>1. Kabul, Kapsam ve Uygulama</h2>
-            <p>
-                Bu Kullanım Şartları, Sky of Empire’a ve ilgili tüm web sitelerine, içeriklere, özelliklere ve hizmetlere erişiminizi ve bunları kullanımınızı düzenler. Oyuna veya hizmetlerimizden herhangi birine erişerek ya da bunları kullanarak, bu Şartlara bağlı olmayı kabul etmiş olursunuz.
-            </p>
-            <p>
-                Bu Şartları kabul etmiyorsanız, hizmetlerimizi kullanamazsınız.
-            </p>
-
-            <h2>2. Uygunluk</h2>
-            <p>
-                Hizmetlerimizi yalnızca, geçerli hukuk kapsamında bağlayıcı bir sözleşme yapma ehliyetine sahipseniz kullanabilirsiniz. Reşit değilseniz, kullanımınız ebeveyninizin veya yasal vasinizin iznine tabi olmalıdır.
-            </p>
-
-            <h2>3. Hesaplar</h2>
-            <p>
-                Oyunun bazı özellikleri bir hesap oluşturmanızı gerektirebilir. Giriş bilgilerinizin gizliliğini korumaktan ve hesabınız üzerinden gerçekleştirilen tüm faaliyetlerden siz sorumlusunuz.
-            </p>
-            <p>
-                Doğru, güncel ve eksiksiz bilgi sağlamayı ve gerektiğinde bu bilgileri güncellemeyi kabul edersiniz.
-            </p>
-
-            <h2>4. Lisans</h2>
-            <p>
-                Size, bu Şartlara tabi olmak kaydıyla, oyunu ve ilgili hizmetleri kişisel ve ticari olmayan amaçlarla kullanmanız için sınırlı, münhasır olmayan, devredilemez ve geri alınabilir bir lisans veriyoruz.
-            </p>
-            <p>
-                Bu lisans size herhangi bir mülkiyet veya fikri mülkiyet hakkı devretmez.
-            </p>
-
-            <h2>5. Yasaklı Davranışlar</h2>
-            <p>Aşağıdakileri yapmamayı kabul edersiniz:</p>
-            <ul>
-                <li>Hile, bot, otomasyon araçları veya yetkisiz üçüncü taraf yazılım kullanmak</li>
-                <li>Oyundaki hata, açık veya güvenlik zaaflarından yararlanmak</li>
-                <li>Hesaplara, sistemlere veya sunuculara yetkisiz erişim sağlamaya çalışmak</li>
-                <li>İzin almadan hesap satmak, takas etmek veya devretmek</li>
-                <li>Geçerli yasa veya düzenlemeleri ihlal etmek</li>
-                <li>Diğer kullanıcılara tacizde bulunmak, kötü davranmak, tehdit etmek, taklit etmek veya zarar vermek</li>
-                <li>Hizmetlerimizi oyunun bütünlüğünü, güvenliğini veya düzgün işleyişini bozabilecek herhangi bir şekilde kullanmak</li>
-            </ul>
-
-            <h2>6. Sanal Öğeler ve Sanal Para Birimi</h2>
-            <p>
-                Oyun, sanal para birimleri, öğeler veya dijital özellikler içerebilir. Bunlar size satılmaz, lisanslanır. Geçerli hukuk aksini gerektirmedikçe, sanal öğeler üzerinde gerçek dünyada herhangi bir mülkiyet hakkı veya parasal değer kazanmazsınız.
-            </p>
-            <p>
-                Herhangi bir sanal öğeyi, para birimini veya ödül sistemini istediğimiz zaman değiştirme, kaldırma, sıfırlama veya sona erdirme hakkını saklı tutarız.
-            </p>
-
-            <h2>7. Satın Alımlar ve Ödemeler</h2>
-            <p>
-                Oyun içi satın alım yapmanız hâlinde, geçerli tüm ücretleri ve vergileri ödemeyi kabul edersiniz. Ödemeler üçüncü taraf ödeme sağlayıcıları aracılığıyla işlenebilir ve onların şartlarına ve politikalarına da tabi olabilir.
-            </p>
-            <p>
-                Geçerli hukuk aksini gerektirmedikçe, tüm satın alımlar kesindir ve iade edilemez.
-            </p>
-
-            <h2>8. Güncellemeler ve Değişiklikler</h2>
-            <p>
-                Oyunu veya hizmetlerimizin herhangi bir bölümünü önceden bildirimde bulunmaksızın istediğimiz zaman güncelleyebilir, değiştirebilir, askıya alabilir veya sona erdirebiliriz. Buna oyun mekanikleri, özellikler, içerik, sanal öğeler ve kullanılabilirlikteki değişiklikler dahildir.
-            </p>
-
-            <h2>9. Askıya Alma ve Fesih</h2>
-            <p>
-                Bu Şartları ihlal ettiğinize inanırsak veya hizmetlerimizi, kullanıcılarımızı ya da yasal yükümlülüklerimizi korumak için gerekli görürsek, oyuna veya hesabınıza erişiminizi herhangi bir zamanda, bildirimli veya bildirimsiz olarak askıya alma, sınırlandırma veya sona erdirme hakkını saklı tutarız.
-            </p>
-
-            <h2>10. Fikri Mülkiyet</h2>
-            <p>
-                Yazılım, tasarımlar, metinler, grafikler, logolar, oyun adları ve özellikler dahil ancak bunlarla sınırlı olmamak üzere oyun ve hizmetlerimiz üzerindeki tüm hak, mülkiyet ve menfaatler Sky of Empire’a veya lisans verenlerine aittir.
-            </p>
-            <p>
-                Geçerli hukuk açıkça izin vermedikçe, hizmetlerimizin herhangi bir bölümünü kopyalayamaz, değiştiremez, dağıtamaz, tersine mühendislik yapamaz veya kullanamazsınız.
-            </p>
-
-            <h2>11. Gizlilik</h2>
-            <p>
-                Hizmetlerimizi kullanımınız ayrıca, verilerinizi nasıl topladığımızı, kullandığımızı ve koruduğumuzu açıklayan Gizlilik Politikamıza tabidir.
-            </p>
-
-            <h2>12. Garanti Reddi</h2>
-            <p>
-                Oyun ve hizmetler, hukukun izin verdiği en geniş ölçüde, açık veya zımni hiçbir garanti olmaksızın “olduğu gibi” ve “mevcut olduğu ölçüde” sunulmaktadır.
-            </p>
-            <p>
-                Hizmetlerin hatasız, kesintisiz, tamamen güvenli veya her zaman erişilebilir olacağını garanti etmiyoruz.
-            </p>
-
-            <h2>13. Sorumluluğun Sınırlandırılması</h2>
-            <p>
-                Geçerli hukukun izin verdiği en geniş ölçüde, Sky of Empire; hizmetlerimizin kullanımınızdan veya kullanamamanızdan kaynaklanan ya da bunlarla bağlantılı dolaylı, arızi, özel, sonuçsal veya cezai zararlar ile kâr, veri, itibar veya iş kesintisi kayıplarından sorumlu olmayacaktır.
-            </p>
-
-            <h2>14. Tazminat</h2>
-            <p>
-                Hukukun izin verdiği ölçüde, bu Şartları ihlal etmenizden veya hizmetleri kötüye kullanmanızdan doğan her türlü talep, sorumluluk, zarar, kayıp, masraf ve gider karşısında Sky of Empire’ı tazmin etmeyi, savunmayı ve zararsız tutmayı kabul edersiniz.
-            </p>
-
-            <h2>15. Uygulanacak Hukuk</h2>
-            <p>
-                Bu Şartlar, ikamet ettiğiniz yerdeki zorunlu hukukun aksi yönde hüküm getirmediği sürece, İsviçre hukukuna tabi olacak ve buna göre yorumlanacaktır.
-            </p>
-
-            <h2>16. Bölünebilirlik</h2>
-            <p>
-                Bu Şartların herhangi bir hükmünün geçersiz veya uygulanamaz olduğu tespit edilirse, kalan hükümler tam olarak yürürlükte kalmaya devam edecektir.
-            </p>
-
-            <h2>17. Bu Şartlarda Değişiklikler</h2>
-            <p>
-                Bu Kullanım Şartlarını istediğimiz zaman değiştirebiliriz. Güncellenmiş sürüm bu sayfada veya hizmetlerimiz içinde yayımlanacaktır. Değişikliklerin yürürlüğe girmesinden sonra hizmetleri kullanmaya devam etmeniz, revize edilmiş Şartları kabul ettiğiniz anlamına gelir.
-            </p>
-
-            <h2>18. İletişim</h2>
-            <p>
-                Bu Kullanım Şartları hakkında herhangi bir sorunuz varsa, bizimle şu adresten iletişime geçebilirsiniz:
-            </p>
-            <p>
-                Sky of Empire<br>
-                E-posta: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-                Merkez: İsviçre
-            </p>
-        </div>
-
-        <div class="footer-space"></div>
     </div>
 
     <script>
