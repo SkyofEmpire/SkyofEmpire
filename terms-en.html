@@ -77,18 +77,21 @@
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -101,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -134,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -192,78 +205,87 @@
             white-space: nowrap;
         }
 
-        .policy-wrap {
+        .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 2;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
             max-width: 980px;
-            margin: 20px auto 0;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 26px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
-            color: #f5ebd8;
-            line-height: 1.7;
+            text-align: left;
         }
 
-        .policy-wrap h1,
-        .policy-wrap h2,
-        .policy-wrap h3 {
+        h1 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 30px;
             color: #f2e2bf;
         }
 
-        .policy-wrap h1 {
-            font-size: 30px;
-            margin-top: 0;
-            margin-bottom: 18px;
-        }
-
-        .policy-wrap h2 {
-            font-size: 22px;
-            margin-top: 28px;
+        h2 {
+            margin-top: 26px;
             margin-bottom: 12px;
+            font-size: 22px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h3 {
-            font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
-        }
-
-        .policy-wrap p,
-        .policy-wrap li {
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
-        .policy-wrap ul {
-            margin: 8px 0 16px 0;
+        ul {
+            margin: 0 0 14px 0;
             padding-left: 22px;
         }
 
-        .policy-wrap a {
+        a.inline-link {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .policy-wrap a:hover {
+        a.inline-link:hover {
             text-decoration: underline;
         }
 
-        .footer-space {
-            height: 10px;
+        .meta {
+            margin-bottom: 22px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -276,21 +298,19 @@
                 font-size: 17px;
             }
 
-            .policy-wrap {
+            .card {
                 padding: 20px 16px;
-                margin-top: 16px;
             }
 
-            .policy-wrap h1 {
-                font-size: 24px;
+            h1 {
+                font-size: 25px;
             }
 
-            .policy-wrap h2 {
+            h2 {
                 font-size: 20px;
             }
 
-            .policy-wrap p,
-            .policy-wrap li {
+            p, li {
                 font-size: 15px;
             }
 
@@ -398,142 +418,104 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index-en.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">Back</span>
+                </a>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h1>Terms of Use</h1>
+
+                    <div class="meta">
+                        <p><strong>Last updated:</strong> 1 April 2026</p>
+                        <p><strong>Operator:</strong> Sky of Empire</p>
+                        <p><strong>Email:</strong> <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
+                        <p><strong>Based in:</strong> Switzerland</p>
+                    </div>
+
+                    <h2>1. Introduction</h2>
+                    <p>
+                        These Terms of Use govern your access to and use of the Sky of Empire website, as well as any related content, pages, or services. By using this website, you agree to be bound by these terms.
+                    </p>
+
+                    <h2>2. Acceptance of the terms</h2>
+                    <p>
+                        By visiting or using the website, you confirm that you have read, understood, and accepted these terms. If you do not agree with these terms, please do not use the website or any related services.
+                    </p>
+
+                    <h2>3. Changes to the terms</h2>
+                    <p>
+                        We may update these terms from time to time. The revised version will be published on this page with a new last updated date. Your continued use of the website after changes are posted means you accept the updated terms.
+                    </p>
+
+                    <h2>4. Use of the website</h2>
+                    <p>
+                        You agree to use the website only in a lawful and appropriate manner. You must not misuse the website, attempt to disrupt it, gain unauthorized access to systems, or use it in a way that may harm us or other users.
+                    </p>
+
+                    <h2>5. Intellectual property</h2>
+                    <p>
+                        All text, designs, graphics, logos, and content displayed on this website, unless otherwise stated, are owned by Sky of Empire or used with permission and are protected by applicable intellectual property laws.
+                    </p>
+
+                    <h2>6. Content and information</h2>
+                    <p>
+                        We aim to keep the information on the website accurate and up to date, but we do not guarantee that all content will always be error-free, complete, or current. Content may be changed, removed, or updated at any time.
+                    </p>
+
+                    <h2>7. Links to external websites</h2>
+                    <p>
+                        The website may contain links to third-party websites or services. We are not responsible for the content, practices, or availability of those external sites. Your use of them is at your own risk.
+                    </p>
+
+                    <h2>8. Privacy</h2>
+                    <p>
+                        The use of personal data is also governed by our
+                        <a class="inline-link" href="privacy-en.html">Privacy Policy</a>.
+                        By using the website, you also acknowledge the applicable privacy policy.
+                    </p>
+
+                    <h2>9. Cookies</h2>
+                    <p>
+                        The website may use cookies and similar technologies to improve functionality and user experience. You can learn more in our
+                        <a class="inline-link" href="cookies-en.html">Cookie Policy</a>.
+                    </p>
+
+                    <h2>10. Disclaimer</h2>
+                    <p>
+                        The website and its content are provided on an “as is” and “as available” basis without warranties of any kind, whether express or implied, to the extent permitted by applicable law.
+                    </p>
+
+                    <h2>11. Limitation of liability</h2>
+                    <p>
+                        To the extent permitted by law, Sky of Empire shall not be liable for any direct, indirect, incidental, consequential, or special damages arising from your use of, or inability to use, the website.
+                    </p>
+
+                    <h2>12. Suspension or termination</h2>
+                    <p>
+                        We may suspend, restrict, or terminate access to the website or parts of it at any time, especially if we believe these terms have been violated or if it is necessary for legal, security, or operational reasons.
+                    </p>
+
+                    <h2>13. Governing law</h2>
+                    <p>
+                        These terms are governed by and interpreted in accordance with the applicable laws of Switzerland, unless mandatory law provides otherwise.
+                    </p>
+
+                    <h2>14. Contact us</h2>
+                    <p>
+                        If you have any questions regarding these terms, you can contact us by email at:
+                        <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+                    </p>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
             </div>
         </div>
-
-        <div class="policy-wrap">
-            <h1>Terms of Use</h1>
-
-            <p><strong>Last Updated:</strong> April 1, 2026</p>
-            <p><strong>Operator:</strong> Sky of Empire<br>
-            <strong>Email:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-            <strong>Registered Office:</strong> Switzerland</p>
-
-            <h2>1. Acceptance, Scope and Application</h2>
-            <p>
-                These Terms of Use govern your access to and use of Sky of Empire, including any related websites, content, features, and services. By accessing or using the game or any of our services, you agree to be bound by these Terms.
-            </p>
-            <p>
-                If you do not agree to these Terms, you may not use our services.
-            </p>
-
-            <h2>2. Eligibility</h2>
-            <p>
-                You may only use our services if you have the legal capacity to enter into a binding agreement under applicable law. If you are a minor, your use must be authorized by your parent or legal guardian.
-            </p>
-
-            <h2>3. Accounts</h2>
-            <p>
-                Some features of the game may require you to create an account. You are responsible for keeping your login credentials confidential and for all activities carried out through your account.
-            </p>
-            <p>
-                You agree to provide accurate, current, and complete information and to keep it updated where necessary.
-            </p>
-
-            <h2>4. License</h2>
-            <p>
-                We grant you a limited, non-exclusive, non-transferable, revocable license to use the game and related services for your personal, non-commercial use, subject to these Terms.
-            </p>
-            <p>
-                This license does not transfer any ownership or intellectual property rights to you.
-            </p>
-
-            <h2>5. Prohibited Conduct</h2>
-            <p>You agree not to:</p>
-            <ul>
-                <li>Use cheats, bots, automation tools, or unauthorized third-party software</li>
-                <li>Exploit bugs, glitches, or vulnerabilities in the game</li>
-                <li>Attempt unauthorized access to accounts, systems, or servers</li>
-                <li>Sell, trade, or transfer accounts without our permission</li>
-                <li>Violate any applicable law or regulation</li>
-                <li>Harass, abuse, threaten, impersonate, or harm other users</li>
-                <li>Use our services in any way that may interfere with the integrity, security, or proper operation of the game</li>
-            </ul>
-
-            <h2>6. Virtual Items and Virtual Currency</h2>
-            <p>
-                The game may include virtual currencies, items, or digital features. These are licensed, not sold, to you. You do not acquire any real-world ownership right or monetary value in virtual items, except where required by applicable law.
-            </p>
-            <p>
-                We reserve the right to modify, remove, reset, or discontinue any virtual items, currencies, or reward systems at any time.
-            </p>
-
-            <h2>7. Purchases and Payments</h2>
-            <p>
-                If you make in-game purchases, you agree to pay all applicable fees and taxes. Payments may be processed through third-party payment providers and may also be subject to their terms and policies.
-            </p>
-            <p>
-                Unless otherwise required by applicable law, all purchases are final and non-refundable.
-            </p>
-
-            <h2>8. Updates and Changes</h2>
-            <p>
-                We may update, modify, suspend, or discontinue the game or any part of our services at any time without prior notice. This includes changes to gameplay mechanics, features, content, virtual items, and availability.
-            </p>
-
-            <h2>9. Suspension and Termination</h2>
-            <p>
-                We reserve the right to suspend, restrict, or terminate your access to the game or your account at any time, with or without notice, if we believe that you have violated these Terms or if such action is necessary to protect our services, users, or legal obligations.
-            </p>
-
-            <h2>10. Intellectual Property</h2>
-            <p>
-                All rights, title, and interest in and to the game and our services, including but not limited to software, designs, text, graphics, logos, game names, and features, remain the property of Sky of Empire or its licensors.
-            </p>
-            <p>
-                You may not copy, modify, distribute, reverse engineer, or exploit any part of our services except as expressly permitted by applicable law.
-            </p>
-
-            <h2>11. Privacy</h2>
-            <p>
-                Your use of our services is also governed by our Privacy Policy, which explains how we collect, use, and protect your data.
-            </p>
-
-            <h2>12. Disclaimer of Warranties</h2>
-            <p>
-                The game and services are provided on an “as is” and “as available” basis, without warranties of any kind, whether express or implied, to the fullest extent permitted by law.
-            </p>
-            <p>
-                We do not guarantee that the services will be error-free, uninterrupted, fully secure, or available at all times.
-            </p>
-
-            <h2>13. Limitation of Liability</h2>
-            <p>
-                To the fullest extent permitted by applicable law, Sky of Empire shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits, data, goodwill, or business interruption arising out of or related to your use of, or inability to use, our services.
-            </p>
-
-            <h2>14. Indemnification</h2>
-            <p>
-                You agree to indemnify, defend, and hold harmless Sky of Empire from and against any claims, liabilities, damages, losses, costs, and expenses arising out of your breach of these Terms or misuse of the services, to the extent permitted by law.
-            </p>
-
-            <h2>15. Governing Law</h2>
-            <p>
-                These Terms shall be governed by and interpreted in accordance with the laws of Switzerland, unless mandatory law in your place of residence provides otherwise.
-            </p>
-
-            <h2>16. Severability</h2>
-            <p>
-                If any provision of these Terms is found to be invalid or unenforceable, the remaining provisions shall remain in full force and effect.
-            </p>
-
-            <h2>17. Changes to These Terms</h2>
-            <p>
-                We may modify these Terms of Use at any time. The updated version will be published on this page or within our services. Your continued use of the services after the effective date of the changes constitutes acceptance of the revised Terms.
-            </p>
-
-            <h2>18. Contact</h2>
-            <p>
-                If you have any questions about these Terms of Use, you may contact us at:
-            </p>
-            <p>
-                Sky of Empire<br>
-                Email: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-                Registered Office: Switzerland
-            </p>
-        </div>
-
-        <div class="footer-space"></div>
     </div>
 
     <script>
