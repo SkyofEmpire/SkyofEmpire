@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Termini di utilizzo - Sky of Empire</title>
+    <title>Termini di Utilizzo - Sky of Empire</title>
     <style>
         * {
             box-sizing: border-box;
@@ -77,18 +77,21 @@
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -101,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -134,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -192,78 +205,87 @@
             white-space: nowrap;
         }
 
-        .policy-wrap {
+        .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 2;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
             max-width: 980px;
-            margin: 20px auto 0;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 26px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
-            color: #f5ebd8;
-            line-height: 1.7;
+            text-align: left;
         }
 
-        .policy-wrap h1,
-        .policy-wrap h2,
-        .policy-wrap h3 {
+        h1 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 30px;
             color: #f2e2bf;
         }
 
-        .policy-wrap h1 {
-            font-size: 30px;
-            margin-top: 0;
-            margin-bottom: 18px;
-        }
-
-        .policy-wrap h2 {
-            font-size: 22px;
-            margin-top: 28px;
+        h2 {
+            margin-top: 26px;
             margin-bottom: 12px;
+            font-size: 22px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h3 {
-            font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
-        }
-
-        .policy-wrap p,
-        .policy-wrap li {
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
-        .policy-wrap ul {
-            margin: 8px 0 16px 0;
+        ul {
+            margin: 0 0 14px 0;
             padding-left: 22px;
         }
 
-        .policy-wrap a {
+        a.inline-link {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .policy-wrap a:hover {
+        a.inline-link:hover {
             text-decoration: underline;
         }
 
-        .footer-space {
-            height: 10px;
+        .meta {
+            margin-bottom: 22px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -276,21 +298,19 @@
                 font-size: 17px;
             }
 
-            .policy-wrap {
+            .card {
                 padding: 20px 16px;
-                margin-top: 16px;
             }
 
-            .policy-wrap h1 {
-                font-size: 24px;
+            h1 {
+                font-size: 25px;
             }
 
-            .policy-wrap h2 {
+            h2 {
                 font-size: 20px;
             }
 
-            .policy-wrap p,
-            .policy-wrap li {
+            p, li {
                 font-size: 15px;
             }
 
@@ -398,142 +418,104 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index-it.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">Indietro</span>
+                </a>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h1>Termini di Utilizzo</h1>
+
+                    <div class="meta">
+                        <p><strong>Ultimo aggiornamento:</strong> 1 aprile 2026</p>
+                        <p><strong>Operatore:</strong> Sky of Empire</p>
+                        <p><strong>E-mail:</strong> <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
+                        <p><strong>Sede:</strong> Svizzera</p>
+                    </div>
+
+                    <h2>1. Introduzione</h2>
+                    <p>
+                        I presenti Termini di Utilizzo regolano il tuo accesso e utilizzo del sito web di Sky of Empire, nonché di qualsiasi contenuto, pagina o servizio correlato. Utilizzando questo sito web, accetti di essere vincolato da questi termini.
+                    </p>
+
+                    <h2>2. Accettazione dei termini</h2>
+                    <p>
+                        Visitando o utilizzando il sito web, confermi di aver letto, compreso e accettato i presenti termini. Se non accetti questi termini, ti invitiamo a non utilizzare il sito web o eventuali servizi correlati.
+                    </p>
+
+                    <h2>3. Modifiche ai termini</h2>
+                    <p>
+                        Possiamo aggiornare questi termini di volta in volta. La versione rivista verrà pubblicata su questa pagina con una nuova data di ultimo aggiornamento. L’uso continuato del sito web dopo la pubblicazione delle modifiche significa che accetti i termini aggiornati.
+                    </p>
+
+                    <h2>4. Utilizzo del sito web</h2>
+                    <p>
+                        Accetti di utilizzare il sito web solo in modo lecito e appropriato. Non devi fare un uso improprio del sito, tentare di interromperlo, ottenere accesso non autorizzato ai sistemi o utilizzarlo in un modo che possa danneggiare noi o altri utenti.
+                    </p>
+
+                    <h2>5. Proprietà intellettuale</h2>
+                    <p>
+                        Tutti i testi, i design, la grafica, i loghi e i contenuti mostrati su questo sito web, salvo diversa indicazione, appartengono a Sky of Empire o vengono utilizzati con autorizzazione e sono protetti dalle leggi applicabili in materia di proprietà intellettuale.
+                    </p>
+
+                    <h2>6. Contenuti e informazioni</h2>
+                    <p>
+                        Ci impegniamo a mantenere le informazioni sul sito web accurate e aggiornate, ma non garantiamo che tutti i contenuti siano sempre privi di errori, completi o attuali. I contenuti possono essere modificati, rimossi o aggiornati in qualsiasi momento.
+                    </p>
+
+                    <h2>7. Link a siti web esterni</h2>
+                    <p>
+                        Il sito web può contenere link a siti o servizi di terze parti. Non siamo responsabili per i contenuti, le pratiche o la disponibilità di tali siti esterni. Il loro utilizzo avviene a tuo rischio.
+                    </p>
+
+                    <h2>8. Privacy</h2>
+                    <p>
+                        L’uso dei dati personali è regolato anche dalla nostra
+                        <a class="inline-link" href="privacy-it.html">Informativa sulla Privacy</a>.
+                        Utilizzando il sito web, riconosci anche l’applicabilità della relativa informativa sulla privacy.
+                    </p>
+
+                    <h2>9. Cookie</h2>
+                    <p>
+                        Il sito web può utilizzare cookie e tecnologie simili per migliorare la funzionalità e l’esperienza dell’utente. Puoi saperne di più nella nostra
+                        <a class="inline-link" href="cookies-it.html">Cookie Policy</a>.
+                    </p>
+
+                    <h2>10. Esclusione di garanzia</h2>
+                    <p>
+                        Il sito web e i suoi contenuti sono forniti “così come sono” e “secondo disponibilità”, senza garanzie di alcun tipo, espresse o implicite, nella misura consentita dalla legge applicabile.
+                    </p>
+
+                    <h2>11. Limitazione di responsabilità</h2>
+                    <p>
+                        Nella misura consentita dalla legge, Sky of Empire non sarà responsabile per eventuali danni diretti, indiretti, incidentali, consequenziali o speciali derivanti dall’uso del sito web o dall’impossibilità di utilizzarlo.
+                    </p>
+
+                    <h2>12. Sospensione o cessazione</h2>
+                    <p>
+                        Possiamo sospendere, limitare o terminare l’accesso al sito web o a parti di esso in qualsiasi momento, in particolare se riteniamo che i presenti termini siano stati violati o se ciò è necessario per motivi legali, di sicurezza o operativi.
+                    </p>
+
+                    <h2>13. Legge applicabile</h2>
+                    <p>
+                        I presenti termini sono regolati e interpretati in conformità con le leggi applicabili della Svizzera, salvo diversa disposizione della legge imperativa.
+                    </p>
+
+                    <h2>14. Contattaci</h2>
+                    <p>
+                        Se hai domande relative a questi termini, puoi contattarci via e-mail all’indirizzo:
+                        <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+                    </p>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
             </div>
         </div>
-
-        <div class="policy-wrap">
-            <h1>Termini di utilizzo</h1>
-
-            <p><strong>Ultimo aggiornamento:</strong> 1 aprile 2026</p>
-            <p><strong>Operatore:</strong> Sky of Empire<br>
-            <strong>Email:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-            <strong>Sede:</strong> Svizzera</p>
-
-            <h2>1. Accettazione, ambito e applicazione</h2>
-            <p>
-                I presenti Termini di utilizzo disciplinano il tuo accesso e utilizzo di Sky of Empire, inclusi eventuali siti web correlati, contenuti, funzionalità e servizi. Accedendo o utilizzando il gioco o uno qualsiasi dei nostri servizi, accetti di essere vincolato dai presenti Termini.
-            </p>
-            <p>
-                Se non accetti questi Termini, non puoi utilizzare i nostri servizi.
-            </p>
-
-            <h2>2. Requisiti di idoneità</h2>
-            <p>
-                Puoi utilizzare i nostri servizi solo se hai la capacità legale di stipulare un accordo vincolante ai sensi della legge applicabile. Se sei minorenne, il tuo utilizzo deve essere autorizzato dal tuo genitore o tutore legale.
-            </p>
-
-            <h2>3. Account</h2>
-            <p>
-                Alcune funzionalità del gioco possono richiedere la creazione di un account. Sei responsabile della riservatezza delle tue credenziali di accesso e di tutte le attività svolte tramite il tuo account.
-            </p>
-            <p>
-                Accetti di fornire informazioni accurate, aggiornate e complete e di mantenerle aggiornate ove necessario.
-            </p>
-
-            <h2>4. Licenza</h2>
-            <p>
-                Ti concediamo una licenza limitata, non esclusiva, non trasferibile e revocabile per utilizzare il gioco e i servizi correlati per uso personale e non commerciale, soggetta ai presenti Termini.
-            </p>
-            <p>
-                Questa licenza non ti trasferisce alcun diritto di proprietà o di proprietà intellettuale.
-            </p>
-
-            <h2>5. Condotte vietate</h2>
-            <p>Accetti di non:</p>
-            <ul>
-                <li>Utilizzare cheat, bot, strumenti di automazione o software di terze parti non autorizzati</li>
-                <li>Sfruttare bug, glitch o vulnerabilità del gioco</li>
-                <li>Tentare di accedere senza autorizzazione ad account, sistemi o server</li>
-                <li>Vendere, scambiare o trasferire account senza il nostro permesso</li>
-                <li>Violare leggi o regolamenti applicabili</li>
-                <li>Molestare, abusare, minacciare, impersonare o danneggiare altri utenti</li>
-                <li>Utilizzare i nostri servizi in qualsiasi modo che possa compromettere l’integrità, la sicurezza o il corretto funzionamento del gioco</li>
-            </ul>
-
-            <h2>6. Oggetti virtuali e valuta virtuale</h2>
-            <p>
-                Il gioco può includere valute virtuali, oggetti o funzionalità digitali. Tali elementi ti vengono concessi in licenza e non venduti. Non acquisisci alcun diritto di proprietà reale né alcun valore monetario sugli oggetti virtuali, salvo ove diversamente richiesto dalla legge applicabile.
-            </p>
-            <p>
-                Ci riserviamo il diritto di modificare, rimuovere, reimpostare o interrompere qualsiasi oggetto virtuale, valuta o sistema di ricompense in qualsiasi momento.
-            </p>
-
-            <h2>7. Acquisti e pagamenti</h2>
-            <p>
-                Se effettui acquisti in-game, accetti di pagare tutte le commissioni e le imposte applicabili. I pagamenti possono essere elaborati tramite fornitori di pagamento di terze parti e possono essere soggetti anche ai loro termini e alle loro politiche.
-            </p>
-            <p>
-                Salvo quanto diversamente richiesto dalla legge applicabile, tutti gli acquisti sono definitivi e non rimborsabili.
-            </p>
-
-            <h2>8. Aggiornamenti e modifiche</h2>
-            <p>
-                Possiamo aggiornare, modificare, sospendere o interrompere il gioco o qualsiasi parte dei nostri servizi in qualsiasi momento e senza preavviso. Ciò include modifiche alle meccaniche di gioco, alle funzionalità, ai contenuti, agli oggetti virtuali e alla disponibilità.
-            </p>
-
-            <h2>9. Sospensione e risoluzione</h2>
-            <p>
-                Ci riserviamo il diritto di sospendere, limitare o terminare il tuo accesso al gioco o al tuo account in qualsiasi momento, con o senza preavviso, se riteniamo che tu abbia violato i presenti Termini o se tale azione è necessaria per proteggere i nostri servizi, gli utenti o i nostri obblighi legali.
-            </p>
-
-            <h2>10. Proprietà intellettuale</h2>
-            <p>
-                Tutti i diritti, titoli e interessi relativi al gioco e ai nostri servizi, inclusi, a titolo esemplificativo, software, design, testi, grafica, loghi, nomi del gioco e funzionalità, rimangono di proprietà di Sky of Empire o dei suoi licenzianti.
-            </p>
-            <p>
-                Non puoi copiare, modificare, distribuire, effettuare reverse engineering o sfruttare qualsiasi parte dei nostri servizi salvo quanto espressamente consentito dalla legge applicabile.
-            </p>
-
-            <h2>11. Privacy</h2>
-            <p>
-                Il tuo utilizzo dei nostri servizi è disciplinato anche dalla nostra Informativa sulla privacy, che spiega come raccogliamo, utilizziamo e proteggiamo i tuoi dati.
-            </p>
-
-            <h2>12. Esclusione di garanzie</h2>
-            <p>
-                Il gioco e i servizi sono forniti “così come sono” e “secondo disponibilità”, senza garanzie di alcun tipo, espresse o implicite, nella misura massima consentita dalla legge.
-            </p>
-            <p>
-                Non garantiamo che i servizi siano privi di errori, ininterrotti, completamente sicuri o disponibili in ogni momento.
-            </p>
-
-            <h2>13. Limitazione di responsabilità</h2>
-            <p>
-                Nella misura massima consentita dalla legge applicabile, Sky of Empire non sarà responsabile per danni indiretti, incidentali, speciali, consequenziali o punitivi, né per perdite di profitti, dati, reputazione o interruzioni dell’attività derivanti da o connessi all’uso dei nostri servizi o all’impossibilità di utilizzarli.
-            </p>
-
-            <h2>14. Manleva</h2>
-            <p>
-                Accetti di manlevare, difendere e tenere indenne Sky of Empire da qualsiasi reclamo, responsabilità, danno, perdita, costo o spesa derivante dalla tua violazione dei presenti Termini o dall’uso improprio dei servizi, nella misura consentita dalla legge.
-            </p>
-
-            <h2>15. Legge applicabile</h2>
-            <p>
-                I presenti Termini sono regolati e interpretati secondo le leggi della Svizzera, salvo ove la normativa imperativa del tuo luogo di residenza disponga diversamente.
-            </p>
-
-            <h2>16. Clausola di separabilità</h2>
-            <p>
-                Se una qualsiasi disposizione dei presenti Termini viene ritenuta invalida o inapplicabile, le restanti disposizioni rimarranno pienamente valide ed efficaci.
-            </p>
-
-            <h2>17. Modifiche ai presenti Termini</h2>
-            <p>
-                Possiamo modificare i presenti Termini di utilizzo in qualsiasi momento. La versione aggiornata sarà pubblicata su questa pagina o all’interno dei nostri servizi. Il tuo uso continuato dei servizi dopo l’entrata in vigore delle modifiche costituisce accettazione dei Termini aggiornati.
-            </p>
-
-            <h2>18. Contatti</h2>
-            <p>
-                Se hai domande sui presenti Termini di utilizzo, puoi contattarci a:
-            </p>
-            <p>
-                Sky of Empire<br>
-                Email: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-                Sede: Svizzera
-            </p>
-        </div>
-
-        <div class="footer-space"></div>
     </div>
 
     <script>
