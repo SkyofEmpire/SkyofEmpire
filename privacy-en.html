@@ -77,18 +77,21 @@
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -101,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -134,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -192,78 +205,87 @@
             white-space: nowrap;
         }
 
-        .policy-wrap {
+        .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 2;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
             max-width: 980px;
-            margin: 20px auto 0;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 26px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
-            color: #f5ebd8;
-            line-height: 1.7;
+            text-align: left;
         }
 
-        .policy-wrap h1,
-        .policy-wrap h2,
-        .policy-wrap h3 {
+        h1 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 30px;
             color: #f2e2bf;
         }
 
-        .policy-wrap h1 {
-            font-size: 30px;
-            margin-top: 0;
-            margin-bottom: 18px;
-        }
-
-        .policy-wrap h2 {
-            font-size: 22px;
-            margin-top: 28px;
+        h2 {
+            margin-top: 26px;
             margin-bottom: 12px;
+            font-size: 22px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h3 {
-            font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
-        }
-
-        .policy-wrap p,
-        .policy-wrap li {
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
-        .policy-wrap ul {
-            margin: 8px 0 16px 0;
+        ul {
+            margin: 0 0 14px 0;
             padding-left: 22px;
         }
 
-        .policy-wrap a {
+        a.inline-link {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .policy-wrap a:hover {
+        a.inline-link:hover {
             text-decoration: underline;
         }
 
-        .footer-space {
-            height: 10px;
+        .meta {
+            margin-bottom: 22px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -276,21 +298,19 @@
                 font-size: 17px;
             }
 
-            .policy-wrap {
+            .card {
                 padding: 20px 16px;
-                margin-top: 16px;
             }
 
-            .policy-wrap h1 {
-                font-size: 24px;
+            h1 {
+                font-size: 25px;
             }
 
-            .policy-wrap h2 {
+            h2 {
                 font-size: 20px;
             }
 
-            .policy-wrap p,
-            .policy-wrap li {
+            p, li {
                 font-size: 15px;
             }
 
@@ -398,132 +418,100 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index-en.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">Back</span>
+                </a>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h1>Privacy Policy</h1>
+
+                    <div class="meta">
+                        <p><strong>Last updated:</strong> 1 April 2026</p>
+                        <p><strong>Operator:</strong> Sky of Empire</p>
+                        <p><strong>Email:</strong> <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
+                        <p><strong>Based in:</strong> Switzerland</p>
+                    </div>
+
+                    <h2>1. Introduction</h2>
+                    <p>
+                        This Privacy Policy explains how Sky of Empire collects, uses, and protects personal information when you visit our website or use our services. We take the protection of your data seriously and handle your information responsibly.
+                    </p>
+
+                    <h2>2. Data we may collect</h2>
+                    <ul>
+                        <li>Contact information such as your name and email address if you send us a message.</li>
+                        <li>Technical data such as browser type, device type, IP address, and general usage information.</li>
+                        <li>Messages or requests that you send to us through contact or support forms.</li>
+                        <li>Basic preferences such as the language selected on the website.</li>
+                    </ul>
+
+                    <h2>3. How we use data</h2>
+                    <p>
+                        We may use collected data to operate the website, provide support, respond to inquiries, improve content and services, enhance security and technical stability, and comply with legal obligations where required.
+                    </p>
+
+                    <h2>4. Legal basis for processing</h2>
+                    <p>
+                        Personal data is processed where necessary to provide our services, communicate with you at your request, protect our legitimate interests in operating and improving the website, or comply with applicable legal obligations.
+                    </p>
+
+                    <h2>5. Sharing of data</h2>
+                    <p>
+                        We do not sell your personal data. Information may only be shared when necessary with trusted service providers supporting website operation or technical support, or when required by law or necessary to protect our rights and users.
+                    </p>
+
+                    <h2>6. Data storage and retention</h2>
+                    <p>
+                        We keep personal data only for as long as necessary for the purposes for which it was collected or as long as required by law. After that, data will be deleted or appropriately restricted.
+                    </p>
+
+                    <h2>7. Security</h2>
+                    <p>
+                        We take appropriate technical and organizational measures to help protect personal data against unauthorized access, loss, misuse, or alteration. However, no electronic transmission or storage method is completely secure.
+                    </p>
+
+                    <h2>8. Cookies and similar technologies</h2>
+                    <p>
+                        Our website may use cookies or similar technologies to support essential functionality and improve usability. More information can be found in our
+                        <a class="inline-link" href="cookies-en.html">Cookie Policy</a>.
+                    </p>
+
+                    <h2>9. Your rights</h2>
+                    <p>
+                        Depending on applicable law, you may have the right to request access to, correction of, deletion of, restriction of processing of, or objection to the processing of your personal data. You may also have the right to lodge a complaint with a competent data protection authority.
+                    </p>
+
+                    <h2>10. External links</h2>
+                    <p>
+                        Our website may contain links to external websites or services. We are not responsible for the content or privacy practices of those third parties. Please review their policies separately.
+                    </p>
+
+                    <h2>11. Children’s privacy</h2>
+                    <p>
+                        We do not knowingly collect personal data from children where prohibited by law. If you believe that information relating to a child has been submitted to us without proper authorization, please contact us.
+                    </p>
+
+                    <h2>12. Changes to this policy</h2>
+                    <p>
+                        We may update this Privacy Policy from time to time. Any changes will be posted on this page together with the revised last updated date.
+                    </p>
+
+                    <h2>13. Contact us</h2>
+                    <p>
+                        If you have any questions about this Privacy Policy or the processing of your personal data, you can contact us by email at
+                        <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a>.
+                    </p>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
             </div>
         </div>
-
-        <div class="policy-wrap">
-            <h1>Privacy Policy</h1>
-
-            <p><strong>Last Updated:</strong> April 1, 2026</p>
-            <p><strong>Operator:</strong> Sky of Empire<br>
-            <strong>Email:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-            <strong>Registered Office:</strong> Switzerland</p>
-
-            <h2>1. Introduction</h2>
-            <p>
-                This Privacy Policy explains how Sky of Empire ("we", "us", or "our") collects, uses, processes, and protects your personal data when you use our game, website, or related services.
-            </p>
-            <p>
-                By using our services, you acknowledge that you have read and understood this Privacy Policy.
-            </p>
-
-            <h2>2. What Data We Collect</h2>
-            <p>We may collect the following categories of data:</p>
-            <ul>
-                <li>Account data, such as username or in-game identifier</li>
-                <li>Contact data, such as your email address if you provide it to us</li>
-                <li>Device data, such as device type, operating system, language, IP address, and device identifiers</li>
-                <li>Usage data, such as gameplay progress, settings, purchases, login records, and interactions</li>
-                <li>Support data, such as messages you send to customer support</li>
-                <li>Analytics and advertising data, where applicable</li>
-            </ul>
-
-            <h2>3. How We Use Your Data</h2>
-            <p>We use your data for the following purposes:</p>
-            <ul>
-                <li>To provide, operate, and maintain the game and related services</li>
-                <li>To manage your in-game account</li>
-                <li>To save progress, features, and settings</li>
-                <li>To provide technical support and customer service</li>
-                <li>To improve performance, stability, and user experience</li>
-                <li>To prevent cheating, fraud, abuse, and unlawful activity</li>
-                <li>To comply with legal and regulatory obligations</li>
-                <li>To send important service-related notifications</li>
-                <li>To analyze usage and measure performance, where applicable</li>
-            </ul>
-
-            <h2>4. Legal Basis for Processing</h2>
-            <p>We process personal data based on one or more of the following legal grounds, where applicable:</p>
-            <ul>
-                <li>Performance of a contract, meaning providing the game and services to you</li>
-                <li>Compliance with legal obligations</li>
-                <li>Our legitimate interests, such as security, service improvement, and abuse prevention</li>
-                <li>Your consent, where required by law</li>
-            </ul>
-
-            <h2>5. Sharing Data with Third Parties</h2>
-            <p>We may share your data with categories of service providers or partners where necessary, including:</p>
-            <ul>
-                <li>Hosting and cloud infrastructure providers</li>
-                <li>Analytics providers</li>
-                <li>Payment processors, where applicable</li>
-                <li>Customer support and technical service providers</li>
-                <li>Advertising networks or measurement providers, where applicable</li>
-                <li>Public authorities or legal bodies if required by law</li>
-            </ul>
-            <p>
-                We do not sell your personal data in the traditional sense of commercial data sale.
-            </p>
-
-            <h2>6. International Data Transfers</h2>
-            <p>
-                Your data may be processed in countries outside your country of residence. Where this happens, we take appropriate safeguards to protect your data in accordance with applicable law, such as standard contractual clauses or other legally recognized mechanisms.
-            </p>
-
-            <h2>7. Data Retention</h2>
-            <p>
-                We retain your data only as long as necessary for the purposes described in this Privacy Policy, or as long as required by law. After that, data will be deleted, anonymized, or retained only where necessary for legal compliance or defense of legal claims.
-            </p>
-
-            <h2>8. Data Security</h2>
-            <p>
-                We use appropriate technical and organizational measures to protect your data against unauthorized access, loss, alteration, or unlawful disclosure. However, no system or data transmission over the internet can be guaranteed to be completely secure.
-            </p>
-
-            <h2>9. Children's Privacy</h2>
-            <p>
-                Our services are not knowingly directed at children except where permitted by applicable law. If we become aware that personal data from a child has been collected unlawfully or without the required basis, we will take appropriate steps to delete that data.
-            </p>
-
-            <h2>10. Your Rights</h2>
-            <p>Depending on applicable law, you may have the right to:</p>
-            <ul>
-                <li>Access your personal data</li>
-                <li>Correct inaccurate or incomplete data</li>
-                <li>Request deletion of your data</li>
-                <li>Request restriction of processing</li>
-                <li>Object to certain types of processing</li>
-                <li>Withdraw your consent at any time where processing is based on consent</li>
-                <li>Request data portability, where applicable</li>
-                <li>Lodge a complaint with a competent supervisory authority</li>
-            </ul>
-            <p>
-                To exercise these rights, you may contact us at:
-                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
-            </p>
-
-            <h2>11. Cookies and Similar Technologies</h2>
-            <p>
-                We may use cookies or similar technologies on our website or in related services. For more information, please refer to our Cookie Policy.
-            </p>
-
-            <h2>12. Changes to This Policy</h2>
-            <p>
-                We reserve the right to update this Privacy Policy at any time. Any changes will be posted on this page or within our services where appropriate. The updated version becomes effective from the date of publication unless stated otherwise.
-            </p>
-
-            <h2>13. Contact</h2>
-            <p>
-                If you have any questions about this Privacy Policy or the processing of your data, you may contact us at:
-            </p>
-            <p>
-                Sky of Empire<br>
-                Email: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-                Registered Office: Switzerland
-            </p>
-        </div>
-
-        <div class="footer-space"></div>
     </div>
 
     <script>
