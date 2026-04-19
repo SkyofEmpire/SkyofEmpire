@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Details - Sky of Empire</title>
+    <title>Spieldetails - Sky of Empire</title>
     <style>
         * {
             box-sizing: border-box;
@@ -72,24 +72,26 @@
             z-index: 2;
             max-width: 980px;
             margin: 0 auto;
-            text-align: center;
         }
 
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -102,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -135,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -195,84 +207,71 @@
 
         .main-content {
             position: relative;
-            z-index: 5;
-            margin-top: 24px;
-        }
-
-        .subtitle {
-            margin: 0 auto 18px;
-            max-width: 820px;
-            font-size: 16px;
-            color: #d8c6a1;
-            line-height: 1.5;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.55);
+            z-index: 2;
+            margin-top: 26px;
         }
 
         .card {
             position: relative;
-            z-index: 6;
-            margin: 0 auto 18px;
-            max-width: 860px;
+            z-index: 2;
+            max-width: 980px;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 24px 24px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
             text-align: left;
         }
 
         h1 {
             margin-top: 0;
-            margin-bottom: 10px;
+            margin-bottom: 18px;
             font-size: 30px;
             color: #f2e2bf;
-            text-align: center;
         }
 
         h2 {
-            margin-top: 0;
-            margin-bottom: 14px;
-            font-size: 24px;
+            margin-top: 26px;
+            margin-bottom: 12px;
+            font-size: 22px;
             color: #f2e2bf;
         }
 
-        p {
-            margin: 0 0 14px;
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
             color: #f5ebd8;
-            line-height: 1.7;
         }
 
         ul {
-            margin: 0;
-            padding-left: 20px;
-        }
-
-        li {
-            margin-bottom: 10px;
-            color: #f5ebd8;
-            line-height: 1.7;
-            font-size: 16px;
+            margin: 0 0 14px 0;
+            padding-left: 22px;
         }
 
         .footer {
             margin-top: 18px;
+            text-align: center;
             font-size: 13px;
             color: #c7b18a;
             text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-            text-align: center;
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -285,15 +284,6 @@
                 font-size: 17px;
             }
 
-            .main-content {
-                margin-top: 18px;
-            }
-
-            .subtitle {
-                font-size: 14px;
-                margin-bottom: 14px;
-            }
-
             .card {
                 padding: 20px 16px;
             }
@@ -303,7 +293,7 @@
             }
 
             h2 {
-                font-size: 21px;
+                font-size: 20px;
             }
 
             p, li {
@@ -414,85 +404,38 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">Zurück</span>
+                </a>
             </div>
 
             <div class="main-content">
-                <p class="subtitle">
-                    Entdecke die wichtigsten Informationen über Sky of Empire, das Spielprinzip, die Kernfunktionen und die geplante Weiterentwicklung.
-                </p>
-
                 <div class="card">
-                    <h1>Game Details</h1>
-                    <p>
-                        Sky of Empire ist ein strategisches Spiel in einer schwebenden Welt aus Flugrouten, Inseln, Luftflotten und taktischen Entscheidungen. Du baust deine eigene Präsenz auf, erkundest das Reich über den Wolken und stellst dich gegnerischen Einheiten in einer lebendigen Spielumgebung.
-                    </p>
-                </div>
+                    <h1>Spieldetails</h1>
 
-                <div class="card">
-                    <h2>Spielübersicht</h2>
                     <p>
-                        Im Mittelpunkt stehen Aufbau, Bewegung, Auswahl von Zielen und strategische Kämpfe. Spieler navigieren auf einer großen Weltkarte, entdecken neue Bereiche und treffen Entscheidungen darüber, wann sie angreifen, ausweichen, aufrüsten oder Ressourcen sichern.
+                        <strong>Sky of Empire</strong> ist ein Strategie- und Luftweltspiel, das in einem Universum aus schwebenden Inseln, Luftbasen und taktischen Kämpfen spielt. Spieler bauen ihre Macht auf, erweitern ihren Einfluss und entwickeln ihr Imperium am Himmel.
                     </p>
-                    <p>
-                        Die Spielwelt verbindet taktische Übersicht mit direkter Interaktion. Gegner, Ziele, Bewegungsrouten und UI-Elemente sind darauf ausgelegt, schnelle Entscheidungen mit langfristiger Planung zu kombinieren.
-                    </p>
-                </div>
 
-                <div class="card">
-                    <h2>Kernfunktionen</h2>
+                    <h2>Spielinhalt</h2>
                     <ul>
-                        <li>Strategische Weltkarte mit frei erkundbaren Bereichen</li>
-                        <li>Auswahl von Zielen und direkte Interaktion mit Gegnern</li>
-                        <li>Flugrouten und Bewegung über Luft- und Kartenbereiche</li>
-                        <li>Kampf- und Angriffssystem mit taktischer Positionierung</li>
-                        <li>Fortschritt durch Ausbau, Entwicklung und Planung</li>
-                        <li>Benutzeroberflächen für Auswahl, Navigation und Aktionen</li>
-                        <li>Mehrsprachige Informations- und Hilfeseiten</li>
+                        <li>Baue und erweitere deine eigene Luftbasis.</li>
+                        <li>Verwalte Ressourcen und verbessere Gebäude sowie Technologien.</li>
+                        <li>Nutze Flugzeuge und Lufteinheiten in Missionen und Kämpfen.</li>
+                        <li>Erkunde eine riesige Wolkenwelt voller Herausforderungen.</li>
+                        <li>Tritt gegen andere Spieler an und schreite im Macht- und Entwicklungssystem voran.</li>
                     </ul>
-                </div>
 
-                <div class="card">
-                    <h2>Spielerlebnis</h2>
+                    <h2>Fortschritt und Entwicklung</h2>
                     <p>
-                        Sky of Empire setzt auf ein klares, atmosphärisches Erlebnis mit dunklem Himmel, Wolkenlandschaften und einer stilisierten Empire-Optik. Das Ziel ist ein Spielgefühl, das gleichzeitig episch, übersichtlich und direkt steuerbar bleibt.
+                        Im Verlauf des Spiels kannst du neue Gebäude freischalten, Einheiten verbessern, deine Fähigkeiten weiterentwickeln und die Stärke deines Imperiums erhöhen. Erfolg hängt von Planung, Ressourcenmanagement und den richtigen Entscheidungen im richtigen Moment ab.
                     </p>
-                    <p>
-                        Spieler sollen jederzeit erkennen können, wo sie sich befinden, welche Ziele relevant sind und welche Handlung als Nächstes sinnvoll ist. Deshalb stehen Lesbarkeit, Übersicht und eine starke visuelle Struktur im Mittelpunkt.
-                    </p>
-                </div>
 
-                <div class="card">
-                    <h2>Strategie und Fortschritt</h2>
+                    <h2>Erlebnis</h2>
                     <p>
-                        Fortschritt entsteht nicht nur durch einzelne Kämpfe, sondern durch kluge Entscheidungen über Zeit. Wer seine Bewegungen plant, Ziele richtig priorisiert und Ressourcen effizient nutzt, wird langfristig erfolgreicher sein.
-                    </p>
-                    <ul>
-                        <li>Abwägen von Risiko und Belohnung</li>
-                        <li>Effizientes Erreichen wichtiger Ziele</li>
-                        <li>Schrittweiser Ausbau des eigenen Einflusses</li>
-                        <li>Kombination aus Aktion, Geduld und Strategie</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h2>Geplante Weiterentwicklung</h2>
-                    <p>
-                        Sky of Empire wird laufend weiterentwickelt. Geplante Erweiterungen können zusätzliche Inhalte, neue Spielsysteme, weitere Gegnerarten, tiefere Fortschrittsmechaniken, mehr Kartenfunktionen und zusätzliche Komfortverbesserungen für die Benutzeroberfläche umfassen.
-                    </p>
-                    <p>
-                        Ziel ist es, die Spielwelt stetig auszubauen und das Spielerlebnis sowohl für neue als auch für erfahrene Spieler immer weiter zu verbessern.
-                    </p>
-                </div>
-
-                <div class="card">
-                    <h2>Kontakt</h2>
-                    <p>
-                        Bei Fragen, Feedback oder Supportanfragen kannst du uns direkt kontaktieren:
-                    </p>
-                    <p>
-                        <strong>Sky of Empire</strong><br>
-                        E-Mail: <a href="mailto:support@skyofempire.com" style="color:#f0d89e; text-decoration:none; font-weight:bold;">support@skyofempire.com</a><br>
-                        Sitz: Schweiz
+                        Das Spiel bietet ein Erlebnis, das Strategie, Fortschritt und Verwaltung in einer visuellen Atmosphäre vereint, die von Himmel, Wolken und fliegenden Basen inspiriert ist. Ziel ist es, ein mächtiges Imperium aufzubauen und deine Präsenz in dieser Luftwelt zu sichern.
                     </p>
                 </div>
 
