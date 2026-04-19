@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>フィードバック - Sky of Empire</title>
+    <title>フィードバック送信 - Sky of Empire</title>
     <style>
         * {
             box-sizing: border-box;
@@ -72,24 +72,26 @@
             z-index: 2;
             max-width: 980px;
             margin: 0 auto;
-            text-align: center;
         }
 
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -102,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -135,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -195,144 +207,117 @@
 
         .main-content {
             position: relative;
-            z-index: 5;
-            margin-top: 24px;
-        }
-
-        .subtitle {
-            margin: 0 auto 18px;
-            max-width: 760px;
-            font-size: 16px;
-            color: #d8c6a1;
-            line-height: 1.5;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.55);
+            z-index: 2;
+            margin-top: 26px;
         }
 
         .card {
             position: relative;
-            z-index: 6;
+            z-index: 2;
+            max-width: 980px;
             margin: 0 auto;
-            max-width: 760px;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 24px 24px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
             text-align: left;
         }
 
         h1 {
             margin-top: 0;
-            margin-bottom: 10px;
+            margin-bottom: 18px;
             font-size: 30px;
             color: #f2e2bf;
-            text-align: center;
+        }
+
+        p, label {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
         .intro {
-            margin: 0 0 22px;
-            font-size: 16px;
-            color: #f5ebd8;
-            line-height: 1.6;
-            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .feedback-form {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+        .form-group {
+            margin-bottom: 18px;
         }
 
-        .field {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .field label {
-            font-size: 15px;
+        label {
+            display: block;
+            margin-bottom: 8px;
             font-weight: bold;
-            color: #f2e2bf;
         }
 
-        .input,
-        .textarea,
-        .select {
+        input,
+        textarea {
             width: 100%;
-            border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.16);
-            background: rgba(15, 15, 15, 0.92);
+            border: 1px solid rgba(255,255,255,0.18);
+            background: rgba(255,255,255,0.06);
             color: #f5ebd8;
+            border-radius: 14px;
             padding: 14px 16px;
-            font-size: 15px;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
             outline: none;
-            box-shadow: inset 0 0 0 1px rgba(216, 182, 108, 0.08);
         }
 
-        .input::placeholder,
-        .textarea::placeholder {
-            color: #a89674;
+        input::placeholder,
+        textarea::placeholder {
+            color: #d7c9ad;
         }
 
-        .input:focus,
-        .textarea:focus,
-        .select:focus {
-            border-color: rgba(216, 182, 108, 0.45);
-        }
-
-        .textarea {
+        textarea {
             min-height: 180px;
             resize: vertical;
-            font-family: Arial, sans-serif;
         }
 
         .submit-button {
-            display: inline-block;
-            text-decoration: none;
-            color: #1b1306;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 22px;
+            border-radius: 16px;
+            border: 2px solid #0d63ff;
+            background: rgba(5, 5, 5, 0.92);
+            color: #f2e2bf;
+            font-size: 16px;
             font-weight: bold;
-            font-size: 18px;
-            padding: 15px 20px;
-            border-radius: 14px;
-            background: linear-gradient(180deg, #f0d89e 0%, #d8b66c 48%, #be9552 100%);
-            border: 1px solid rgba(255, 232, 176, 0.30);
-            box-shadow: 0 10px 22px rgba(0,0,0,0.28);
-            transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
             cursor: pointer;
+            box-shadow:
+                0 0 0 2px rgba(216, 182, 108, 0.14) inset,
+                0 10px 22px rgba(0,0,0,0.24);
         }
 
         .submit-button:hover {
-            transform: translateY(-2px);
             filter: brightness(1.03);
-            box-shadow: 0 14px 26px rgba(0,0,0,0.36);
-        }
-
-        .hint {
-            margin-top: 14px;
-            font-size: 13px;
-            color: #c7b18a;
-            line-height: 1.5;
-            text-align: center;
         }
 
         .footer {
             margin-top: 18px;
+            text-align: center;
             font-size: 13px;
             color: #c7b18a;
             text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-            text-align: center;
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -345,15 +330,6 @@
                 font-size: 17px;
             }
 
-            .main-content {
-                margin-top: 18px;
-            }
-
-            .subtitle {
-                font-size: 14px;
-                margin-bottom: 14px;
-            }
-
             .card {
                 padding: 20px 16px;
             }
@@ -362,17 +338,8 @@
                 font-size: 25px;
             }
 
-            .intro,
-            .field label,
-            .input,
-            .textarea,
-            .select {
+            p, label, input, textarea {
                 font-size: 15px;
-            }
-
-            .submit-button {
-                font-size: 16px;
-                padding: 13px 14px;
             }
 
             .cloud1 { width: 250px; height: 160px; top: -10px; left: -20px; }
@@ -479,52 +446,39 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index-ja.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">戻る</span>
+                </a>
             </div>
 
             <div class="main-content">
-                <p class="subtitle">
-                    Sky of Empire に関するアイデア、問題点、ご提案をぜひお聞かせください。
-                </p>
-
                 <div class="card">
-                    <h1>フィードバック</h1>
+                    <h1>フィードバック送信</h1>
+
                     <p class="intro">
-                        皆さまからのご意見をお待ちしています。以下のフォームから直接メッセージをお送りください。
+                        ご意見、ご提案、メッセージを歓迎します。ご感想を共有したい場合は、以下のフォームをご利用ください。
                     </p>
 
-                    <form class="feedback-form" action="mailto:support@skyofempire.com" method="post" enctype="text/plain">
-                        <div class="field">
+                    <form>
+                        <div class="form-group">
                             <label for="name">お名前</label>
-                            <input class="input" type="text" id="name" name="name" placeholder="お名前">
+                            <input type="text" id="name" name="name" placeholder="お名前を入力してください">
                         </div>
 
-                        <div class="field">
+                        <div class="form-group">
                             <label for="email">メールアドレス</label>
-                            <input class="input" type="email" id="email" name="email" placeholder="your@email.com">
+                            <input type="email" id="email" name="email" placeholder="メールアドレスを入力してください">
                         </div>
 
-                        <div class="field">
-                            <label for="category">カテゴリー</label>
-                            <select class="select" id="category" name="category">
-                                <option value="一般的なフィードバック">一般的なフィードバック</option>
-                                <option value="バグ報告">バグ報告</option>
-                                <option value="改善提案">改善提案</option>
-                                <option value="技術的な問題">技術的な問題</option>
-                                <option value="サポート依頼">サポート依頼</option>
-                            </select>
-                        </div>
-
-                        <div class="field">
+                        <div class="form-group">
                             <label for="message">メッセージ</label>
-                            <textarea class="textarea" id="message" name="message" placeholder="こちらにご意見をご記入ください..."></textarea>
+                            <textarea id="message" name="message" placeholder="こちらにご意見を入力してください"></textarea>
                         </div>
 
-                        <button class="submit-button" type="submit">フィードバックを送信</button>
+                        <button type="submit" class="submit-button">送信</button>
                     </form>
-
-                    <div class="hint">
-                        送信時に、お使いの端末によってはメールアプリが開き、そこからメッセージを送信できる場合があります。
-                    </div>
                 </div>
 
                 <div class="footer">
