@@ -11,17 +11,18 @@
 
         html, body {
             margin: 0;
+            padding: 0;
             font-family: Arial, sans-serif;
-            color: #f4ead7;
-            min-height: 100%;
-            overflow-x: hidden;
             background:
                 radial-gradient(circle at 50% 18%, rgba(176, 132, 57, 0.08) 0%, rgba(176, 132, 57, 0.00) 18%),
                 linear-gradient(to bottom, #000000 0%, #040404 52%, #0a0a0a 100%);
+            color: #f4ead7;
+            min-height: 100%;
+            overflow-x: hidden;
         }
 
-        body {
-            position: relative;
+        body.modal-open {
+            overflow: hidden;
         }
 
         .clouds-layer {
@@ -35,7 +36,6 @@
         .cloud-img {
             position: absolute;
             background: url("clouds.png") no-repeat center center / contain;
-            pointer-events: none;
             opacity: 0.25;
             filter: brightness(0.56) contrast(1.05) saturate(0.75);
             mix-blend-mode: screen;
@@ -63,321 +63,511 @@
         .page {
             position: relative;
             z-index: 1;
-            width: 100%;
-            padding: 0 20px 40px;
-        }
-
-        .container {
-            position: relative;
-            z-index: 2;
-            max-width: 980px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .topbar {
-            display: flex;
-            justify-content: flex-start;
-            padding-top: 14px;
-            padding-left: 4px;
-            position: relative;
-            z-index: 1000;
-        }
-
-        .lang-dropdown {
-            position: relative;
-            z-index: 1001;
-        }
-
-        .lang-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            min-width: 170px;
-            padding: 12px 16px;
-            border-radius: 16px;
-            border: 2px solid #0d63ff;
-            background: rgba(5, 5, 5, 0.92);
-            color: #f2e2bf;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow:
-                0 0 0 2px rgba(216, 182, 108, 0.14) inset,
-                0 10px 22px rgba(0,0,0,0.24);
-            user-select: none;
-        }
-
-        .lang-button:hover {
-            filter: brightness(1.03);
-        }
-
-        .lang-flag {
-            font-size: 22px;
-            line-height: 1;
-            flex: 0 0 auto;
-        }
-
-        .lang-label {
-            flex: 1;
-            text-align: left;
-            white-space: nowrap;
-        }
-
-        .lang-arrow {
-            font-size: 14px;
-            color: #e2c780;
-            flex: 0 0 auto;
-        }
-
-        .lang-menu {
-            position: absolute;
-            top: calc(100% + 10px);
-            left: 0;
-            width: 330px;
-            background: rgba(10, 10, 10, 0.96);
-            border: 1px solid rgba(255,255,255,0.20);
-            border-radius: 24px;
-            padding: 12px;
-            box-shadow: 0 18px 50px rgba(0,0,0,0.55);
-            backdrop-filter: blur(10px);
-            display: none;
-            z-index: 1002;
-            overflow: hidden;
-        }
-
-        .lang-menu.open {
-            display: block;
-        }
-
-        .lang-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-            padding: 8px 10px;
-            border-radius: 14px;
-            text-decoration: none;
-            color: #f2f2f2;
-            font-size: 18px;
-            font-weight: 700;
-            line-height: 1.1;
-        }
-
-        .lang-item:hover {
-            background: rgba(255,255,255,0.06);
-        }
-
-        .lang-item.active {
-            color: #ffffff;
-        }
-
-        .lang-check {
-            width: 22px;
-            flex: 0 0 22px;
-            text-align: center;
-            color: #ffffff;
-            font-size: 16px;
-        }
-
-        .lang-item-flag {
-            width: 28px;
-            flex: 0 0 28px;
-            text-align: center;
-            font-size: 22px;
-        }
-
-        .lang-item-label {
-            flex: 1;
-            text-align: left;
-            white-space: nowrap;
+            min-height: 100vh;
+            padding: 40px 20px 120px;
         }
 
         .hero {
-            position: relative;
-            z-index: 3;
-            padding: 0 20px;
-            margin-top: -8px;
-        }
-
-        .logo {
-            max-width: 760px;
-            width: 100%;
-            height: auto;
-            margin: -250px auto 0;
-            display: block;
-            filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.6));
-        }
-
-        .main-content {
-            position: relative;
-            z-index: 5;
-            margin-top: -325px;
-        }
-
-        .subtitle {
-            margin: 0 auto 10px;
-            max-width: 1000px;
-            font-size: 15px;
-            color: #d8c6a1;
-            line-height: 1.4;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.55);
-        }
-
-        .card {
-            position: relative;
-            z-index: 6;
-            margin-top: 10px;
+            max-width: 980px;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 22px 24px;
+            padding: 28px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
         }
 
-        h2 {
-            margin-top: 0;
-            margin-bottom: 16px;
-            font-size: 25px;
+        .hero h1 {
+            margin: 0 0 12px;
+            font-size: 34px;
             color: #f2e2bf;
         }
 
-        .buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            max-width: 620px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
-
-        .button {
-            position: relative;
-            z-index: 11;
-            display: block;
-            text-decoration: none;
-            color: #1b1306;
-            font-weight: bold;
-            font-size: 18px;
-            padding: 15px 20px;
-            border-radius: 14px;
-            background: linear-gradient(180deg, #f0d89e 0%, #d8b66c 48%, #be9552 100%);
-            border: 1px solid rgba(255, 232, 176, 0.30);
-            box-shadow: 0 10px 22px rgba(0,0,0,0.28);
-            transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
-            pointer-events: auto;
-        }
-
-        .button:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.03);
-            box-shadow: 0 14px 26px rgba(0,0,0,0.36);
-        }
-
-        .contact-box {
-            max-width: 620px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+        .hero p {
+            margin: 0;
             font-size: 17px;
+            line-height: 1.8;
             color: #f5ebd8;
-            text-align: left;
-            align-items: flex-start;
         }
 
-        .contact-box a {
-            color: #f0d89e;
-            text-decoration: none;
-            font-weight: bold;
+        .cookie-banner {
+            position: fixed;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            z-index: 10000;
+            background: #f3f3f3;
+            color: #222;
+            border-radius: 0 0 38px 38px;
+            box-shadow: 0 -6px 24px rgba(0,0,0,0.28);
+            padding: 26px 34px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 26px;
         }
 
-        .contact-box a:hover {
+        .cookie-banner.hidden {
+            display: none;
+        }
+
+        .cookie-text {
+            flex: 1;
+            max-width: 920px;
+            font-size: 20px;
+            line-height: 1.45;
+            text-align: center;
+            color: #262626;
+        }
+
+        .cookie-actions {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-shrink: 0;
+        }
+
+        .cookie-link-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 20px;
+            font-weight: 700;
+            color: #111;
             text-decoration: underline;
+            cursor: pointer;
+            white-space: nowrap;
         }
 
-        .footer {
-            margin-top: 18px;
-            font-size: 13px;
-            color: #c7b18a;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        .cookie-pill {
+            min-width: 250px;
+            height: 82px;
+            padding: 0 28px;
+            border-radius: 999px;
+            border: 4px solid #222;
+            background: transparent;
+            color: #222;
+            font-size: 24px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
         }
 
-        @media (max-width: 768px) {
-            .topbar {
-                padding-top: 12px;
-                padding-left: 2px;
+        .cookie-close {
+            background: none;
+            border: none;
+            color: #111;
+            font-size: 34px;
+            line-height: 1;
+            cursor: pointer;
+            padding: 6px 10px;
+            flex-shrink: 0;
+        }
+
+        .cookie-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.58);
+            z-index: 11000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+        }
+
+        .cookie-modal-overlay.open {
+            display: flex;
+        }
+
+        .cookie-modal {
+            width: min(1280px, 100%);
+            height: min(1060px, calc(100vh - 36px));
+            background: #efefef;
+            color: #222;
+            border-radius: 2px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 18px 60px rgba(0,0,0,0.42);
+        }
+
+        .cookie-modal-header {
+            height: 120px;
+            flex-shrink: 0;
+            border-bottom: 1px solid #cfcfcf;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 34px 0 42px;
+        }
+
+        .cookie-header-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            min-width: 0;
+        }
+
+        .unity-logo {
+            font-size: 58px;
+            font-weight: 800;
+            color: #111;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .cookie-modal-title {
+            font-size: 44px;
+            font-weight: 700;
+            color: #222;
+            line-height: 1.1;
+        }
+
+        .cookie-modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #222;
+            cursor: pointer;
+            line-height: 1;
+            padding: 8px 10px;
+            flex-shrink: 0;
+        }
+
+        .cookie-modal-body {
+            flex: 1;
+            display: flex;
+            min-height: 0;
+        }
+
+        .cookie-sidebar {
+            width: 390px;
+            background: #efefef;
+            border-right: 1px solid #d7d7d7;
+            padding-top: 0;
+            flex-shrink: 0;
+        }
+
+        .cookie-tab {
+            width: 100%;
+            min-height: 90px;
+            border: none;
+            border-bottom: 1px solid #d7d7d7;
+            background: transparent;
+            text-align: left;
+            padding: 20px 36px;
+            font-size: 28px;
+            font-weight: 700;
+            color: #222;
+            cursor: pointer;
+        }
+
+        .cookie-tab.active {
+            background: #efefef;
+            box-shadow: inset 0 0 0 2px #222;
+        }
+
+        .cookie-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            background: #efefef;
+        }
+
+        .cookie-content-inner {
+            flex: 1;
+            padding: 48px 56px 34px;
+            overflow: auto;
+        }
+
+        .cookie-section-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 28px;
+            margin-bottom: 22px;
+        }
+
+        .cookie-section-title {
+            font-size: 30px;
+            font-weight: 700;
+            color: #222;
+            margin: 0;
+        }
+
+        .cookie-section-status {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .status-label {
+            font-size: 24px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .status-label.always {
+            color: #4b69c6;
+            font-weight: 700;
+        }
+
+        .toggle {
+            position: relative;
+            width: 78px;
+            height: 42px;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background: #7a7a7a;
+            border-radius: 999px;
+            transition: 0.2s;
+        }
+
+        .toggle-slider::before {
+            content: "";
+            position: absolute;
+            width: 34px;
+            height: 34px;
+            left: 4px;
+            top: 4px;
+            background: #efefef;
+            border-radius: 50%;
+            transition: 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+        }
+
+        .toggle input:checked + .toggle-slider {
+            background: #4b69c6;
+        }
+
+        .toggle input:checked + .toggle-slider::before {
+            transform: translateX(36px);
+        }
+
+        .cookie-section-text {
+            font-size: 24px;
+            line-height: 1.35;
+            color: #222;
+            max-width: 920px;
+            margin: 0 0 30px;
+        }
+
+        .cookie-more,
+        .cookie-details {
+            color: #4b69c6;
+            font-size: 22px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 8px;
+            cursor: pointer;
+        }
+
+        .cookie-modal-footer {
+            height: 132px;
+            border-top: 1px solid #d0d0d0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+            gap: 24px;
+            flex-shrink: 0;
+        }
+
+        .powered-by {
+            font-size: 21px;
+            color: #222;
+            white-space: nowrap;
+        }
+
+        .footer-actions {
+            display: flex;
+            align-items: center;
+            gap: 56px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .footer-link-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            color: #222;
+            font-size: 24px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 1200px) {
+            .cookie-banner {
+                flex-direction: column;
+                align-items: stretch;
+                border-radius: 22px;
+                padding: 22px;
             }
 
-            .lang-button {
-                min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
+            .cookie-text {
+                max-width: none;
+                font-size: 18px;
             }
 
-            .lang-menu {
-                width: 320px;
-                padding: 10px;
+            .cookie-actions {
+                justify-content: center;
+                flex-wrap: wrap;
             }
 
-            .lang-item {
-                padding: 7px 8px;
+            .cookie-modal {
+                height: calc(100vh - 24px);
+            }
+
+            .cookie-modal-header {
+                height: auto;
+                padding: 22px;
+            }
+
+            .cookie-header-left {
+                gap: 18px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .cookie-modal-title {
+                font-size: 32px;
+            }
+
+            .unity-logo {
+                font-size: 44px;
+            }
+
+            .cookie-sidebar {
+                width: 290px;
+            }
+
+            .cookie-tab {
+                font-size: 21px;
+                min-height: 76px;
+                padding: 18px 24px;
+            }
+
+            .cookie-content-inner {
+                padding: 28px;
+            }
+
+            .cookie-section-title {
+                font-size: 24px;
+            }
+
+            .cookie-section-text {
+                font-size: 19px;
+            }
+
+            .status-label {
+                font-size: 20px;
+            }
+
+            .cookie-modal-footer {
+                padding: 18px 24px;
+                height: auto;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .footer-actions {
+                gap: 26px;
+            }
+        }
+
+        @media (max-width: 820px) {
+            .page {
+                padding-bottom: 220px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .cookie-banner {
+                left: 10px;
+                right: 10px;
+                bottom: 10px;
+            }
+
+            .cookie-pill {
+                min-width: 100%;
+                height: 64px;
+                font-size: 21px;
+                border-width: 3px;
+            }
+
+            .cookie-link-btn {
+                font-size: 18px;
+            }
+
+            .cookie-close {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+            }
+
+            .cookie-modal-body {
+                flex-direction: column;
+            }
+
+            .cookie-sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #d7d7d7;
+            }
+
+            .cookie-tab {
+                min-height: 62px;
+                font-size: 18px;
+                padding: 14px 18px;
+            }
+
+            .cookie-section-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cookie-section-text {
                 font-size: 17px;
             }
 
-            .hero {
-                margin-top: -150px;
-                padding-left: 10px;
-                padding-right: 10px;
+            .cookie-more,
+            .cookie-details {
+                font-size: 18px;
             }
 
-            .logo {
-                max-width: 540px;
-                margin-bottom: 0;
+            .powered-by {
+                font-size: 17px;
             }
 
-            .main-content {
-                margin-top: -325px;
+            .footer-link-btn {
+                font-size: 18px;
             }
-
-            .subtitle {
-                font-size: 14px;
-                margin-bottom: 8px;
-            }
-
-            .card {
-                padding: 20px 16px;
-                margin-top: 8px;
-            }
-
-            h2 {
-                font-size: 22px;
-            }
-
-            .button {
-                font-size: 16px;
-                padding: 13px 14px;
-            }
-
-            .contact-box {
-                font-size: 15px;
-            }
-
-            .cloud1 { width: 250px; height: 160px; top: -10px; left: -20px; }
-            .cloud2 { width: 190px; height: 125px; top: 30px; left: 140px; }
-            .cloud3 { width: 240px; height: 155px; top: 0; right: -10px; }
-            .cloud4 { width: 150px; height: 100px; top: 120px; left: 50px; }
-            .cloud5 { width: 180px; height: 118px; top: 120px; left: 220px; }
-            .cloud6 { width: 165px; height: 108px; top: 190px; right: 70px; }
-            .cloud7 { width: 230px; height: 150px; top: 280px; left: -10px; }
-            .cloud8 { width: 140px; height: 92px; top: 380px; left: 210px; }
-            .cloud9 { width: 220px; height: 145px; top: 310px; right: -10px; }
         }
     </style>
 </head>
 <body>
-
     <div class="clouds-layer">
         <div class="cloud-img cloud1"></div>
         <div class="cloud-img cloud2"></div>
@@ -391,159 +581,136 @@
     </div>
 
     <div class="page">
-        <div class="container">
-            <div class="topbar">
-                <div class="lang-dropdown" id="langDropdown">
-                    <button class="lang-button" id="langButton" type="button" aria-expanded="false">
-                        <span class="lang-flag">🇩🇪</span>
-                        <span class="lang-label">Deutsch</span>
-                        <span class="lang-arrow">▼</span>
-                    </button>
+        <div class="hero">
+            <h1>Sky of Empire</h1>
+            <p>
+                Willkommen bei Sky of Empire. Erkunde eine Welt aus Wolken, Luftbasen und taktischen Kämpfen. 
+                Erweitere dein Imperium am Himmel und baue deine Macht Schritt für Schritt aus.
+            </p>
+        </div>
+    </div>
 
-                    <div class="lang-menu" id="langMenu">
-                        <a class="lang-item active" href="index.html">
-                            <span class="lang-check">✔</span>
-                            <span class="lang-item-flag">🇩🇪</span>
-                            <span class="lang-item-label">Deutsch</span>
-                        </a>
-                        <a class="lang-item" href="index-en.html">
-                            <span class="lang-check"></span>
-                            <span class="lang-item-flag">🇬🇧</span>
-                            <span class="lang-item-label">English</span>
-                        </a>
-                        <a class="lang-item" href="index-fr.html">
-                            <span class="lang-check"></span>
-                            <span class="lang-item-flag">🇫🇷</span>
-                            <span class="lang-item-label">Français</span>
-                        </a>
-                        <a class="lang-item" href="index-it.html">
-                            <span class="lang-check"></span>
-                            <span class="lang-item-flag">🇮🇹</span>
-                            <span class="lang-item-label">Italiano</span>
-                        </a>
-                        <a class="lang-item" href="index-es.html">
-                            <span class="lang-check"></span>
-                            <span class="lang-item-flag">🇪🇸</span>
-                            <span class="lang-item-label">Español</span>
-                        </a>
-                        <a class="lang-item" href="index-pt.html">
-                            <span class="lang-check"></span>
-                            <span class="lang-item-flag">🇵🇹</span>
-                            <span class="lang-item-label">Português</span>
-                        </a>
-                        <a class="lang-item" href="index-tr.html">
-                            <span class="lang-check"></span>
-                            <span class="lang-item-flag">🇹🇷</span>
-                            <span class="lang-item-label">Türkçe</span>
-                        </a>
-                        <a class="lang-item" href="index-ru.html">
-                            <span class="lang-check"></span>
-                            <span class="lang-item-flag">🇷🇺</span>
-                            <span class="lang-item-label">Русский</span>
-                        </a>
-                        <a class="lang-item" href="index-ja.html">
-                            <span class="lang-check"></span>
-                            <span class="lang-item-flag">🇯🇵</span>
-                            <span class="lang-item-label">日本語</span>
-                        </a>
-                        <a class="lang-item" href="index-ko.html">
-                            <span class="lang-check"></span>
-                            <span class="lang-item-flag">🇰🇷</span>
-                            <span class="lang-item-label">한국어</span>
-                        </a>
-                        <a class="lang-item" href="index-zh.html">
-                            <span class="lang-check"></span>
-                            <span class="lang-item-flag">🇨🇳</span>
-                            <span class="lang-item-label">简体中文</span>
-                        </a>
-                        <a class="lang-item" href="index-th.html">
-                            <span class="lang-check"></span>
-                            <span class="lang-item-flag">🇹🇭</span>
-                            <span class="lang-item-label">ไทย</span>
-                        </a>
-                        <a class="lang-item" href="index-ar.html">
-                            <span class="lang-check"></span>
-                            <span class="lang-item-flag">🇸🇦</span>
-                            <span class="lang-item-label">العربية</span>
-                        </a>
-                    </div>
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-text">
+            By clicking “Accept Cookies”, you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in our marketing efforts.
+        </div>
+
+        <div class="cookie-actions">
+            <button class="cookie-link-btn" id="openCookieSettings">Cookie Settings</button>
+            <button class="cookie-pill" id="rejectAllTop">Reject All</button>
+            <button class="cookie-pill" id="acceptAllTop">Accept All Cookies</button>
+            <button class="cookie-close" id="closeCookieBanner" aria-label="Close">✕</button>
+        </div>
+    </div>
+
+    <div class="cookie-modal-overlay" id="cookieModalOverlay">
+        <div class="cookie-modal" role="dialog" aria-modal="true" aria-labelledby="cookieModalTitle">
+            <div class="cookie-modal-header">
+                <div class="cookie-header-left">
+                    <div class="unity-logo">Unity</div>
+                    <div class="cookie-modal-title" id="cookieModalTitle">Privacy Preference Center</div>
                 </div>
+                <button class="cookie-modal-close" id="closeCookieModal" aria-label="Close">×</button>
             </div>
 
-            <div class="hero">
-                <img src="logo.png" alt="Sky of Empire Logo" class="logo">
-            </div>
-
-            <div class="main-content">
-                <p class="subtitle">
-                    Offizielle Informationsseite von Sky of Empire mit rechtlichen Dokumenten, Kontaktmöglichkeiten und weiteren Spielbereichen.
-                </p>
-
-                <div class="card">
-                    <h2>Weitere Bereiche</h2>
-                    <div class="buttons">
-                        <a class="button" href="game-details.html">Game Details</a>
-                        <a class="button" href="feedback.html">Feedback</a>
-                    </div>
+            <div class="cookie-modal-body">
+                <div class="cookie-sidebar">
+                    <button class="cookie-tab active" data-tab="privacy">Your Privacy</button>
+                    <button class="cookie-tab" data-tab="functional">Functional Cookies</button>
+                    <button class="cookie-tab" data-tab="performance">Performance Cookies</button>
+                    <button class="cookie-tab" data-tab="targeting">Targeting Cookies</button>
+                    <button class="cookie-tab" data-tab="necessary">Strictly Necessary Cookies</button>
                 </div>
 
-                <div class="card">
-                    <h2>Rechtliches</h2>
-                    <div class="buttons">
-                        <a class="button" href="privacy.html">Datenschutzrichtlinie</a>
-                        <a class="button" href="terms.html">Nutzungsbedingungen</a>
-                        <a class="button" href="cookies.html">Cookie-Richtlinie</a>
-                    </div>
-                </div>
+                <div class="cookie-content">
+                    <div class="cookie-content-inner" id="cookieContent"></div>
 
-                <div class="card">
-                    <h2>Kontakt</h2>
-                    <div class="contact-box">
-                        <div><strong>Betreiber:</strong> Sky of Empire</div>
-                        <div><strong>E-Mail:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a></div>
-                        <div><strong>Sitz:</strong> Schweiz</div>
-                    </div>
-                </div>
+                    <div class="cookie-modal-footer">
+                        <div class="powered-by">Powered by <strong>OneTrust</strong></div>
 
-                <div class="footer">
-                    © 2026 Sky of Empire. All rights reserved.
+                        <div class="footer-actions">
+                            <button class="footer-link-btn" id="confirmChoices">Confirm my choices</button>
+                            <button class="footer-link-btn" id="rejectAllBottom">Reject all</button>
+                            <button class="footer-link-btn" id="allowAllBottom">Allow all</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const langDropdown = document.getElementById("langDropdown");
-        const langButton = document.getElementById("langButton");
-        const langMenu = document.getElementById("langMenu");
+        const cookieBanner = document.getElementById("cookieBanner");
+        const cookieModalOverlay = document.getElementById("cookieModalOverlay");
+        const cookieContent = document.getElementById("cookieContent");
+        const cookieTabs = document.querySelectorAll(".cookie-tab");
 
-        langButton.addEventListener("click", function (e) {
-            e.stopPropagation();
-            const isOpen = langMenu.classList.contains("open");
+        const consentState = {
+            functional: false,
+            performance: false,
+            targeting: false
+        };
 
-            if (isOpen) {
-                langMenu.classList.remove("open");
-                langButton.setAttribute("aria-expanded", "false");
-            } else {
-                langMenu.classList.add("open");
-                langButton.setAttribute("aria-expanded", "true");
-            }
-        });
-
-        document.addEventListener("click", function (e) {
-            if (!langDropdown.contains(e.target)) {
-                langMenu.classList.remove("open");
-                langButton.setAttribute("aria-expanded", "false");
-            }
-        });
-
-        document.addEventListener("keydown", function (e) {
-            if (e.key === "Escape") {
-                langMenu.classList.remove("open");
-                langButton.setAttribute("aria-expanded", "false");
-            }
-        });
-    </script>
-
-</body>
-</html>
+        const contentMap = {
+            privacy: () => `
+                <div class="cookie-section-top">
+                    <h2 class="cookie-section-title">Your Privacy</h2>
+                </div>
+                <p class="cookie-section-text">
+                    When you visit any website, it may store or retrieve information on your browser, mostly in the form of cookies.
+                    This information might be about you, your preferences or your device and is mostly used to make the site work as you expect it to.
+                    The information does not usually directly identify you, but it can give you a more personalized web experience.
+                    Because we respect your right to privacy, you can choose not to allow some types of cookies.
+                    Click on the different category headings to find out more and change our default settings.
+                    However, blocking some types of cookies may impact your experience of the site and the services we are able to offer.
+                </p>
+                <a href="#" class="cookie-more">More information</a>
+            `,
+            functional: () => `
+                <div class="cookie-section-top">
+                    <h2 class="cookie-section-title">Functional Cookies</h2>
+                    <div class="cookie-section-status">
+                        <span class="status-label">${consentState.functional ? "Active" : "Inactive"}</span>
+                        <label class="toggle">
+                            <input type="checkbox" id="toggleFunctional" ${consentState.functional ? "checked" : ""}>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <p class="cookie-section-text">
+                    These cookies enable the website to provide enhanced functionality and personalisation.
+                    They may be set by us or by third party providers whose services we have added to our pages.
+                    If you do not allow these cookies then some or all of these services may not function properly.
+                </p>
+                <a href="#" class="cookie-details">Cookies Details</a>
+            `,
+            performance: () => `
+                <div class="cookie-section-top">
+                    <h2 class="cookie-section-title">Performance Cookies</h2>
+                    <div class="cookie-section-status">
+                        <span class="status-label">${consentState.performance ? "Active" : "Inactive"}</span>
+                        <label class="toggle">
+                            <input type="checkbox" id="togglePerformance" ${consentState.performance ? "checked" : ""}>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <p class="cookie-section-text">
+                    These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site.
+                    They help us to know which pages are the most and least popular and see how visitors move around the site.
+                    All information these cookies collect is aggregated and therefore anonymous.
+                    If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance.
+                </p>
+                <a href="#" class="cookie-details">Cookies Details</a>
+            `,
+            targeting: () => `
+                <div class="cookie-section-top">
+                    <h2 class="cookie-section-title">Targeting Cookies</h2>
+                    <div class="cookie-section-status">
+                        <span class="status-label">${consentState.targeting ? "Active" : "Inactive"}</span>
+                        <label class="toggle">
+                            <input type="checkbox" id="toggleTargeting" ${consentState.targeting ? "checked" : ""}>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div
