@@ -914,7 +914,7 @@
     </div>
 
     <!-- COOKIE BANNER -->
-    <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-banner hidden" id="cookieBanner">
         <div class="cookie-banner-text">
             By clicking “Accept All Cookies”, you allow us to use cookies to improve navigation, remember preferences, measure site performance, and support enhanced content.
         </div>
@@ -1127,6 +1127,10 @@
             cookieBanner.classList.add("hidden");
         }
 
+        function showCookieBanner() {
+            cookieBanner.classList.remove("hidden");
+        }
+
         function saveCookieToStorage(value) {
             localStorage.setItem(COOKIE_STORAGE_KEY, JSON.stringify(value));
         }
@@ -1188,13 +1192,26 @@
 
         function applyStoredCookieChoice() {
             const saved = loadCookieFromStorage();
-            if (!saved || saved.consentGiven !== true) return;
+            if (!saved || saved.consentGiven !== true) return false;
 
             cookieState.preferences = !!saved.preferences;
             cookieState.analytics = !!saved.analytics;
             cookieState.media = !!saved.media;
 
-            hideCookieBanner();
+            return true;
+        }
+
+        function wasRealReload() {
+            const navEntries = performance.getEntriesByType("navigation");
+            if (navEntries.length > 0) {
+                return navEntries[0].type === "reload";
+            }
+
+            if (performance.navigation) {
+                return performance.navigation.type === 1;
+            }
+
+            return false;
         }
 
         document.getElementById("openCookieSettings").addEventListener("click", function () {
@@ -1242,8 +1259,20 @@
             }
         });
 
-        applyStoredCookieChoice();
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted) {
+                hideCookieBanner();
+            }
+        });
+
+        const hasSavedChoice = applyStoredCookieChoice();
         renderCookieTab("overview");
+
+        if (wasRealReload() && !hasSavedChoice) {
+            showCookieBanner();
+        } else {
+            hideCookieBanner();
+        }
     </script>
 
 </body>
