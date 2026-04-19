@@ -77,18 +77,21 @@
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -101,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -134,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -192,78 +205,87 @@
             white-space: nowrap;
         }
 
-        .policy-wrap {
+        .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 2;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
             max-width: 980px;
-            margin: 20px auto 0;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 26px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
-            color: #f5ebd8;
-            line-height: 1.7;
+            text-align: left;
         }
 
-        .policy-wrap h1,
-        .policy-wrap h2,
-        .policy-wrap h3 {
+        h1 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 30px;
             color: #f2e2bf;
         }
 
-        .policy-wrap h1 {
-            font-size: 30px;
-            margin-top: 0;
-            margin-bottom: 18px;
-        }
-
-        .policy-wrap h2 {
-            font-size: 22px;
-            margin-top: 28px;
+        h2 {
+            margin-top: 26px;
             margin-bottom: 12px;
+            font-size: 22px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h3 {
-            font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
-        }
-
-        .policy-wrap p,
-        .policy-wrap li {
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
-        .policy-wrap ul {
-            margin: 8px 0 16px 0;
+        ul {
+            margin: 0 0 14px 0;
             padding-left: 22px;
         }
 
-        .policy-wrap a {
+        a.inline-link {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .policy-wrap a:hover {
+        a.inline-link:hover {
             text-decoration: underline;
         }
 
-        .footer-space {
-            height: 10px;
+        .meta {
+            margin-bottom: 22px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -276,21 +298,19 @@
                 font-size: 17px;
             }
 
-            .policy-wrap {
+            .card {
                 padding: 20px 16px;
-                margin-top: 16px;
             }
 
-            .policy-wrap h1 {
-                font-size: 24px;
+            h1 {
+                font-size: 25px;
             }
 
-            .policy-wrap h2 {
+            h2 {
                 font-size: 20px;
             }
 
-            .policy-wrap p,
-            .policy-wrap li {
+            p, li {
                 font-size: 15px;
             }
 
@@ -398,132 +418,100 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index-pt.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">Voltar</span>
+                </a>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h1>Política de Privacidade</h1>
+
+                    <div class="meta">
+                        <p><strong>Última atualização:</strong> 1 de abril de 2026</p>
+                        <p><strong>Operador:</strong> Sky of Empire</p>
+                        <p><strong>E-mail:</strong> <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
+                        <p><strong>Sede:</strong> Suíça</p>
+                    </div>
+
+                    <h2>1. Introdução</h2>
+                    <p>
+                        Esta Política de Privacidade explica como a Sky of Empire recolhe, utiliza e protege informações pessoais quando visitas o nosso site ou utilizas os nossos serviços. Levamos a proteção dos teus dados a sério e tratamos as tuas informações de forma responsável.
+                    </p>
+
+                    <h2>2. Dados que podemos recolher</h2>
+                    <ul>
+                        <li>Informações de contacto, como o teu nome e endereço de e-mail, se nos enviares uma mensagem.</li>
+                        <li>Dados técnicos, como tipo de navegador, tipo de dispositivo, endereço IP e informações gerais de utilização.</li>
+                        <li>Mensagens ou pedidos que nos envias através de formulários de contacto ou suporte.</li>
+                        <li>Preferências básicas, como o idioma selecionado no site.</li>
+                    </ul>
+
+                    <h2>3. Como utilizamos os dados</h2>
+                    <p>
+                        Podemos utilizar os dados recolhidos para operar o site, prestar suporte, responder a pedidos, melhorar conteúdos e serviços, reforçar a segurança e a estabilidade técnica e cumprir obrigações legais quando necessário.
+                    </p>
+
+                    <h2>4. Base legal para o tratamento</h2>
+                    <p>
+                        Os dados pessoais são tratados quando necessário para prestar os nossos serviços, comunicar contigo a teu pedido, proteger os nossos interesses legítimos na operação e melhoria do site ou cumprir obrigações legais aplicáveis.
+                    </p>
+
+                    <h2>5. Partilha de dados</h2>
+                    <p>
+                        Não vendemos os teus dados pessoais. As informações apenas poderão ser partilhadas quando necessário com prestadores de serviços de confiança que apoiem a operação do site ou o suporte técnico, ou quando exigido por lei, ou ainda quando necessário para proteger os nossos direitos e os nossos utilizadores.
+                    </p>
+
+                    <h2>6. Armazenamento e retenção de dados</h2>
+                    <p>
+                        Conservamos os dados pessoais apenas durante o tempo necessário para os fins para os quais foram recolhidos ou durante o tempo exigido por lei. Depois disso, os dados serão eliminados ou adequadamente restringidos.
+                    </p>
+
+                    <h2>7. Segurança</h2>
+                    <p>
+                        Tomamos medidas técnicas e organizacionais adequadas para ajudar a proteger os dados pessoais contra acesso não autorizado, perda, uso indevido ou alteração. No entanto, nenhum método de transmissão ou armazenamento eletrónico é totalmente seguro.
+                    </p>
+
+                    <h2>8. Cookies e tecnologias semelhantes</h2>
+                    <p>
+                        O nosso site pode utilizar cookies ou tecnologias semelhantes para suportar funcionalidades essenciais e melhorar a usabilidade. Podes encontrar mais informações na nossa
+                        <a class="inline-link" href="cookies-pt.html">Política de Cookies</a>.
+                    </p>
+
+                    <h2>9. Os teus direitos</h2>
+                    <p>
+                        Dependendo da legislação aplicável, poderás ter o direito de solicitar acesso aos teus dados pessoais, a sua correção, eliminação, limitação do tratamento ou de te opores ao tratamento. Poderás também ter o direito de apresentar uma reclamação junto de uma autoridade competente de proteção de dados.
+                    </p>
+
+                    <h2>10. Ligações externas</h2>
+                    <p>
+                        O nosso site pode conter ligações para sites ou serviços externos. Não somos responsáveis pelo conteúdo nem pelas práticas de privacidade desses terceiros. Deves consultar as respetivas políticas separadamente.
+                    </p>
+
+                    <h2>11. Privacidade de menores</h2>
+                    <p>
+                        Não recolhemos conscientemente dados pessoais de crianças quando isso é proibido por lei. Se acreditares que informações relacionadas com uma criança nos foram enviadas sem autorização adequada, por favor contacta-nos.
+                    </p>
+
+                    <h2>12. Alterações a esta política</h2>
+                    <p>
+                        Podemos atualizar esta Política de Privacidade ocasionalmente. Quaisquer alterações serão publicadas nesta página juntamente com a data revista da última atualização.
+                    </p>
+
+                    <h2>13. Contacta-nos</h2>
+                    <p>
+                        Se tiveres alguma questão sobre esta Política de Privacidade ou sobre o tratamento dos teus dados pessoais, podes contactar-nos por e-mail em
+                        <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a>.
+                    </p>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
             </div>
         </div>
-
-        <div class="policy-wrap">
-            <h1>Política de Privacidade</h1>
-
-            <p><strong>Última atualização:</strong> 1 de abril de 2026</p>
-            <p><strong>Operador:</strong> Sky of Empire<br>
-            <strong>E-mail:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-            <strong>Sede:</strong> Suíça</p>
-
-            <h2>1. Introdução</h2>
-            <p>
-                Esta Política de Privacidade explica como a Sky of Empire ("nós", "nos" ou "nosso") recolhe, utiliza, trata e protege os seus dados pessoais quando utiliza o nosso jogo, website ou serviços relacionados.
-            </p>
-            <p>
-                Ao utilizar os nossos serviços, reconhece que leu e compreendeu esta Política de Privacidade.
-            </p>
-
-            <h2>2. Que dados recolhemos</h2>
-            <p>Podemos recolher as seguintes categorias de dados:</p>
-            <ul>
-                <li>Dados da conta, como nome de utilizador ou identificador no jogo</li>
-                <li>Dados de contacto, como o seu endereço de e-mail, se nos for fornecido</li>
-                <li>Dados do dispositivo, como tipo de dispositivo, sistema operativo, idioma, endereço IP e identificadores do dispositivo</li>
-                <li>Dados de utilização, como progresso no jogo, definições, compras, registos de acesso e interações</li>
-                <li>Dados de suporte, como mensagens enviadas ao apoio ao cliente</li>
-                <li>Dados de análise e publicidade, quando aplicável</li>
-            </ul>
-
-            <h2>3. Como utilizamos os seus dados</h2>
-            <p>Utilizamos os seus dados para os seguintes fins:</p>
-            <ul>
-                <li>Fornecer, operar e manter o jogo e os serviços relacionados</li>
-                <li>Gerir a sua conta dentro do jogo</li>
-                <li>Guardar progresso, funcionalidades e definições</li>
-                <li>Prestar apoio técnico e atendimento ao cliente</li>
-                <li>Melhorar o desempenho, a estabilidade e a experiência do utilizador</li>
-                <li>Prevenir fraude, abuso, batota e atividades ilegais</li>
-                <li>Cumprir obrigações legais e regulamentares</li>
-                <li>Enviar notificações importantes relacionadas com o serviço</li>
-                <li>Analisar a utilização e medir o desempenho, quando aplicável</li>
-            </ul>
-
-            <h2>4. Base legal para o tratamento</h2>
-            <p>Tratamos os dados pessoais com base em um ou mais dos seguintes fundamentos jurídicos, conforme aplicável:</p>
-            <ul>
-                <li>Execução de um contrato, ou seja, a prestação do jogo e dos serviços</li>
-                <li>Cumprimento de obrigações legais</li>
-                <li>Os nossos interesses legítimos, como segurança, melhoria do serviço e prevenção de abusos</li>
-                <li>O seu consentimento, quando exigido por lei</li>
-            </ul>
-
-            <h2>5. Partilha de dados com terceiros</h2>
-            <p>Podemos partilhar os seus dados com categorias de prestadores de serviços ou parceiros, quando necessário, incluindo:</p>
-            <ul>
-                <li>Prestadores de alojamento e infraestruturas em nuvem</li>
-                <li>Prestadores de serviços de análise</li>
-                <li>Processadores de pagamentos, quando aplicável</li>
-                <li>Prestadores de apoio técnico e atendimento ao cliente</li>
-                <li>Redes publicitárias ou prestadores de medição, quando aplicável</li>
-                <li>Autoridades públicas ou entidades legais, quando exigido por lei</li>
-            </ul>
-            <p>
-                Não vendemos os seus dados pessoais no sentido tradicional de venda comercial de dados.
-            </p>
-
-            <h2>6. Transferências internacionais de dados</h2>
-            <p>
-                Os seus dados podem ser tratados em países fora do seu país de residência. Quando isso ocorrer, adotaremos salvaguardas adequadas para proteger os seus dados em conformidade com a legislação aplicável, como cláusulas contratuais-tipo ou outros mecanismos legalmente reconhecidos.
-            </p>
-
-            <h2>7. Conservação dos dados</h2>
-            <p>
-                Conservamos os seus dados apenas durante o tempo necessário para os fins descritos nesta Política de Privacidade ou durante o período exigido por lei. Depois disso, os dados serão eliminados, anonimizados ou conservados apenas quando necessário para cumprimento legal ou defesa de direitos em processos legais.
-            </p>
-
-            <h2>8. Segurança dos dados</h2>
-            <p>
-                Utilizamos medidas técnicas e organizativas adequadas para proteger os seus dados contra acessos não autorizados, perda, alteração ou divulgação ilícita. No entanto, nenhum sistema ou transmissão de dados através da Internet pode ser garantido como totalmente seguro.
-            </p>
-
-            <h2>9. Privacidade das crianças</h2>
-            <p>
-                Os nossos serviços não são conscientemente dirigidos a crianças, salvo quando permitido pela legislação aplicável. Se tivermos conhecimento de que foram recolhidos dados pessoais de uma criança de forma ilícita ou sem a base necessária, tomaremos as medidas adequadas para eliminar esses dados.
-            </p>
-
-            <h2>10. Os seus direitos</h2>
-            <p>Dependendo da legislação aplicável, poderá ter o direito de:</p>
-            <ul>
-                <li>Aceder aos seus dados pessoais</li>
-                <li>Corrigir dados inexatos ou incompletos</li>
-                <li>Solicitar a eliminação dos seus dados</li>
-                <li>Solicitar a limitação do tratamento</li>
-                <li>Opor-se a determinados tipos de tratamento</li>
-                <li>Retirar o seu consentimento a qualquer momento, quando o tratamento se basear no consentimento</li>
-                <li>Solicitar a portabilidade dos dados, quando aplicável</li>
-                <li>Apresentar reclamação à autoridade de controlo competente</li>
-            </ul>
-            <p>
-                Para exercer estes direitos, pode contactar-nos através de:
-                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
-            </p>
-
-            <h2>11. Cookies e tecnologias semelhantes</h2>
-            <p>
-                Podemos utilizar cookies ou tecnologias semelhantes no nosso website ou serviços relacionados. Para mais informações, consulte a nossa Política de Cookies.
-            </p>
-
-            <h2>12. Alterações a esta política</h2>
-            <p>
-                Reservamo-nos o direito de atualizar esta Política de Privacidade a qualquer momento. Quaisquer alterações serão publicadas nesta página ou nos nossos serviços, quando apropriado. A versão atualizada entra em vigor a partir da data de publicação, salvo indicação em contrário.
-            </p>
-
-            <h2>13. Contacto</h2>
-            <p>
-                Se tiver questões sobre esta Política de Privacidade ou sobre o tratamento dos seus dados, pode contactar-nos através de:
-            </p>
-            <p>
-                Sky of Empire<br>
-                E-mail: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-                Sede: Suíça
-            </p>
-        </div>
-
-        <div class="footer-space"></div>
     </div>
 
     <script>
