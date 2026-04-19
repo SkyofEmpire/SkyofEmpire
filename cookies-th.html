@@ -77,18 +77,21 @@
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -101,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -134,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -192,78 +205,87 @@
             white-space: nowrap;
         }
 
-        .policy-wrap {
+        .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 2;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
             max-width: 980px;
-            margin: 20px auto 0;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 26px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
-            color: #f5ebd8;
-            line-height: 1.8;
+            text-align: left;
         }
 
-        .policy-wrap h1,
-        .policy-wrap h2,
-        .policy-wrap h3 {
+        h1 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 30px;
             color: #f2e2bf;
         }
 
-        .policy-wrap h1 {
-            font-size: 30px;
-            margin-top: 0;
-            margin-bottom: 18px;
-        }
-
-        .policy-wrap h2 {
-            font-size: 22px;
-            margin-top: 28px;
+        h2 {
+            margin-top: 26px;
             margin-bottom: 12px;
+            font-size: 22px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h3 {
-            font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
-        }
-
-        .policy-wrap p,
-        .policy-wrap li {
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
-        .policy-wrap ul {
-            margin: 8px 0 16px 0;
+        ul {
+            margin: 0 0 14px 0;
             padding-left: 22px;
         }
 
-        .policy-wrap a {
+        a.inline-link {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .policy-wrap a:hover {
+        a.inline-link:hover {
             text-decoration: underline;
         }
 
-        .footer-space {
-            height: 10px;
+        .meta {
+            margin-bottom: 22px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -276,21 +298,19 @@
                 font-size: 17px;
             }
 
-            .policy-wrap {
+            .card {
                 padding: 20px 16px;
-                margin-top: 16px;
             }
 
-            .policy-wrap h1 {
-                font-size: 24px;
+            h1 {
+                font-size: 25px;
             }
 
-            .policy-wrap h2 {
+            h2 {
                 font-size: 20px;
             }
 
-            .policy-wrap p,
-            .policy-wrap li {
+            p, li {
                 font-size: 15px;
             }
 
@@ -398,167 +418,68 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index-th.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">ย้อนกลับ</span>
+                </a>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h1>นโยบายคุกกี้</h1>
+
+                    <div class="meta">
+                        <p><strong>อัปเดตล่าสุด:</strong> 1 เมษายน 2026</p>
+                        <p><strong>ผู้ให้บริการ:</strong> Sky of Empire</p>
+                        <p><strong>อีเมล:</strong> <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
+                    </div>
+
+                    <h2>1. คุกกี้คืออะไร?</h2>
+                    <p>
+                        คุกกี้คือไฟล์ข้อความขนาดเล็กที่ถูกจัดเก็บไว้ในอุปกรณ์ของคุณเมื่อคุณเข้าเยี่ยมชมเว็บไซต์ คุกกี้ช่วยปรับปรุงการทำงานของเว็บไซต์ จดจำการตั้งค่าบางอย่าง และสนับสนุนฟังก์ชันพื้นฐานของเว็บไซต์
+                    </p>
+
+                    <h2>2. เราใช้คุกกี้อย่างไร?</h2>
+                    <p>
+                        เราใช้คุกกี้เพื่อให้เว็บไซต์ทำงานได้อย่างถูกต้อง ปรับปรุงประสบการณ์การใช้งานของผู้ใช้ บันทึกการตั้งค่า เช่น ภาษาที่เลือก และทำความเข้าใจว่าผู้เยี่ยมชมใช้หน้าเว็บของเราอย่างไร
+                    </p>
+
+                    <h2>3. ประเภทของคุกกี้ที่เราอาจใช้</h2>
+                    <ul>
+                        <li><strong>คุกกี้ที่จำเป็น:</strong> จำเป็นต่อการทำงานพื้นฐานของเว็บไซต์</li>
+                        <li><strong>คุกกี้การตั้งค่า:</strong> จัดเก็บการตั้งค่า เช่น ภาษาที่คุณเลือก</li>
+                        <li><strong>คุกกี้การวิเคราะห์:</strong> ช่วยให้เราเข้าใจการใช้งานเว็บไซต์และปรับปรุงเนื้อหาของเรา</li>
+                        <li><strong>คุกกี้ประสิทธิภาพ:</strong> สนับสนุนความเร็วและความเสถียรในการโหลดเว็บไซต์</li>
+                    </ul>
+
+                    <h2>4. คุกกี้ของบุคคลที่สาม</h2>
+                    <p>
+                        ในบางกรณี อาจมีการใช้บริการภายนอกที่ตั้งค่าคุกกี้ของตนเอง ตัวอย่างเช่น เพื่อวัตถุประสงค์ด้านการวิเคราะห์ หรือเพื่อแสดงองค์ประกอบที่ฝังอยู่บางรายการ การใช้คุกกี้ดังกล่าวจะอยู่ภายใต้นโยบายความเป็นส่วนตัวของบุคคลที่สามเหล่านั้น
+                    </p>
+
+                    <h2>5. การจัดการคุกกี้</h2>
+                    <p>
+                        คุณสามารถควบคุมหรือลบคุกกี้ได้ผ่านการตั้งค่าเบราว์เซอร์ของคุณ โปรดทราบว่าการปิดใช้งานคุกกี้บางประเภทอาจส่งผลต่อการทำงานของบางส่วนของเว็บไซต์ หรือทำให้การใช้งานไม่สะดวกเท่าที่ควร
+                    </p>
+
+                    <h2>6. การเปลี่ยนแปลงนโยบายนี้</h2>
+                    <p>
+                        เราอาจอัปเดตนโยบายคุกกี้นี้เป็นครั้งคราว การอัปเดตใด ๆ จะถูกเผยแพร่บนหน้านี้พร้อมวันที่อัปเดตล่าสุดฉบับใหม่
+                    </p>
+
+                    <h2>7. ติดต่อเรา</h2>
+                    <p>
+                        หากคุณมีคำถามเกี่ยวกับการใช้คุกกี้ของเรา คุณสามารถติดต่อเราได้ทางอีเมลที่
+                        <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+                    </p>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
             </div>
         </div>
-
-        <div class="policy-wrap">
-            <h1>นโยบายคุกกี้</h1>
-
-            <p><strong>อัปเดตล่าสุด:</strong> 1 เมษายน 2026</p>
-            <p><strong>ผู้ให้บริการ:</strong> Sky of Empire<br>
-            <strong>อีเมล:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-            <strong>ที่ตั้ง:</strong> สวิตเซอร์แลนด์</p>
-
-            <h2>1. บทนำ</h2>
-            <p>
-                นโยบายคุกกี้ฉบับนี้อธิบายว่า Sky of Empire ("เรา", "พวกเรา" หรือ "ของเรา") ใช้คุกกี้และเทคโนโลยีที่คล้ายกันอย่างไร เมื่อคุณใช้เว็บไซต์หรือบริการดิจิทัลของเรา โดยจะอธิบายว่าเราเก็บข้อมูลอะไร ใช้อย่างไร และคุณมีสิทธิอะไรบ้าง
-            </p>
-
-            <h2>2. คุกกี้คืออะไร?</h2>
-            <p>
-                คุกกี้คือไฟล์ข้อความขนาดเล็กที่ถูกบันทึกไว้ในคอมพิวเตอร์หรืออุปกรณ์มือถือของคุณเมื่อคุณเยี่ยมชมเว็บไซต์ คุกกี้ช่วยให้เว็บไซต์ทำงานได้อย่างมีประสิทธิภาพมากขึ้น และให้ข้อมูลเกี่ยวกับพฤติกรรมของผู้ใช้
-            </p>
-            <p>
-                คุกกี้ช่วยให้เราสามารถจดจำอุปกรณ์ของคุณและบันทึกการตั้งค่าของคุณได้
-            </p>
-
-            <h2>3. เราใช้คุกกี้ประเภทใดบ้าง?</h2>
-
-            <h3>3.1 คุกกี้ที่จำเป็น</h3>
-            <p>
-                คุกกี้เหล่านี้จำเป็นต่อการทำงานของเว็บไซต์และไม่สามารถปิดใช้งานได้
-            </p>
-            <p><strong>ตัวอย่าง:</strong></p>
-            <ul>
-                <li>การจัดการเซสชัน</li>
-                <li>ความปลอดภัยและการยืนยันตัวตน</li>
-                <li>การบันทึกการตั้งค่าความเป็นส่วนตัว</li>
-            </ul>
-
-            <h3>3.2 คุกกี้วิเคราะห์และสถิติ</h3>
-            <p>
-                คุกกี้เหล่านี้ช่วยให้เราเข้าใจว่าผู้เข้าชมใช้เว็บไซต์ของเราอย่างไร เพื่อให้เราสามารถปรับปรุงบริการของเราได้
-            </p>
-            <p><strong>ตัวอย่าง:</strong></p>
-            <ul>
-                <li>Google Analytics</li>
-                <li>Firebase Analytics</li>
-            </ul>
-
-            <h3>3.3 คุกกี้เชิงฟังก์ชัน</h3>
-            <p>
-                คุกกี้เหล่านี้ช่วยให้สามารถใช้ฟังก์ชันเพิ่มเติมและการปรับแต่งส่วนบุคคลได้
-            </p>
-            <p><strong>ตัวอย่าง:</strong></p>
-            <ul>
-                <li>การบันทึกการตั้งค่าภาษา</li>
-                <li>การตั้งค่าผู้ใช้</li>
-            </ul>
-
-            <h3>3.4 คุกกี้เพื่อการตลาดและโฆษณา</h3>
-            <p>
-                คุกกี้เหล่านี้ใช้เพื่อแสดงโฆษณาที่เกี่ยวข้องและวัดประสิทธิภาพของแคมเปญ
-            </p>
-            <p><strong>ตัวอย่าง:</strong></p>
-            <ul>
-                <li>Google Ads</li>
-                <li>Meta (Facebook) Pixel</li>
-                <li>Unity Ads</li>
-                <li>AdMob</li>
-            </ul>
-
-            <h2>4. คุกกี้ของบุคคลที่สาม</h2>
-            <p>
-                เราอาจใช้ผู้ให้บริการบุคคลที่สามที่วางคุกกี้ในนามของเรา รวมถึง:
-            </p>
-            <ul>
-                <li>Google</li>
-                <li>Apple</li>
-                <li>Unity Technologies</li>
-                <li>Meta Platforms</li>
-                <li>Firebase</li>
-                <li>พันธมิตรด้านโฆษณาและการวิเคราะห์</li>
-            </ul>
-            <p>
-                บุคคลที่สามเหล่านี้ประมวลผลข้อมูลตามนโยบายความเป็นส่วนตัวของตนเอง
-            </p>
-
-            <h2>5. ฐานทางกฎหมาย</h2>
-            <p>
-                การใช้คุกกี้อาศัยพื้นฐานทางกฎหมายดังต่อไปนี้:
-            </p>
-            <ul>
-                <li>ความยินยอมของคุณตามมาตรา 6 วรรค 1 ข้อ (a) ของ GDPR</li>
-                <li>ผลประโยชน์อันชอบด้วยกฎหมายของเราตามมาตรา 6 วรรค 1 ข้อ (f) ของ GDPR</li>
-                <li>ภาระผูกพันทางกฎหมาย</li>
-            </ul>
-            <p>
-                คุกกี้ที่จำเป็นไม่ต้องได้รับความยินยอมล่วงหน้า
-            </p>
-
-            <h2>6. คุณสามารถจัดการคุกกี้ได้อย่างไร?</h2>
-            <p>
-                คุณสามารถจัดการหรือปิดใช้งานคุกกี้ผ่านการตั้งค่าเบราว์เซอร์ของคุณได้
-            </p>
-
-            <p><strong>การตั้งค่าเบราว์เซอร์:</strong></p>
-            <ul>
-                <li>Chrome: <a href="https://support.google.com/chrome">support.google.com/chrome</a></li>
-                <li>Safari: <a href="https://support.apple.com">support.apple.com</a></li>
-                <li>Firefox: <a href="https://support.mozilla.org">support.mozilla.org</a></li>
-                <li>Edge: <a href="https://support.microsoft.com">support.microsoft.com</a></li>
-            </ul>
-
-            <p><strong>อุปกรณ์มือถือ:</strong></p>
-            <ul>
-                <li>iOS: การตั้งค่า → ความเป็นส่วนตัว → การติดตาม</li>
-                <li>Android: การตั้งค่า → Google → โฆษณา</li>
-            </ul>
-
-            <p>
-                โปรดทราบว่าการปิดใช้งานคุกกี้อาจทำให้การทำงานของบริการของเราบางส่วนถูกจำกัด
-            </p>
-
-            <h2>7. ระยะเวลาการจัดเก็บ</h2>
-            <p>
-                คุกกี้อาจเป็นได้ดังนี้:
-            </p>
-            <ul>
-                <li><strong>คุกกี้เซสชัน:</strong> จะถูกลบเมื่อคุณปิดเบราว์เซอร์</li>
-                <li><strong>คุกกี้ถาวร:</strong> จะยังคงอยู่ในอุปกรณ์ของคุณจนกว่าจะถูกลบหรือหมดอายุ</li>
-            </ul>
-
-            <h2>8. สิทธิของคุณ</h2>
-            <p>
-                คุณมีสิทธิที่จะ:
-            </p>
-            <ul>
-                <li>เข้าถึงข้อมูลของคุณ</li>
-                <li>แก้ไขหรือลบข้อมูล</li>
-                <li>จำกัดการประมวลผล</li>
-                <li>คัดค้านการประมวลผล</li>
-                <li>เพิกถอนความยินยอมของคุณ</li>
-            </ul>
-
-            <p>
-                สามารถส่งคำขอได้ที่:
-                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
-            </p>
-
-            <h2>9. การเปลี่ยนแปลงนโยบายนี้</h2>
-            <p>
-                เราขอสงวนสิทธิ์ในการอัปเดตนโยบายคุกกี้นี้ได้ตลอดเวลา โดยการเปลี่ยนแปลงจะเผยแพร่บนเว็บไซต์ของเรา
-            </p>
-
-            <h2>10. ติดต่อ</h2>
-            <p>
-                Sky of Empire<br>
-                อีเมล: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-                ที่ตั้ง: สวิตเซอร์แลนด์
-            </p>
-        </div>
-
-        <div class="footer-space"></div>
     </div>
 
     <script>
