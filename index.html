@@ -1146,6 +1146,15 @@
             }
         }
 
+        function applyStoredCookieChoice() {
+            const saved = loadCookieFromStorage();
+            if (!saved) return;
+
+            cookieState.preferences = !!saved.preferences;
+            cookieState.analytics = !!saved.analytics;
+            cookieState.media = !!saved.media;
+        }
+
         function acceptAllCookies() {
             cookieState.preferences = true;
             cookieState.analytics = true;
@@ -1190,17 +1199,6 @@
             closeCookieModal();
         }
 
-        function applyStoredCookieChoice() {
-            const saved = loadCookieFromStorage();
-            if (!saved || saved.consentGiven !== true) return false;
-
-            cookieState.preferences = !!saved.preferences;
-            cookieState.analytics = !!saved.analytics;
-            cookieState.media = !!saved.media;
-
-            return true;
-        }
-
         function wasRealReload() {
             const navEntries = performance.getEntriesByType("navigation");
             if (navEntries.length > 0) {
@@ -1219,16 +1217,7 @@
             openCookieModal();
         });
 
-        document.getElementById("closeCookieBanner").addEventListener("click", function () {
-            saveCookieToStorage({
-                consentGiven: true,
-                preferences: cookieState.preferences,
-                analytics: cookieState.analytics,
-                media: cookieState.media
-            });
-            hideCookieBanner();
-        });
-
+        document.getElementById("closeCookieBanner").addEventListener("click", hideCookieBanner);
         document.getElementById("closeCookieModal").addEventListener("click", closeCookieModal);
 
         document.getElementById("acceptAllTop").addEventListener("click", acceptAllCookies);
@@ -1265,10 +1254,10 @@
             }
         });
 
-        const hasSavedChoice = applyStoredCookieChoice();
+        applyStoredCookieChoice();
         renderCookieTab("overview");
 
-        if (wasRealReload() && !hasSavedChoice) {
+        if (wasRealReload()) {
             showCookieBanner();
         } else {
             hideCookieBanner();
