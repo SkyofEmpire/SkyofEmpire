@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>クッキーポリシー - Sky of Empire</title>
+    <title>Cookieポリシー - Sky of Empire</title>
     <style>
         * {
             box-sizing: border-box;
@@ -77,18 +77,21 @@
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -101,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -134,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -192,78 +205,87 @@
             white-space: nowrap;
         }
 
-        .policy-wrap {
+        .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 2;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
             max-width: 980px;
-            margin: 20px auto 0;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 26px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
-            color: #f5ebd8;
-            line-height: 1.8;
+            text-align: left;
         }
 
-        .policy-wrap h1,
-        .policy-wrap h2,
-        .policy-wrap h3 {
+        h1 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 30px;
             color: #f2e2bf;
         }
 
-        .policy-wrap h1 {
-            font-size: 30px;
-            margin-top: 0;
-            margin-bottom: 18px;
-        }
-
-        .policy-wrap h2 {
-            font-size: 22px;
-            margin-top: 28px;
+        h2 {
+            margin-top: 26px;
             margin-bottom: 12px;
+            font-size: 22px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h3 {
-            font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
-        }
-
-        .policy-wrap p,
-        .policy-wrap li {
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
-        .policy-wrap ul {
-            margin: 8px 0 16px 0;
+        ul {
+            margin: 0 0 14px 0;
             padding-left: 22px;
         }
 
-        .policy-wrap a {
+        a.inline-link {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .policy-wrap a:hover {
+        a.inline-link:hover {
             text-decoration: underline;
         }
 
-        .footer-space {
-            height: 10px;
+        .meta {
+            margin-bottom: 22px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -276,21 +298,19 @@
                 font-size: 17px;
             }
 
-            .policy-wrap {
+            .card {
                 padding: 20px 16px;
-                margin-top: 16px;
             }
 
-            .policy-wrap h1 {
-                font-size: 24px;
+            h1 {
+                font-size: 25px;
             }
 
-            .policy-wrap h2 {
+            h2 {
                 font-size: 20px;
             }
 
-            .policy-wrap p,
-            .policy-wrap li {
+            p, li {
                 font-size: 15px;
             }
 
@@ -398,167 +418,68 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index-ja.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">戻る</span>
+                </a>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h1>Cookieポリシー</h1>
+
+                    <div class="meta">
+                        <p><strong>最終更新日：</strong>2026年4月1日</p>
+                        <p><strong>運営者：</strong>Sky of Empire</p>
+                        <p><strong>メールアドレス：</strong><a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
+                    </div>
+
+                    <h2>1. Cookieとは何ですか？</h2>
+                    <p>
+                        Cookieは、ウェブサイトを訪問した際にお使いの端末に保存される小さなテキストファイルです。これにより、サイトの機能向上、特定の設定の記憶、基本機能のサポートが行われます。
+                    </p>
+
+                    <h2>2. 当サイトはCookieをどのように使用しますか？</h2>
+                    <p>
+                        当サイトでは、ウェブサイトを正しく動作させるため、ユーザー体験を向上させるため、言語設定などの好みを保存するため、そして訪問者がどのようにページを利用しているかを理解するためにCookieを使用します。
+                    </p>
+
+                    <h2>3. 使用する可能性のあるCookieの種類</h2>
+                    <ul>
+                        <li><strong>必須Cookie：</strong>ウェブサイトの基本的な動作に必要です。</li>
+                        <li><strong>設定Cookie：</strong>選択した言語などの設定を保存します。</li>
+                        <li><strong>分析Cookie：</strong>ウェブサイトの利用状況を把握し、内容を改善するために役立ちます。</li>
+                        <li><strong>パフォーマンスCookie：</strong>サイト読み込み時の速度と安定性を支えます。</li>
+                    </ul>
+
+                    <h2>4. 第三者のCookie</h2>
+                    <p>
+                        場合によっては、分析目的や埋め込み要素の表示のために、外部サービスが独自のCookieを設定することがあります。これらのCookieの使用は、それぞれの第三者のプライバシーポリシーに従います。
+                    </p>
+
+                    <h2>5. Cookieの管理</h2>
+                    <p>
+                        Cookieはブラウザの設定から管理または削除できます。ただし、一部のCookieを無効にすると、ウェブサイトの一部機能に影響が出たり、使いやすさが低下する場合があります。
+                    </p>
+
+                    <h2>6. 本ポリシーの変更</h2>
+                    <p>
+                        当社はこのCookieポリシーを随時更新する場合があります。更新が行われた場合は、改訂後の最終更新日とともにこのページに掲載されます。
+                    </p>
+
+                    <h2>7. お問い合わせ</h2>
+                    <p>
+                        Cookieの使用についてご質問がある場合は、以下のメールアドレスまでご連絡ください：
+                        <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+                    </p>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
             </div>
         </div>
-
-        <div class="policy-wrap">
-            <h1>クッキーポリシー</h1>
-
-            <p><strong>最終更新日:</strong> 2026年4月1日</p>
-            <p><strong>運営者:</strong> Sky of Empire<br>
-            <strong>メールアドレス:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-            <strong>所在地:</strong> スイス</p>
-
-            <h2>1. はじめに</h2>
-            <p>
-                本クッキーポリシーは、Sky of Empire（以下「当社」）が、お客様が当社のウェブサイトまたはデジタルサービスを利用する際に、クッキーおよび類似技術をどのように使用するかを説明するものです。どのような情報を収集するのか、その利用方法、およびお客様の権利について説明します。
-            </p>
-
-            <h2>2. クッキーとは何ですか？</h2>
-            <p>
-                クッキーとは、ウェブサイトを訪問した際にお客様のコンピューターまたはモバイル端末に保存される小さなテキストファイルです。これにより、ウェブサイトをより効率的に動作させるとともに、利用状況に関する情報を提供します。
-            </p>
-            <p>
-                クッキーにより、当社はお客様の端末を認識し、設定内容を保存することができます。
-            </p>
-
-            <h2>3. 当社が使用するクッキーの種類</h2>
-
-            <h3>3.1 必須クッキー</h3>
-            <p>
-                これらのクッキーはウェブサイトの運営に必要であり、無効にすることはできません。
-            </p>
-            <p><strong>例:</strong></p>
-            <ul>
-                <li>セッション管理</li>
-                <li>セキュリティおよび認証</li>
-                <li>プライバシー設定の保存</li>
-            </ul>
-
-            <h3>3.2 分析および統計クッキー</h3>
-            <p>
-                これらのクッキーは、訪問者が当社のウェブサイトをどのように利用しているかを理解し、サービス改善に役立てるために使用されます。
-            </p>
-            <p><strong>例:</strong></p>
-            <ul>
-                <li>Google Analytics</li>
-                <li>Firebase Analytics</li>
-            </ul>
-
-            <h3>3.3 機能クッキー</h3>
-            <p>
-                これらのクッキーは、強化された機能やパーソナライズを可能にします。
-            </p>
-            <p><strong>例:</strong></p>
-            <ul>
-                <li>言語設定の保存</li>
-                <li>ユーザー設定</li>
-            </ul>
-
-            <h3>3.4 マーケティングおよび広告クッキー</h3>
-            <p>
-                これらのクッキーは、関連性の高い広告を表示し、キャンペーンの効果を測定するために使用されます。
-            </p>
-            <p><strong>例:</strong></p>
-            <ul>
-                <li>Google Ads</li>
-                <li>Meta（Facebook）Pixel</li>
-                <li>Unity Ads</li>
-                <li>AdMob</li>
-            </ul>
-
-            <h2>4. 第三者のクッキー</h2>
-            <p>
-                当社は、以下を含む第三者プロバイダーが当社に代わってクッキーを設定する場合があります。
-            </p>
-            <ul>
-                <li>Google</li>
-                <li>Apple</li>
-                <li>Unity Technologies</li>
-                <li>Meta Platforms</li>
-                <li>Firebase</li>
-                <li>広告および分析パートナー</li>
-            </ul>
-            <p>
-                これらの第三者は、それぞれ独自のプライバシーポリシーに従ってデータを処理します。
-            </p>
-
-            <h2>5. 法的根拠</h2>
-            <p>
-                クッキーの使用は、以下に基づいて行われます。
-            </p>
-            <ul>
-                <li>GDPR第6条第1項(a)に基づくお客様の同意</li>
-                <li>GDPR第6条第1項(f)に基づく当社の正当な利益</li>
-                <li>法的義務</li>
-            </ul>
-            <p>
-                必須クッキーには同意は必要ありません。
-            </p>
-
-            <h2>6. クッキーをどのように管理できますか？</h2>
-            <p>
-                お客様は、ブラウザの設定を通じてクッキーを管理または無効化することができます。
-            </p>
-
-            <p><strong>ブラウザ設定:</strong></p>
-            <ul>
-                <li>Chrome: <a href="https://support.google.com/chrome">support.google.com/chrome</a></li>
-                <li>Safari: <a href="https://support.apple.com">support.apple.com</a></li>
-                <li>Firefox: <a href="https://support.mozilla.org">support.mozilla.org</a></li>
-                <li>Edge: <a href="https://support.microsoft.com">support.microsoft.com</a></li>
-            </ul>
-
-            <p><strong>モバイル端末:</strong></p>
-            <ul>
-                <li>iOS: 設定 → プライバシー → トラッキング</li>
-                <li>Android: 設定 → Google → 広告</li>
-            </ul>
-
-            <p>
-                クッキーを無効にすると、当社サービスの一部機能が制限される場合があります。
-            </p>
-
-            <h2>7. 保存期間</h2>
-            <p>
-                クッキーには以下の種類があります。
-            </p>
-            <ul>
-                <li><strong>セッションクッキー:</strong> ブラウザを閉じると削除されます</li>
-                <li><strong>永続的クッキー:</strong> 削除されるか有効期限が切れるまで端末に保存されます</li>
-            </ul>
-
-            <h2>8. お客様の権利</h2>
-            <p>
-                お客様には以下の権利があります。
-            </p>
-            <ul>
-                <li>ご自身のデータへのアクセス</li>
-                <li>データの訂正または削除</li>
-                <li>処理の制限</li>
-                <li>処理への異議申し立て</li>
-                <li>同意の撤回</li>
-            </ul>
-
-            <p>
-                ご請求は以下までお送りください:
-                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
-            </p>
-
-            <h2>9. 本ポリシーの変更</h2>
-            <p>
-                当社は、本クッキーポリシーをいつでも更新する権利を留保します。変更は当社ウェブサイトに掲載されます。
-            </p>
-
-            <h2>10. お問い合わせ</h2>
-            <p>
-                Sky of Empire<br>
-                メールアドレス: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-                所在地: スイス
-            </p>
-        </div>
-
-        <div class="footer-space"></div>
     </div>
 
     <script>
