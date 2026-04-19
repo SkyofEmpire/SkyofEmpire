@@ -77,19 +77,22 @@
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
             direction: ltr;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -102,23 +105,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -135,15 +148,16 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
+            direction: ltr;
         }
 
         .lang-menu.open {
@@ -193,80 +207,88 @@
             white-space: nowrap;
         }
 
-        .policy-wrap {
+        .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 2;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
             max-width: 980px;
-            margin: 20px auto 0;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 26px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
-            color: #f5ebd8;
-            line-height: 1.85;
             text-align: right;
-            direction: rtl;
         }
 
-        .policy-wrap h1,
-        .policy-wrap h2,
-        .policy-wrap h3 {
-            color: #f2e2bf;
+        h1 {
             margin-top: 0;
-        }
-
-        .policy-wrap h1 {
-            font-size: 30px;
             margin-bottom: 18px;
+            font-size: 30px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h2 {
-            font-size: 22px;
-            margin-top: 28px;
+        h2 {
+            margin-top: 26px;
             margin-bottom: 12px;
+            font-size: 22px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h3 {
-            font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
-        }
-
-        .policy-wrap p,
-        .policy-wrap li {
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
-        .policy-wrap ul {
-            margin: 8px 0 16px 0;
+        ul {
+            margin: 0 0 14px 0;
             padding-right: 22px;
+            padding-left: 0;
         }
 
-        .policy-wrap a {
+        a.inline-link {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .policy-wrap a:hover {
+        a.inline-link:hover {
             text-decoration: underline;
         }
 
-        .footer-space {
-            height: 10px;
+        .meta {
+            margin-bottom: 22px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -279,21 +301,19 @@
                 font-size: 17px;
             }
 
-            .policy-wrap {
+            .card {
                 padding: 20px 16px;
-                margin-top: 16px;
             }
 
-            .policy-wrap h1 {
-                font-size: 24px;
+            h1 {
+                font-size: 25px;
             }
 
-            .policy-wrap h2 {
+            h2 {
                 font-size: 20px;
             }
 
-            .policy-wrap p,
-            .policy-wrap li {
+            p, li {
                 font-size: 15px;
             }
 
@@ -401,170 +421,68 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index-ar.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">رجوع</span>
+                </a>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h1>سياسة ملفات تعريف الارتباط</h1>
+
+                    <div class="meta">
+                        <p><strong>آخر تحديث:</strong> 1 أبريل 2026</p>
+                        <p><strong>الجهة المشغلة:</strong> Sky of Empire</p>
+                        <p><strong>البريد الإلكتروني:</strong> <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
+                    </div>
+
+                    <h2>1. ما هي ملفات تعريف الارتباط؟</h2>
+                    <p>
+                        ملفات تعريف الارتباط هي ملفات نصية صغيرة يتم تخزينها على جهازك عند زيارة موقع إلكتروني. تساعد هذه الملفات على تحسين أداء الموقع، وتذكر بعض الإعدادات، ودعم الوظائف الأساسية.
+                    </p>
+
+                    <h2>2. كيف نستخدم ملفات تعريف الارتباط؟</h2>
+                    <p>
+                        نستخدم ملفات تعريف الارتباط لتشغيل الموقع بشكل صحيح، وتحسين تجربة الاستخدام، وحفظ تفضيلات اللغة أو العرض، وفهم كيفية استخدام الزوار لصفحاتنا.
+                    </p>
+
+                    <h2>3. أنواع ملفات تعريف الارتباط التي قد نستخدمها</h2>
+                    <ul>
+                        <li><strong>ملفات تعريف الارتباط الضرورية:</strong> مطلوبة لتشغيل الوظائف الأساسية للموقع.</li>
+                        <li><strong>ملفات التفضيلات:</strong> تحفظ إعدادات مثل اللغة المختارة.</li>
+                        <li><strong>ملفات التحليل:</strong> تساعدنا على فهم استخدام الموقع وتحسينه.</li>
+                        <li><strong>ملفات الأداء:</strong> تدعم سرعة واستقرار عرض المحتوى.</li>
+                    </ul>
+
+                    <h2>4. ملفات تعريف الارتباط الخاصة بالطرف الثالث</h2>
+                    <p>
+                        في بعض الحالات، قد يتم استخدام خدمات خارجية يمكن أن تضع ملفات تعريف ارتباط خاصة بها، على سبيل المثال لأغراض التحليل أو لعرض بعض العناصر المضمنة. يخضع استخدام هذه الملفات لسياسات الخصوصية الخاصة بتلك الجهات.
+                    </p>
+
+                    <h2>5. إدارة ملفات تعريف الارتباط</h2>
+                    <p>
+                        يمكنك التحكم في ملفات تعريف الارتباط أو حذفها من خلال إعدادات المتصفح الخاص بك. يرجى ملاحظة أن تعطيل بعض الملفات قد يؤثر على عمل بعض أجزاء الموقع أو على سهولة الاستخدام.
+                    </p>
+
+                    <h2>6. التغييرات على هذه السياسة</h2>
+                    <p>
+                        قد نقوم بتحديث سياسة ملفات تعريف الارتباط هذه من وقت لآخر. سيتم نشر أي تحديث على هذه الصفحة مع تعديل تاريخ آخر تحديث.
+                    </p>
+
+                    <h2>7. التواصل معنا</h2>
+                    <p>
+                        إذا كانت لديك أي أسئلة حول استخدامنا لملفات تعريف الارتباط، يمكنك التواصل معنا عبر البريد الإلكتروني:
+                        <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+                    </p>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
             </div>
         </div>
-
-        <div class="policy-wrap">
-            <h1>سياسة ملفات تعريف الارتباط</h1>
-
-            <p><strong>آخر تحديث:</strong> 1 أبريل 2026</p>
-            <p><strong>المشغّل:</strong> Sky of Empire<br>
-            <strong>البريد الإلكتروني:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-            <strong>المقر:</strong> سويسرا</p>
-
-            <h2>1. المقدمة</h2>
-            <p>
-                توضح سياسة ملفات تعريف الارتباط هذه كيف يستخدم Sky of Empire ("نحن" أو "لنا") ملفات تعريف الارتباط
-                والتقنيات المشابهة عند استخدامك لموقعنا الإلكتروني أو خدماتنا الرقمية. كما تشرح ما هي المعلومات
-                التي نقوم بجمعها، وكيف نستخدمها، وما هي الحقوق المتاحة لك.
-            </p>
-
-            <h2>2. ما هي ملفات تعريف الارتباط؟</h2>
-            <p>
-                ملفات تعريف الارتباط هي ملفات نصية صغيرة يتم تخزينها على جهاز الكمبيوتر أو الهاتف المحمول الخاص بك
-                عند زيارة موقع إلكتروني. وهي تساعد على تشغيل المواقع بكفاءة أكبر، كما توفر معلومات عن سلوك المستخدم.
-            </p>
-            <p>
-                تمكّننا ملفات تعريف الارتباط من التعرّف على جهازك وحفظ تفضيلاتك.
-            </p>
-
-            <h2>3. ما أنواع ملفات تعريف الارتباط التي نستخدمها؟</h2>
-
-            <h3>3.1 ملفات تعريف الارتباط الضرورية</h3>
-            <p>
-                هذه الملفات ضرورية لتشغيل الموقع ولا يمكن تعطيلها.
-            </p>
-            <p><strong>أمثلة:</strong></p>
-            <ul>
-                <li>إدارة الجلسات</li>
-                <li>الأمان والمصادقة</li>
-                <li>حفظ إعدادات الخصوصية</li>
-            </ul>
-
-            <h3>3.2 ملفات تعريف الارتباط الخاصة بالتحليلات والإحصاءات</h3>
-            <p>
-                تساعدنا هذه الملفات على فهم كيفية استخدام الزوار لموقعنا حتى نتمكن من تحسين خدماتنا.
-            </p>
-            <p><strong>أمثلة:</strong></p>
-            <ul>
-                <li>Google Analytics</li>
-                <li>Firebase Analytics</li>
-            </ul>
-
-            <h3>3.3 ملفات تعريف الارتباط الوظيفية</h3>
-            <p>
-                تتيح هذه الملفات ميزات إضافية وإعدادات مخصصة.
-            </p>
-            <p><strong>أمثلة:</strong></p>
-            <ul>
-                <li>حفظ إعدادات اللغة</li>
-                <li>تفضيلات المستخدم</li>
-            </ul>
-
-            <h3>3.4 ملفات تعريف الارتباط التسويقية والإعلانية</h3>
-            <p>
-                تُستخدم هذه الملفات لعرض إعلانات ذات صلة وقياس فعالية الحملات.
-            </p>
-            <p><strong>أمثلة:</strong></p>
-            <ul>
-                <li>Google Ads</li>
-                <li>Meta (Facebook) Pixel</li>
-                <li>Unity Ads</li>
-                <li>AdMob</li>
-            </ul>
-
-            <h2>4. ملفات تعريف الارتباط الخاصة بالأطراف الثالثة</h2>
-            <p>
-                قد نستعين بجهات خارجية تستخدم ملفات تعريف الارتباط نيابةً عنا، بما في ذلك:
-            </p>
-            <ul>
-                <li>Google</li>
-                <li>Apple</li>
-                <li>Unity Technologies</li>
-                <li>Meta Platforms</li>
-                <li>Firebase</li>
-                <li>شركاء الإعلانات والتحليلات</li>
-            </ul>
-            <p>
-                تقوم هذه الجهات الخارجية بمعالجة البيانات وفقًا لسياسات الخصوصية الخاصة بها.
-            </p>
-
-            <h2>5. الأساس القانوني</h2>
-            <p>
-                يتم استخدام ملفات تعريف الارتباط على أساس:
-            </p>
-            <ul>
-                <li>موافقتك وفقًا للمادة 6 الفقرة 1 (أ) من اللائحة العامة لحماية البيانات (GDPR)</li>
-                <li>مصلحتنا المشروعة وفقًا للمادة 6 الفقرة 1 (و) من اللائحة العامة لحماية البيانات</li>
-                <li>الالتزامات القانونية</li>
-            </ul>
-            <p>
-                لا تتطلب ملفات تعريف الارتباط الضرورية موافقة مسبقة.
-            </p>
-
-            <h2>6. كيف يمكنك إدارة ملفات تعريف الارتباط؟</h2>
-            <p>
-                يمكنك إدارة ملفات تعريف الارتباط أو تعطيلها من خلال إعدادات المتصفح الخاص بك.
-            </p>
-
-            <p><strong>إعدادات المتصفح:</strong></p>
-            <ul>
-                <li>Chrome: <a href="https://support.google.com/chrome">support.google.com/chrome</a></li>
-                <li>Safari: <a href="https://support.apple.com">support.apple.com</a></li>
-                <li>Firefox: <a href="https://support.mozilla.org">support.mozilla.org</a></li>
-                <li>Edge: <a href="https://support.microsoft.com">support.microsoft.com</a></li>
-            </ul>
-
-            <p><strong>الأجهزة المحمولة:</strong></p>
-            <ul>
-                <li>iOS: الإعدادات ← الخصوصية ← التتبع</li>
-                <li>Android: الإعدادات ← Google ← الإعلانات</li>
-            </ul>
-
-            <p>
-                يرجى ملاحظة أن تعطيل ملفات تعريف الارتباط قد يحد من وظائف خدماتنا.
-            </p>
-
-            <h2>7. مدة التخزين</h2>
-            <p>
-                يمكن أن تكون ملفات تعريف الارتباط:
-            </p>
-            <ul>
-                <li><strong>ملفات جلسة:</strong> يتم حذفها عند إغلاق المتصفح</li>
-                <li><strong>ملفات دائمة:</strong> تبقى محفوظة على جهازك حتى يتم حذفها أو انتهاء صلاحيتها</li>
-            </ul>
-
-            <h2>8. حقوقك</h2>
-            <p>
-                لديك الحق في:
-            </p>
-            <ul>
-                <li>الاطلاع على بياناتك</li>
-                <li>تصحيح البيانات أو حذفها</li>
-                <li>تقييد المعالجة</li>
-                <li>الاعتراض على المعالجة</li>
-                <li>سحب موافقتك</li>
-            </ul>
-
-            <p>
-                يمكن إرسال الطلبات إلى:
-                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
-            </p>
-
-            <h2>9. التغييرات على هذه السياسة</h2>
-            <p>
-                نحتفظ بالحق في تحديث سياسة ملفات تعريف الارتباط هذه في أي وقت. وسيتم نشر أي تغييرات على موقعنا الإلكتروني.
-            </p>
-
-            <h2>10. التواصل</h2>
-            <p>
-                Sky of Empire<br>
-                البريد الإلكتروني: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-                المقر: سويسرا
-            </p>
-        </div>
-
-        <div class="footer-space"></div>
     </div>
 
     <script>
