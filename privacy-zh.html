@@ -77,18 +77,21 @@
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -101,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -134,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -192,78 +205,87 @@
             white-space: nowrap;
         }
 
-        .policy-wrap {
+        .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 2;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
             max-width: 980px;
-            margin: 20px auto 0;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 26px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
-            color: #f5ebd8;
-            line-height: 1.8;
+            text-align: left;
         }
 
-        .policy-wrap h1,
-        .policy-wrap h2,
-        .policy-wrap h3 {
+        h1 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 30px;
             color: #f2e2bf;
         }
 
-        .policy-wrap h1 {
-            font-size: 30px;
-            margin-top: 0;
-            margin-bottom: 18px;
-        }
-
-        .policy-wrap h2 {
-            font-size: 22px;
-            margin-top: 28px;
+        h2 {
+            margin-top: 26px;
             margin-bottom: 12px;
+            font-size: 22px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h3 {
-            font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
-        }
-
-        .policy-wrap p,
-        .policy-wrap li {
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
-        .policy-wrap ul {
-            margin: 8px 0 16px 0;
+        ul {
+            margin: 0 0 14px 0;
             padding-left: 22px;
         }
 
-        .policy-wrap a {
+        a.inline-link {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .policy-wrap a:hover {
+        a.inline-link:hover {
             text-decoration: underline;
         }
 
-        .footer-space {
-            height: 10px;
+        .meta {
+            margin-bottom: 22px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -276,21 +298,19 @@
                 font-size: 17px;
             }
 
-            .policy-wrap {
+            .card {
                 padding: 20px 16px;
-                margin-top: 16px;
             }
 
-            .policy-wrap h1 {
-                font-size: 24px;
+            h1 {
+                font-size: 25px;
             }
 
-            .policy-wrap h2 {
+            h2 {
                 font-size: 20px;
             }
 
-            .policy-wrap p,
-            .policy-wrap li {
+            p, li {
                 font-size: 15px;
             }
 
@@ -398,132 +418,100 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index-zh.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">返回</span>
+                </a>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h1>隐私政策</h1>
+
+                    <div class="meta">
+                        <p><strong>最后更新：</strong>2026年4月1日</p>
+                        <p><strong>运营方：</strong>Sky of Empire</p>
+                        <p><strong>电子邮箱：</strong><a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
+                        <p><strong>所在地：</strong>瑞士</p>
+                    </div>
+
+                    <h2>1. 引言</h2>
+                    <p>
+                        本隐私政策说明了当你访问我们的网站或使用我们的服务时，Sky of Empire 如何收集、使用和保护个人信息。我们非常重视你的数据保护，并以负责任的方式处理你的信息。
+                    </p>
+
+                    <h2>2. 我们可能收集的数据</h2>
+                    <ul>
+                        <li>如果你向我们发送消息，我们可能会收集你的姓名和电子邮箱地址等联系信息。</li>
+                        <li>技术数据，例如浏览器类型、设备类型、IP 地址以及一般使用信息。</li>
+                        <li>你通过联系表单或支持表单发送给我们的消息或请求。</li>
+                        <li>基本偏好设置，例如网站上所选择的语言。</li>
+                    </ul>
+
+                    <h2>3. 我们如何使用数据</h2>
+                    <p>
+                        我们可能会将收集到的数据用于运营网站、提供支持、回复咨询、改进内容和服务、增强安全性和技术稳定性，以及在需要时履行法律义务。
+                    </p>
+
+                    <h2>4. 处理的法律依据</h2>
+                    <p>
+                        当为提供我们的服务、根据你的请求与你沟通、保护我们在运营和改进网站方面的合法利益，或遵守适用法律义务所必需时，我们会处理个人数据。
+                    </p>
+
+                    <h2>5. 数据共享</h2>
+                    <p>
+                        我们不会出售你的个人数据。只有在必要时，信息才可能与支持网站运营或技术支持的可信服务提供商共享，或在法律要求、或为保护我们的权利及用户所必需时进行共享。
+                    </p>
+
+                    <h2>6. 数据存储与保留</h2>
+                    <p>
+                        我们仅会在实现收集目的所必需的时间内，或法律要求的期限内保留个人数据。之后，数据将被删除或受到适当限制。
+                    </p>
+
+                    <h2>7. 安全性</h2>
+                    <p>
+                        我们采取适当的技术和组织措施，以帮助保护个人数据免受未经授权的访问、丢失、滥用或篡改。然而，没有任何电子传输或存储方式是绝对安全的。
+                    </p>
+
+                    <h2>8. Cookie 和类似技术</h2>
+                    <p>
+                        我们的网站可能会使用 Cookie 或类似技术来支持基本功能并改善可用性。更多信息请参阅我们的
+                        <a class="inline-link" href="cookies-zh.html">Cookie 政策</a>。
+                    </p>
+
+                    <h2>9. 你的权利</h2>
+                    <p>
+                        根据适用法律，你可能有权请求访问、更正、删除、限制处理或反对处理你的个人数据。你也可能有权向有管辖权的数据保护机构提出投诉。
+                    </p>
+
+                    <h2>10. 外部链接</h2>
+                    <p>
+                        我们的网站可能包含指向外部网站或服务的链接。我们不对这些第三方的内容或隐私做法负责。请你分别查阅其相关政策。
+                    </p>
+
+                    <h2>11. 儿童隐私</h2>
+                    <p>
+                        在法律禁止的情况下，我们不会故意收集儿童的个人数据。如果你认为有关于儿童的信息在未经适当授权的情况下提交给了我们，请联系我们。
+                    </p>
+
+                    <h2>12. 本政策的变更</h2>
+                    <p>
+                        我们可能会不时更新本隐私政策。任何变更都会发布在本页面，并附上修订后的最后更新日期。
+                    </p>
+
+                    <h2>13. 联系我们</h2>
+                    <p>
+                        如果你对本隐私政策或你的个人数据处理有任何疑问，可以通过以下电子邮箱联系我们：
+                        <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+                    </p>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
             </div>
         </div>
-
-        <div class="policy-wrap">
-            <h1>隐私政策</h1>
-
-            <p><strong>最后更新：</strong>2026年4月1日</p>
-            <p><strong>运营方：</strong>Sky of Empire<br>
-            <strong>电子邮箱：</strong><a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-            <strong>所在地：</strong>瑞士</p>
-
-            <h2>1. 引言</h2>
-            <p>
-                本隐私政策说明 Sky of Empire（“我们”）在您使用我们的游戏、网站或相关服务时，如何收集、使用、处理和保护您的个人数据。
-            </p>
-            <p>
-                使用我们的服务即表示您确认已阅读并理解本隐私政策。
-            </p>
-
-            <h2>2. 我们收集哪些数据</h2>
-            <p>我们可能会收集以下类别的数据：</p>
-            <ul>
-                <li>账户数据，例如用户名或游戏内标识符</li>
-                <li>联系方式数据，例如您向我们提供的电子邮箱地址</li>
-                <li>设备数据，例如设备类型、操作系统、语言、IP 地址和设备标识符</li>
-                <li>使用数据，例如游戏进度、设置、购买记录、登录记录和互动行为</li>
-                <li>支持数据，例如您发送给客户支持的消息</li>
-                <li>分析和广告数据（如适用）</li>
-            </ul>
-
-            <h2>3. 我们如何使用您的数据</h2>
-            <p>我们将您的数据用于以下目的：</p>
-            <ul>
-                <li>提供、运营和维护游戏及相关服务</li>
-                <li>管理您的游戏账户</li>
-                <li>保存进度、功能和设置</li>
-                <li>提供技术支持和客户服务</li>
-                <li>改进性能、稳定性和用户体验</li>
-                <li>防止作弊、欺诈、滥用和非法活动</li>
-                <li>遵守法律和监管义务</li>
-                <li>发送与服务相关的重要通知</li>
-                <li>分析使用情况并衡量性能（如适用）</li>
-            </ul>
-
-            <h2>4. 处理的法律依据</h2>
-            <p>在适用情况下，我们基于以下一项或多项法律依据处理个人数据：</p>
-            <ul>
-                <li>履行合同，即向您提供游戏和服务</li>
-                <li>遵守法律义务</li>
-                <li>我们的合法利益，例如安全、服务改进和防止滥用</li>
-                <li>在法律要求的情况下，基于您的同意</li>
-            </ul>
-
-            <h2>5. 与第三方共享数据</h2>
-            <p>在必要时，我们可能会将您的数据共享给以下类别的服务提供商或合作伙伴，包括：</p>
-            <ul>
-                <li>托管和云基础设施提供商</li>
-                <li>分析服务提供商</li>
-                <li>支付处理服务提供商（如适用）</li>
-                <li>技术支持和客户服务提供商</li>
-                <li>广告网络或衡量服务提供商（如适用）</li>
-                <li>在法律要求下的公共机构或法律机关</li>
-            </ul>
-            <p>
-                我们不会以传统商业数据销售的意义出售您的个人数据。
-            </p>
-
-            <h2>6. 国际数据传输</h2>
-            <p>
-                您的数据可能会在您居住国以外的国家进行处理。在这种情况下，我们将根据适用法律采取适当的保护措施来保护您的数据，例如标准合同条款或其他法律认可的机制。
-            </p>
-
-            <h2>7. 数据保存期限</h2>
-            <p>
-                我们仅在实现本隐私政策中所述目的所必需的期限内，或法律要求的期限内保存您的数据。此后，数据将被删除、匿名化，或仅在法律合规或法律主张抗辩所必需时保留。
-            </p>
-
-            <h2>8. 数据安全</h2>
-            <p>
-                我们采取适当的技术和组织措施，以防止未经授权的访问、丢失、篡改或非法披露您的数据。然而，任何系统或互联网数据传输都无法保证绝对安全。
-            </p>
-
-            <h2>9. 儿童隐私</h2>
-            <p>
-                除非适用法律允许，否则我们的服务不会有意面向儿童。如果我们发现儿童的个人数据是在违法或缺乏必要法律依据的情况下被收集的，我们将采取适当措施删除这些数据。
-            </p>
-
-            <h2>10. 您的权利</h2>
-            <p>根据适用法律，您可能享有以下权利：</p>
-            <ul>
-                <li>访问您的个人数据</li>
-                <li>更正不准确或不完整的数据</li>
-                <li>请求删除您的数据</li>
-                <li>请求限制处理</li>
-                <li>反对某些类型的处理</li>
-                <li>在基于同意处理的情况下，随时撤回您的同意</li>
-                <li>在适用情况下请求数据可携带性</li>
-                <li>向有管辖权的监督机构提出投诉</li>
-            </ul>
-            <p>
-                若要行使这些权利，您可以通过以下方式联系我们：
-                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
-            </p>
-
-            <h2>11. Cookie 和类似技术</h2>
-            <p>
-                我们可能会在网站或相关服务中使用 Cookie 或类似技术。更多信息请参阅我们的 Cookie 政策。
-            </p>
-
-            <h2>12. 本政策的变更</h2>
-            <p>
-                我们保留随时更新本隐私政策的权利。任何变更都将发布在本页面或在我们的服务中适当位置公布。除非另有说明，更新后的版本自发布之日起生效。
-            </p>
-
-            <h2>13. 联系方式</h2>
-            <p>
-                如果您对本隐私政策或您的数据处理有任何疑问，您可以通过以下方式联系我们：
-            </p>
-            <p>
-                Sky of Empire<br>
-                电子邮箱：<a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-                所在地：瑞士
-            </p>
-        </div>
-
-        <div class="footer-space"></div>
     </div>
 
     <script>
