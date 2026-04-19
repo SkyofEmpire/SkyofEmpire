@@ -77,18 +77,21 @@
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -101,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -134,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -192,78 +205,87 @@
             white-space: nowrap;
         }
 
-        .policy-wrap {
+        .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 2;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
             max-width: 980px;
-            margin: 20px auto 0;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 26px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
-            color: #f5ebd8;
-            line-height: 1.8;
+            text-align: left;
         }
 
-        .policy-wrap h1,
-        .policy-wrap h2,
-        .policy-wrap h3 {
+        h1 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 30px;
             color: #f2e2bf;
         }
 
-        .policy-wrap h1 {
-            font-size: 30px;
-            margin-top: 0;
-            margin-bottom: 18px;
-        }
-
-        .policy-wrap h2 {
-            font-size: 22px;
-            margin-top: 28px;
+        h2 {
+            margin-top: 26px;
             margin-bottom: 12px;
+            font-size: 22px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h3 {
-            font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
-        }
-
-        .policy-wrap p,
-        .policy-wrap li {
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
-        .policy-wrap ul {
-            margin: 8px 0 16px 0;
+        ul {
+            margin: 0 0 14px 0;
             padding-left: 22px;
         }
 
-        .policy-wrap a {
+        a.inline-link {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .policy-wrap a:hover {
+        a.inline-link:hover {
             text-decoration: underline;
         }
 
-        .footer-space {
-            height: 10px;
+        .meta {
+            margin-bottom: 22px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -276,21 +298,19 @@
                 font-size: 17px;
             }
 
-            .policy-wrap {
+            .card {
                 padding: 20px 16px;
-                margin-top: 16px;
             }
 
-            .policy-wrap h1 {
-                font-size: 24px;
+            h1 {
+                font-size: 25px;
             }
 
-            .policy-wrap h2 {
+            h2 {
                 font-size: 20px;
             }
 
-            .policy-wrap p,
-            .policy-wrap li {
+            p, li {
                 font-size: 15px;
             }
 
@@ -398,167 +418,68 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index-zh.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">返回</span>
+                </a>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h1>Cookie 政策</h1>
+
+                    <div class="meta">
+                        <p><strong>最后更新：</strong>2026年4月1日</p>
+                        <p><strong>运营方：</strong>Sky of Empire</p>
+                        <p><strong>电子邮箱：</strong><a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
+                    </div>
+
+                    <h2>1. 什么是 Cookie？</h2>
+                    <p>
+                        Cookie 是当你访问网站时存储在设备上的小型文本文件。它们有助于改进网站功能、记住某些设置，并支持基本功能的运行。
+                    </p>
+
+                    <h2>2. 我们如何使用 Cookie？</h2>
+                    <p>
+                        我们使用 Cookie 来确保网站正常运行、改善用户体验、保存语言等偏好设置，并了解访问者如何使用我们的页面。
+                    </p>
+
+                    <h2>3. 我们可能使用的 Cookie 类型</h2>
+                    <ul>
+                        <li><strong>必要 Cookie：</strong>网站基本运行所必需。</li>
+                        <li><strong>偏好 Cookie：</strong>保存诸如所选语言等设置。</li>
+                        <li><strong>分析 Cookie：</strong>帮助我们了解网站的使用情况并改进内容。</li>
+                        <li><strong>性能 Cookie：</strong>支持网站加载时的速度和稳定性。</li>
+                    </ul>
+
+                    <h2>4. 第三方 Cookie</h2>
+                    <p>
+                        在某些情况下，我们可能会使用外部服务，这些服务会设置其自己的 Cookie，例如用于分析目的，或用于显示某些嵌入内容。这些 Cookie 的使用受相关第三方隐私政策的约束。
+                    </p>
+
+                    <h2>5. Cookie 管理</h2>
+                    <p>
+                        你可以通过浏览器设置控制或删除 Cookie。请注意，禁用某些 Cookie 可能会影响网站部分功能的运行，或降低使用便利性。
+                    </p>
+
+                    <h2>6. 本政策的变更</h2>
+                    <p>
+                        我们可能会不时更新本 Cookie 政策。任何更新都会发布在本页面，并附上修订后的最后更新日期。
+                    </p>
+
+                    <h2>7. 联系我们</h2>
+                    <p>
+                        如果你对我们使用 Cookie 的方式有任何疑问，可以通过以下电子邮箱联系我们：
+                        <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+                    </p>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
             </div>
         </div>
-
-        <div class="policy-wrap">
-            <h1>COOKIE 政策</h1>
-
-            <p><strong>最后更新：</strong>2026年4月1日</p>
-            <p><strong>运营方：</strong>Sky of Empire<br>
-            <strong>电子邮箱：</strong><a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-            <strong>所在地：</strong>瑞士</p>
-
-            <h2>1. 引言</h2>
-            <p>
-                本 Cookie 政策说明了 Sky of Empire（“我们”）在您使用我们的网站或数字服务时如何使用 Cookie 和类似技术。本文说明我们收集哪些信息、如何使用这些信息，以及您享有的权利。
-            </p>
-
-            <h2>2. 什么是 Cookie？</h2>
-            <p>
-                Cookie 是当您访问网站时存储在您的计算机或移动设备上的小型文本文件。它们有助于网站更高效地运行，并提供有关用户行为的信息。
-            </p>
-            <p>
-                Cookie 使我们能够识别您的设备并保存您的偏好设置。
-            </p>
-
-            <h2>3. 我们使用哪些类型的 Cookie？</h2>
-
-            <h3>3.1 必要 Cookie</h3>
-            <p>
-                这些 Cookie 对网站运行是必不可少的，无法被禁用。
-            </p>
-            <p><strong>示例：</strong></p>
-            <ul>
-                <li>会话管理</li>
-                <li>安全与身份验证</li>
-                <li>隐私设置保存</li>
-            </ul>
-
-            <h3>3.2 分析和统计 Cookie</h3>
-            <p>
-                这些 Cookie 帮助我们了解访问者如何使用我们的网站，以便我们改进服务。
-            </p>
-            <p><strong>示例：</strong></p>
-            <ul>
-                <li>Google Analytics</li>
-                <li>Firebase Analytics</li>
-            </ul>
-
-            <h3>3.3 功能性 Cookie</h3>
-            <p>
-                这些 Cookie 支持增强功能和个性化设置。
-            </p>
-            <p><strong>示例：</strong></p>
-            <ul>
-                <li>语言设置保存</li>
-                <li>用户偏好设置</li>
-            </ul>
-
-            <h3>3.4 营销和广告 Cookie</h3>
-            <p>
-                这些 Cookie 用于展示相关广告并衡量广告活动的效果。
-            </p>
-            <p><strong>示例：</strong></p>
-            <ul>
-                <li>Google Ads</li>
-                <li>Meta（Facebook）Pixel</li>
-                <li>Unity Ads</li>
-                <li>AdMob</li>
-            </ul>
-
-            <h2>4. 第三方 Cookie</h2>
-            <p>
-                我们可能会使用第三方服务提供商代表我们放置 Cookie，包括：
-            </p>
-            <ul>
-                <li>Google</li>
-                <li>Apple</li>
-                <li>Unity Technologies</li>
-                <li>Meta Platforms</li>
-                <li>Firebase</li>
-                <li>广告和分析合作伙伴</li>
-            </ul>
-            <p>
-                这些第三方将根据其各自的隐私政策处理数据。
-            </p>
-
-            <h2>5. 法律依据</h2>
-            <p>
-                我们使用 Cookie 的法律依据包括：
-            </p>
-            <ul>
-                <li>根据 GDPR 第6条第1款(a)项取得您的同意</li>
-                <li>根据 GDPR 第6条第1款(f)项基于我们的合法利益</li>
-                <li>法律义务</li>
-            </ul>
-            <p>
-                必要 Cookie 无需取得同意。
-            </p>
-
-            <h2>6. 您如何管理 Cookie？</h2>
-            <p>
-                您可以通过浏览器设置管理或禁用 Cookie。
-            </p>
-
-            <p><strong>浏览器设置：</strong></p>
-            <ul>
-                <li>Chrome：<a href="https://support.google.com/chrome">support.google.com/chrome</a></li>
-                <li>Safari：<a href="https://support.apple.com">support.apple.com</a></li>
-                <li>Firefox：<a href="https://support.mozilla.org">support.mozilla.org</a></li>
-                <li>Edge：<a href="https://support.microsoft.com">support.microsoft.com</a></li>
-            </ul>
-
-            <p><strong>移动设备：</strong></p>
-            <ul>
-                <li>iOS：设置 → 隐私 → 跟踪</li>
-                <li>Android：设置 → Google → 广告</li>
-            </ul>
-
-            <p>
-                请注意，禁用 Cookie 可能会限制我们服务的部分功能。
-            </p>
-
-            <h2>7. 保存期限</h2>
-            <p>
-                Cookie 可能包括：
-            </p>
-            <ul>
-                <li><strong>会话 Cookie：</strong>在您关闭浏览器时删除</li>
-                <li><strong>持久 Cookie：</strong>在您的设备上保留，直到被删除或过期</li>
-            </ul>
-
-            <h2>8. 您的权利</h2>
-            <p>
-                您有权：
-            </p>
-            <ul>
-                <li>访问您的数据</li>
-                <li>更正或删除数据</li>
-                <li>限制处理</li>
-                <li>反对处理</li>
-                <li>撤回您的同意</li>
-            </ul>
-
-            <p>
-                您可以将请求发送至：
-                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
-            </p>
-
-            <h2>9. 本政策的变更</h2>
-            <p>
-                我们保留随时更新本 Cookie 政策的权利。任何变更都将在我们的网站上公布。
-            </p>
-
-            <h2>10. 联系方式</h2>
-            <p>
-                Sky of Empire<br>
-                电子邮箱：<a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-                所在地：瑞士
-            </p>
-        </div>
-
-        <div class="footer-space"></div>
     </div>
 
     <script>
