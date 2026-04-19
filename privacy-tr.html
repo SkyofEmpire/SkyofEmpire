@@ -77,18 +77,21 @@
         .topbar {
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 12px;
             padding-top: 14px;
             padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
-        .lang-button {
+        .lang-button,
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -101,23 +104,33 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
             box-shadow:
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
-        .lang-button:hover {
+        .lang-button:hover,
+        .back-button:hover {
             filter: brightness(1.03);
         }
 
-        .lang-flag {
+        .back-button {
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .lang-flag,
+        .back-icon {
             font-size: 22px;
             line-height: 1;
             flex: 0 0 auto;
         }
 
-        .lang-label {
+        .lang-label,
+        .back-label {
             flex: 1;
             text-align: left;
             white-space: nowrap;
@@ -134,14 +147,14 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
         }
 
@@ -192,78 +205,87 @@
             white-space: nowrap;
         }
 
-        .policy-wrap {
+        .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 2;
+            margin-top: 26px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
             max-width: 980px;
-            margin: 20px auto 0;
+            margin: 0 auto;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 28px 26px;
+            padding: 26px 24px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
-            color: #f5ebd8;
-            line-height: 1.7;
+            text-align: left;
         }
 
-        .policy-wrap h1,
-        .policy-wrap h2,
-        .policy-wrap h3 {
+        h1 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 30px;
             color: #f2e2bf;
         }
 
-        .policy-wrap h1 {
-            font-size: 30px;
-            margin-top: 0;
-            margin-bottom: 18px;
-        }
-
-        .policy-wrap h2 {
-            font-size: 22px;
-            margin-top: 28px;
+        h2 {
+            margin-top: 26px;
             margin-bottom: 12px;
+            font-size: 22px;
+            color: #f2e2bf;
         }
 
-        .policy-wrap h3 {
-            font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
-        }
-
-        .policy-wrap p,
-        .policy-wrap li {
+        p, li {
             font-size: 16px;
+            line-height: 1.8;
+            color: #f5ebd8;
         }
 
-        .policy-wrap ul {
-            margin: 8px 0 16px 0;
+        ul {
+            margin: 0 0 14px 0;
             padding-left: 22px;
         }
 
-        .policy-wrap a {
+        a.inline-link {
             color: #f0d89e;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .policy-wrap a:hover {
+        a.inline-link:hover {
             text-decoration: underline;
         }
 
-        .footer-space {
-            height: 10px;
+        .meta {
+            margin-bottom: 22px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #c7b18a;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
                 padding-left: 2px;
+                gap: 10px;
+            }
+
+            .lang-button,
+            .back-button {
+                padding: 10px 14px;
+                font-size: 15px;
             }
 
             .lang-button {
                 min-width: 170px;
-                padding: 10px 14px;
-                font-size: 15px;
             }
 
             .lang-menu {
@@ -276,21 +298,19 @@
                 font-size: 17px;
             }
 
-            .policy-wrap {
+            .card {
                 padding: 20px 16px;
-                margin-top: 16px;
             }
 
-            .policy-wrap h1 {
-                font-size: 24px;
+            h1 {
+                font-size: 25px;
             }
 
-            .policy-wrap h2 {
+            h2 {
                 font-size: 20px;
             }
 
-            .policy-wrap p,
-            .policy-wrap li {
+            p, li {
                 font-size: 15px;
             }
 
@@ -398,132 +418,101 @@
                         </a>
                     </div>
                 </div>
+
+                <a class="back-button" href="index-tr.html">
+                    <span class="back-icon">←</span>
+                    <span class="back-label">Geri</span>
+                </a>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h1>Gizlilik Politikası</h1>
+
+                    <div class="meta">
+                        <p><strong>Son güncelleme:</strong> 1 Nisan 2026</p>
+                        <p><strong>İşletmeci:</strong> Sky of Empire</p>
+                        <p><strong>E-posta:</strong> <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a></p>
+                        <p><strong>Merkez:</strong> İsviçre</p>
+                    </div>
+
+                    <h2>1. Giriş</h2>
+                    <p>
+                        Bu Gizlilik Politikası, Sky of Empire’ın web sitemizi ziyaret ettiğinizde veya hizmetlerimizi kullandığınızda kişisel bilgileri nasıl topladığını, kullandığını ve koruduğunu açıklar. Verilerinizin korunmasını ciddiye alıyor ve bilgilerinizi sorumlu bir şekilde işliyoruz.
+                    </p>
+
+                    <h2>2. Toplayabileceğimiz veriler</h2>
+                    <ul>
+                        <li>Bize bir mesaj gönderdiğinizde adınız ve e-posta adresiniz gibi iletişim bilgileri.</li>
+                        <li>Tarayıcı türü, cihaz türü, IP adresi ve genel kullanım bilgileri gibi teknik veriler.</li>
+                        <li>İletişim veya destek formları aracılığıyla bize gönderdiğiniz mesajlar ya da talepler.</li>
+                        <li>Web sitesinde seçilen dil gibi temel tercihler.</li>
+                    </ul>
+
+                    <h2>3. Verileri nasıl kullanıyoruz?</h2>
+                    <p>
+                        Toplanan verileri web sitesini işletmek, destek sağlamak, soruları yanıtlamak, içerik ve hizmetleri geliştirmek, güvenliği ve teknik kararlılığı artırmak ve gerekli olduğunda yasal yükümlülüklere uymak için kullanabiliriz.
+                    </p>
+
+                    <h2>4. İşleme için yasal dayanak</h2>
+                    <p>
+                        Kişisel veriler; hizmetlerimizi sunmak, talebiniz üzerine sizinle iletişim kurmak, web sitesinin işletilmesi ve geliştirilmesine ilişkin meşru menfaatlerimizi korumak veya geçerli yasal yükümlülüklere uymak için gerekli olduğunda işlenir.
+                    </p>
+
+                    <h2>5. Verilerin paylaşılması</h2>
+                    <p>
+                        Kişisel verilerinizi satmıyoruz. Bilgiler yalnızca web sitesi işletimini veya teknik desteği destekleyen güvenilir hizmet sağlayıcılarla gerekli olduğunda, yasa gerektirdiğinde veya haklarımızı ve kullanıcılarımızı korumak için gerekli olduğunda paylaşılabilir.
+                    </p>
+
+                    <h2>6. Veri saklama ve muhafaza</h2>
+                    <p>
+                        Kişisel verileri yalnızca toplandıkları amaçlar için gerekli olduğu süre boyunca veya yasanın gerektirdiği süre kadar saklarız. Daha sonra veriler silinir veya uygun şekilde sınırlandırılır.
+                    </p>
+
+                    <h2>7. Güvenlik</h2>
+                    <p>
+                        Kişisel verileri yetkisiz erişime, kayba, kötüye kullanıma veya değiştirilmeye karşı korumaya yardımcı olmak için uygun teknik ve organizasyonel önlemler alıyoruz. Ancak hiçbir elektronik iletim veya depolama yöntemi tamamen güvenli değildir.
+                    </p>
+
+                    <h2>8. Çerezler ve benzer teknolojiler</h2>
+                    <p>
+                        Web sitemiz temel işlevleri desteklemek ve kullanılabilirliği iyileştirmek için çerezler veya benzer teknolojiler kullanabilir. Daha fazla bilgiyi
+                        <a class="inline-link" href="cookies-tr.html">Çerez Politikamızda</a>
+                        bulabilirsiniz.
+                    </p>
+
+                    <h2>9. Haklarınız</h2>
+                    <p>
+                        Geçerli yasalara bağlı olarak kişisel verilerinize erişim, bunların düzeltilmesi, silinmesi, işlenmesinin sınırlandırılması veya işlenmesine itiraz etme hakkına sahip olabilirsiniz. Ayrıca yetkili bir veri koruma otoritesine şikâyette bulunma hakkınız da olabilir.
+                    </p>
+
+                    <h2>10. Harici bağlantılar</h2>
+                    <p>
+                        Web sitemiz harici web sitelerine veya hizmetlere bağlantılar içerebilir. Bu üçüncü tarafların içeriklerinden veya gizlilik uygulamalarından sorumlu değiliz. Lütfen ilgili politikalarını ayrıca inceleyin.
+                    </p>
+
+                    <h2>11. Çocukların gizliliği</h2>
+                    <p>
+                        Yasa tarafından yasaklandığı durumlarda çocuklardan bilerek kişisel veri toplamıyoruz. Bir çocuğa ait bilgilerin uygun izin olmadan bize gönderildiğini düşünüyorsanız lütfen bizimle iletişime geçin.
+                    </p>
+
+                    <h2>12. Bu politikadaki değişiklikler</h2>
+                    <p>
+                        Bu Gizlilik Politikasını zaman zaman güncelleyebiliriz. Herhangi bir değişiklik, güncellenmiş son revizyon tarihi ile birlikte bu sayfada yayınlanacaktır.
+                    </p>
+
+                    <h2>13. Bize ulaşın</h2>
+                    <p>
+                        Bu Gizlilik Politikası veya kişisel verilerinizin işlenmesi hakkında herhangi bir sorunuz varsa bizimle şu e-posta adresinden iletişime geçebilirsiniz:
+                        <a class="inline-link" href="mailto:support@skyofempire.com">support@skyofempire.com</a>
+                    </p>
+                </div>
+
+                <div class="footer">
+                    © 2026 Sky of Empire. All rights reserved.
+                </div>
             </div>
         </div>
-
-        <div class="policy-wrap">
-            <h1>Gizlilik Politikası</h1>
-
-            <p><strong>Son güncelleme:</strong> 1 Nisan 2026</p>
-            <p><strong>İşletmeci:</strong> Sky of Empire<br>
-            <strong>E-posta:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-            <strong>Merkez:</strong> İsviçre</p>
-
-            <h2>1. Giriş</h2>
-            <p>
-                Bu Gizlilik Politikası, Sky of Empire’ın ("biz", "bize" veya "bizim"), oyunumuzu, web sitemizi veya ilgili hizmetlerimizi kullandığınızda kişisel verilerinizi nasıl topladığını, kullandığını, işlediğini ve koruduğunu açıklar.
-            </p>
-            <p>
-                Hizmetlerimizi kullanarak bu Gizlilik Politikasını okuduğunuzu ve anladığınızı kabul etmiş olursunuz.
-            </p>
-
-            <h2>2. Hangi Verileri Topluyoruz</h2>
-            <p>Aşağıdaki veri kategorilerini toplayabiliriz:</p>
-            <ul>
-                <li>Hesap verileri, örneğin kullanıcı adı veya oyun içi kimlik</li>
-                <li>Bize sağladığınız takdirde e-posta adresiniz gibi iletişim verileri</li>
-                <li>Cihaz türü, işletim sistemi, dil, IP adresi ve cihaz tanımlayıcıları gibi cihaz verileri</li>
-                <li>Oyun ilerlemesi, ayarlar, satın alımlar, giriş kayıtları ve etkileşimler gibi kullanım verileri</li>
-                <li>Müşteri desteğine gönderdiğiniz mesajlar gibi destek verileri</li>
-                <li>Uygun olduğu durumlarda analiz ve reklam verileri</li>
-            </ul>
-
-            <h2>3. Verilerinizi Nasıl Kullanıyoruz</h2>
-            <p>Verilerinizi aşağıdaki amaçlarla kullanıyoruz:</p>
-            <ul>
-                <li>Oyunu ve ilgili hizmetleri sağlamak, işletmek ve sürdürmek</li>
-                <li>Oyun içi hesabınızı yönetmek</li>
-                <li>İlerlemeyi, özellikleri ve ayarları kaydetmek</li>
-                <li>Teknik destek ve müşteri hizmeti sunmak</li>
-                <li>Performansı, kararlılığı ve kullanıcı deneyimini iyileştirmek</li>
-                <li>Hileyi, dolandırıcılığı, kötüye kullanımı ve yasa dışı faaliyetleri önlemek</li>
-                <li>Yasal ve düzenleyici yükümlülüklere uymak</li>
-                <li>Hizmetle ilgili önemli bildirimler göndermek</li>
-                <li>Uygun olduğu durumlarda kullanımı analiz etmek ve performansı ölçmek</li>
-            </ul>
-
-            <h2>4. İşlemenin Hukuki Dayanağı</h2>
-            <p>Kişisel verileri, uygun olduğu durumlarda aşağıdaki hukuki dayanaklardan bir veya daha fazlasına dayanarak işleriz:</p>
-            <ul>
-                <li>Bir sözleşmenin ifası, yani oyunu ve hizmetleri size sunmak</li>
-                <li>Yasal yükümlülüklere uyum</li>
-                <li>Güvenlik, hizmet iyileştirme ve kötüye kullanımı önleme gibi meşru menfaatlerimiz</li>
-                <li>Yasalar gerektirdiğinde sizin açık rızanız</li>
-            </ul>
-
-            <h2>5. Verilerin Üçüncü Taraflarla Paylaşılması</h2>
-            <p>Verilerinizi, gerektiğinde aşağıdakiler dahil olmak üzere hizmet sağlayıcıları veya iş ortakları kategorileriyle paylaşabiliriz:</p>
-            <ul>
-                <li>Barındırma ve bulut altyapısı sağlayıcıları</li>
-                <li>Analiz hizmeti sağlayıcıları</li>
-                <li>Ödeme işleyicileri, uygun olduğu durumlarda</li>
-                <li>Teknik destek ve müşteri hizmeti sağlayıcıları</li>
-                <li>Reklam ağları veya ölçüm sağlayıcıları, uygun olduğu durumlarda</li>
-                <li>Yasalar gerektirdiğinde kamu kurumları veya hukuki merciler</li>
-            </ul>
-            <p>
-                Kişisel verilerinizi, verilerin ticari anlamda satışı şeklindeki geleneksel anlamda satmıyoruz.
-            </p>
-
-            <h2>6. Uluslararası Veri Aktarımları</h2>
-            <p>
-                Verileriniz, ikamet ettiğiniz ülkenin dışındaki ülkelerde işlenebilir. Böyle bir durumda, verilerinizi yürürlükteki mevzuata uygun şekilde korumak için standart sözleşme maddeleri veya yasal olarak tanınan diğer mekanizmalar gibi uygun güvenceleri uygularız.
-            </p>
-
-            <h2>7. Veri Saklama Süresi</h2>
-            <p>
-                Verilerinizi yalnızca bu Gizlilik Politikasında açıklanan amaçlar için gerekli olduğu süre boyunca veya yasaların gerektirdiği süre boyunca saklarız. Sonrasında veriler silinir, anonimleştirilir veya yalnızca yasal yükümlülüklerin yerine getirilmesi ya da hukuki taleplerin savunulması için gerekli olduğunda saklanır.
-            </p>
-
-            <h2>8. Veri Güvenliği</h2>
-            <p>
-                Verilerinizi yetkisiz erişime, kayba, değiştirilmeye veya hukuka aykırı ifşaya karşı korumak için uygun teknik ve organizasyonel önlemler uygularız. Ancak, internet üzerinden hiçbir sistemin veya veri aktarımının tamamen güvenli olduğu garanti edilemez.
-            </p>
-
-            <h2>9. Çocukların Gizliliği</h2>
-            <p>
-                Hizmetlerimiz, yürürlükteki yasalar izin vermedikçe, bilerek çocuklara yönelik değildir. Bir çocuğa ait kişisel verilerin hukuka aykırı şekilde veya gerekli hukuki dayanak olmadan toplandığını öğrenirsek, bu verileri silmek için uygun adımları atarız.
-            </p>
-
-            <h2>10. Haklarınız</h2>
-            <p>Yürürlükteki yasalara bağlı olarak aşağıdaki haklara sahip olabilirsiniz:</p>
-            <ul>
-                <li>Kişisel verilerinize erişim</li>
-                <li>Yanlış veya eksik verilerin düzeltilmesi</li>
-                <li>Verilerinizin silinmesini talep etme</li>
-                <li>İşlemenin kısıtlanmasını talep etme</li>
-                <li>Belirli işleme türlerine itiraz etme</li>
-                <li>İşlemenin rızaya dayandığı durumlarda rızanızı istediğiniz zaman geri çekme</li>
-                <li>Uygun olduğu durumlarda veri taşınabilirliği talep etme</li>
-                <li>Yetkili denetim makamına şikayette bulunma</li>
-            </ul>
-            <p>
-                Bu hakları kullanmak için bizimle şu adresten iletişime geçebilirsiniz:
-                <a href="mailto:support@skyofempire.com">support@skyofempire.com</a>
-            </p>
-
-            <h2>11. Çerezler ve Benzer Teknolojiler</h2>
-            <p>
-                Web sitemizde veya ilgili hizmetlerde çerezler ya da benzer teknolojiler kullanabiliriz. Daha fazla bilgi için lütfen Çerez Politikamıza bakın.
-            </p>
-
-            <h2>12. Bu Politikadaki Değişiklikler</h2>
-            <p>
-                Bu Gizlilik Politikasını dilediğimiz zaman güncelleme hakkını saklı tutarız. Her türlü değişiklik bu sayfada veya uygun olduğu takdirde hizmetlerimiz içinde yayınlanacaktır. Aksi belirtilmedikçe, güncellenmiş sürüm yayınlandığı tarihten itibaren yürürlüğe girer.
-            </p>
-
-            <h2>13. İletişim</h2>
-            <p>
-                Bu Gizlilik Politikası veya verilerinizin işlenmesi hakkında herhangi bir sorunuz varsa bizimle şu adresten iletişime geçebilirsiniz:
-            </p>
-            <p>
-                Sky of Empire<br>
-                E-posta: <a href="mailto:support@skyofempire.com">support@skyofempire.com</a><br>
-                Merkez: İsviçre
-            </p>
-        </div>
-
-        <div class="footer-space"></div>
     </div>
 
     <script>
