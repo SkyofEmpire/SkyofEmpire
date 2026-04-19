@@ -64,30 +64,29 @@
             position: relative;
             z-index: 1;
             width: 100%;
+            min-height: 100vh;
             padding: 0 20px 40px;
         }
 
         .container {
             position: relative;
             z-index: 2;
-            max-width: 980px;
+            max-width: 1100px;
             margin: 0 auto;
-            text-align: center;
         }
 
         .topbar {
             display: flex;
             justify-content: flex-start;
             padding-top: 14px;
-            padding-left: 4px;
             position: relative;
-            z-index: 1000;
+            z-index: 5000;
             direction: ltr;
         }
 
         .lang-dropdown {
             position: relative;
-            z-index: 1001;
+            z-index: 5001;
         }
 
         .lang-button {
@@ -107,6 +106,7 @@
                 0 0 0 2px rgba(216, 182, 108, 0.14) inset,
                 0 10px 22px rgba(0,0,0,0.24);
             user-select: none;
+            white-space: nowrap;
         }
 
         .lang-button:hover {
@@ -136,15 +136,16 @@
             top: calc(100% + 10px);
             left: 0;
             width: 330px;
-            background: rgba(10, 10, 10, 0.96);
+            background: rgba(10, 10, 10, 0.98);
             border: 1px solid rgba(255,255,255,0.20);
             border-radius: 24px;
             padding: 12px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.55);
             backdrop-filter: blur(10px);
             display: none;
-            z-index: 1002;
+            z-index: 6000;
             overflow: hidden;
+            direction: ltr;
         }
 
         .lang-menu.open {
@@ -196,120 +197,85 @@
 
         .hero {
             position: relative;
-            z-index: 3;
-            padding: 0 20px;
-            margin-top: -8px;
+            z-index: 2;
+            text-align: center;
+            padding-top: 64px;
         }
 
-        .logo {
-            max-width: 760px;
-            width: 100%;
-            height: auto;
-            margin: -250px auto 0;
-            display: block;
-            filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.6));
-        }
-
-        .main-content {
-            position: relative;
-            z-index: 5;
-            margin-top: -325px;
+        .title {
+            margin: 0;
+            font-size: 56px;
+            line-height: 1.05;
+            color: #f2e2bf;
+            text-shadow: 0 4px 18px rgba(0,0,0,0.45);
+            letter-spacing: 1px;
         }
 
         .subtitle {
-            margin: 0 auto 10px;
-            max-width: 1000px;
-            font-size: 15px;
-            color: #d8c6a1;
-            line-height: 1.6;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.55);
+            max-width: 760px;
+            margin: 18px auto 0;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #e6d2ac;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.45);
         }
 
-        .card {
-            position: relative;
-            z-index: 6;
-            margin-top: 10px;
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            max-width: 980px;
+            margin: 42px auto 0;
+        }
+
+        .nav-card {
+            display: block;
+            text-decoration: none;
             background: rgba(3, 3, 3, 0.82);
             border: 1px solid rgba(189, 148, 80, 0.18);
             border-radius: 22px;
-            padding: 22px 24px;
+            padding: 24px 22px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+            text-align: right;
         }
 
-        h2 {
-            margin-top: 0;
-            margin-bottom: 16px;
-            font-size: 25px;
+        .nav-card:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.03);
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.42);
+        }
+
+        .nav-card h2 {
+            margin: 0 0 10px;
+            font-size: 24px;
             color: #f2e2bf;
         }
 
-        .buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            max-width: 620px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
-
-        .button {
-            position: relative;
-            z-index: 11;
-            display: block;
-            text-decoration: none;
-            color: #1b1306;
-            font-weight: bold;
-            font-size: 18px;
-            padding: 15px 20px;
-            border-radius: 14px;
-            background: linear-gradient(180deg, #f0d89e 0%, #d8b66c 48%, #be9552 100%);
-            border: 1px solid rgba(255, 232, 176, 0.30);
-            box-shadow: 0 10px 22px rgba(0,0,0,0.28);
-            transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
-            pointer-events: auto;
-        }
-
-        .button:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.03);
-            box-shadow: 0 14px 26px rgba(0,0,0,0.36);
-        }
-
-        .contact-box {
-            max-width: 620px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            font-size: 17px;
+        .nav-card p {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.8;
             color: #f5ebd8;
-            text-align: right;
-            align-items: flex-start;
-            direction: rtl;
-        }
-
-        .contact-box a {
-            color: #f0d89e;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .contact-box a:hover {
-            text-decoration: underline;
         }
 
         .footer {
-            margin-top: 18px;
+            margin-top: 28px;
+            text-align: center;
             font-size: 13px;
             color: #c7b18a;
             text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
+        @media (max-width: 900px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
             .topbar {
                 padding-top: 12px;
-                padding-left: 2px;
             }
 
             .lang-button {
@@ -329,41 +295,24 @@
             }
 
             .hero {
-                margin-top: -150px;
-                padding-left: 10px;
-                padding-right: 10px;
+                padding-top: 42px;
             }
 
-            .logo {
-                max-width: 540px;
-                margin-bottom: 0;
-            }
-
-            .main-content {
-                margin-top: -325px;
+            .title {
+                font-size: 40px;
             }
 
             .subtitle {
-                font-size: 14px;
-                margin-bottom: 8px;
+                font-size: 16px;
+                margin-top: 14px;
             }
 
-            .card {
-                padding: 20px 16px;
-                margin-top: 8px;
-            }
-
-            h2 {
+            .nav-card h2 {
                 font-size: 22px;
             }
 
-            .button {
-                font-size: 16px;
-                padding: 13px 14px;
-            }
-
-            .contact-box {
-                font-size: 15px;
+            .nav-card p {
+                font-size: 14px;
             }
 
             .cloud1 { width: 250px; height: 160px; top: -10px; left: -20px; }
@@ -473,43 +422,41 @@
             </div>
 
             <div class="hero">
-                <img src="logo.png" alt="شعار Sky of Empire" class="logo">
+                <h1 class="title">Sky of Empire</h1>
+                <p class="subtitle">
+                    أهلاً بك في عالم Sky of Empire. هنا يمكنك العثور على أهم الصفحات والمعلومات المتعلقة باللعبة، بما في ذلك سياسة الخصوصية، شروط الاستخدام، سياسة ملفات تعريف الارتباط، تفاصيل اللعبة وصفحة التواصل.
+                </p>
             </div>
 
-            <div class="main-content">
-                <p class="subtitle">
-                    الصفحة الرسمية لمعلومات Sky of Empire وتحتوي على المستندات القانونية ووسائل التواصل وأقسام إضافية خاصة باللعبة.
-                </p>
+            <div class="card-grid">
+                <a class="nav-card" href="game-details-ar.html">
+                    <h2>تفاصيل اللعبة</h2>
+                    <p>تعرّف على فكرة اللعبة، وأهم الميزات، والتجربة العامة، والخطط المستقبلية لـ Sky of Empire.</p>
+                </a>
 
-                <div class="card">
-                    <h2>أقسام إضافية</h2>
-                    <div class="buttons">
-                        <a class="button" href="game-details-ar.html">تفاصيل اللعبة</a>
-                        <a class="button" href="feedback-ar.html">الملاحظات</a>
-                    </div>
-                </div>
+                <a class="nav-card" href="privacy-ar.html">
+                    <h2>سياسة الخصوصية</h2>
+                    <p>اطلع على كيفية جمع البيانات الشخصية واستخدامها وحمايتها عند استخدام الموقع أو خدماتنا.</p>
+                </a>
 
-                <div class="card">
-                    <h2>المعلومات القانونية</h2>
-                    <div class="buttons">
-                        <a class="button" href="privacy-ar.html">سياسة الخصوصية</a>
-                        <a class="button" href="terms-ar.html">شروط الاستخدام</a>
-                        <a class="button" href="cookies-ar.html">سياسة ملفات تعريف الارتباط</a>
-                    </div>
-                </div>
+                <a class="nav-card" href="terms-ar.html">
+                    <h2>شروط الاستخدام</h2>
+                    <p>اقرأ الشروط التي تنظّم استخدامك لموقعنا ومحتوياتنا وخدمات Sky of Empire.</p>
+                </a>
 
-                <div class="card">
-                    <h2>التواصل</h2>
-                    <div class="contact-box">
-                        <div><strong>المشغّل:</strong> Sky of Empire</div>
-                        <div><strong>البريد الإلكتروني:</strong> <a href="mailto:support@skyofempire.com">support@skyofempire.com</a></div>
-                        <div><strong>المقر:</strong> سويسرا</div>
-                    </div>
-                </div>
+                <a class="nav-card" href="cookies-ar.html">
+                    <h2>سياسة ملفات تعريف الارتباط</h2>
+                    <p>اعرف كيف نستخدم ملفات تعريف الارتباط لتحسين الوظائف وحفظ الإعدادات وفهم استخدام الموقع.</p>
+                </a>
 
-                <div class="footer">
-                    © 2026 Sky of Empire. جميع الحقوق محفوظة.
-                </div>
+                <a class="nav-card" href="feedback-ar.html">
+                    <h2>التواصل والملاحظات</h2>
+                    <p>أرسل إلينا أسئلتك أو ملاحظاتك أو طلبات الدعم مباشرة عبر صفحة التواصل.</p>
+                </a>
+            </div>
+
+            <div class="footer">
+                © 2026 Sky of Empire. All rights reserved.
             </div>
         </div>
     </div>
